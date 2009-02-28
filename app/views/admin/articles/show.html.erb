@@ -1,0 +1,23 @@
+<p>
+  <b>Category:</b>
+  <%=h @article.category %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @article.title %>
+</p>
+
+<p>
+  <b>Subtitle:</b>
+  <%=h @article.subtitle %>
+</p>
+
+<p>
+  <b>Link:</b>
+  <%=h @article.link %>
+</p>
+
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>
