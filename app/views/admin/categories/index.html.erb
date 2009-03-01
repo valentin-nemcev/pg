@@ -1,22 +1,21 @@
-<h1>Listing categories</h1>
+<h1>Рубрики</h1>
 
 <table>
   <tr>
-    <th>Title</th>
-    <th>Link</th>
+    <th>Заголовок</th>
+    <th>Ссылка</th>
   </tr>
 
 <% for category in @categories %>
   <tr>
     <td><%=h category.title %></td>
     <td><%=h category.link %></td>
-    <td><%= link_to 'Show', admin_category_path(category) %></td>
-    <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
-    <td><%= link_to 'Destroy', admin_category_path(category), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Редактировать', edit_admin_category_path(category) %></td>
+    <td><%= link_to 'Удалить', admin_category_path(category), :confirm => 'Действительно удалить?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New category', new_admin_category_path %>
+<%= link_to 'Новая рубрика', new_admin_category_path %>

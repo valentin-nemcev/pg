@@ -5,7 +5,7 @@
 	<%= @form_method %>
   <p>
     <%= f.label :category %><br />
-    <%= collection_select(:article, :category_id, Category.all, :id, :title) %>
+    <%= collection_select(:article, :category_id, Category.all, :id, :title, :include_blank => true) %>
   </p>
   <p>
     <%= f.label :title %><br />
