@@ -1,4 +1,6 @@
 class Admin::ArticlesController < ApplicationController
+  layout "admin"
+  
   # GET /articles
   # GET /articles.xml
   def index
@@ -26,10 +28,7 @@ class Admin::ArticlesController < ApplicationController
   def new
     @article = Article.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @article }
-    end
+    render :action => "edit"
   end
 
   # GET /articles/1/edit

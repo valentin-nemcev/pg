@@ -1,6 +1,6 @@
 <h1>Editing article</h1>
 
-<% form_for(@article) do |f| %>
+<% form_for(@article, :url => new_admin_article_path) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -24,5 +24,8 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @article %> |
-<%= link_to 'Back', articles_path %>
+
+<%= link_to 'Back', admin_articles_path %>
+<% content_for :head_title do %>
+	<%= @article.title %>
+<% end %>
