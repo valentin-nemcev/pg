@@ -1,0 +1,21 @@
+<h1>main</h1>
+<ul>
+	<% if !@categories.blank? %>
+	  <% for category in @categories %>
+    	<li>
+				<%= category.title %>
+				<ul>
+					<% if !category.articles.blank? %>
+					  <% for article in category.articles %>
+					    <li><%= link_to article.title, article_path(article) %></li>
+					  <% end %>
+					<% else %>
+				  
+					<% end %>
+				</ul>
+			</li>
+	  <% end %>
+	<% else %>
+  
+	<% end %>
+</ul>

@@ -4,4 +4,6 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :categories, :except => [:show]
   end  
   
+  map.root :controller => "site", :action => "main"
+  map.article ":article", :controller => "site", :action => "article"
 end

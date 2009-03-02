@@ -10,7 +10,8 @@
 <body>
 <div id="navigation">
 	<%= link_to_unless_current("Статьи", { :controller => "admin/articles" }) %> | 
-	<%= link_to_unless_current("Рубрики", { :controller => "admin/categories" }) %>
+	<%= link_to_unless_current("Рубрики", { :controller => "admin/categories" }) %> |
+	<%= link_to_unless_current("На главную", root_path)%>
 </div>
 <p style="color: green"><%= flash[:notice] %></p>
 
