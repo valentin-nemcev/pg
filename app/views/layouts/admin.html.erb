@@ -4,14 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Articles: <%= controller.action_name %></title>
+  <title>Administration: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
 </head>
 <body>
 <div id="navigation">
-	<%= link_to_unless_current("Статьи", { :controller => "admin/articles" }) %> | 
-	<%= link_to_unless_current("Рубрики", { :controller => "admin/categories" }) %> |
-	<%= link_to_unless_current("На главную", root_path)%>
+	<%= link_to_unless_current("На главную", admin_root_path)%> |
+	<%= link_to_unless_current("Статьи", admin_articles_path) %> | 
+	<%= link_to_unless_current("Рубрики", admin_categories_path) %> |
+	<%= link_to_unless_current("На сайт", root_path)%>
 </div>
 <p style="color: green"><%= flash[:notice] %></p>
 

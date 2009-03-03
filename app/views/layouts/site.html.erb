@@ -4,12 +4,15 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>Полит-грамота</title>
-		
+		<%= stylesheet_link_tag 'site' %>
 	</head>
 	<body>
-		<div>
+		<div id="header">
+			<h1>Полит-грамота</h1>
+		</div>
+		<div id="navigation">
 			<%= link_to_unless_current("На главную", root_path)%> |
-			<%= link_to_unless_current("Статьи", { :controller => "admin/articles" }) %> 
+			<%= link_to_unless_current("Управление", admin_root_path) %> 
 		</div>
 		<%= yield  %>
 	</body>
