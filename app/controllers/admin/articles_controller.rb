@@ -1,5 +1,4 @@
-class Admin::ArticlesController < ApplicationController
-  layout "admin"
+class Admin::ArticlesController < AdminController
   
 
   def index
@@ -25,7 +24,7 @@ class Admin::ArticlesController < ApplicationController
       flash[:notice] = 'Article was successfully created.'
       redirect_to admin_articles_path
     else
-      render :action => "new"
+      render :action => "edit"
     end
 
   end

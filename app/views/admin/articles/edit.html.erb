@@ -2,7 +2,6 @@
 
 <% form_for [:admin, @article] do |f| %>
   <%= f.error_messages %>
-	<%= @form_method %>
   <p>
     <%= f.label :category, 'Рубрика' %><br />
     <%= collection_select(:article, :category_id, Category.all, :id, :title, :include_blank => ('Нет рубрики')) %>

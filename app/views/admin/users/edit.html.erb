@@ -1,0 +1,22 @@
+<h1>Добавить администратора</h1>
+
+<% form_for [:admin, @user] do |f| -%>
+<%= f.error_messages %>
+
+<p><%= f.label 'Имя и фамилия' %><br/>
+<%= f.text_field :name %></p>
+
+<p><%= f.label 'Должность' %><br/>
+<%= f.text_field :position %></p>
+
+<p><%= f.label 'Е-mail' %><br/>
+<%= f.text_field :email %></p>
+
+<p><%= f.label 'password' %><br/>
+<%= f.password_field :password %></p>
+
+<p><%= f.label 'password_confirmation', 'Confirm Password' %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><%= f.submit 'Сохранить' %></p>
+<% end -%>
