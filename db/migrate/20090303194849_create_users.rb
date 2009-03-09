@@ -16,6 +16,13 @@ class CreateUsers < ActiveRecord::Migration
 
     end
     add_index :users, :email, :unique => true
+    user = User.new do |u|
+      u.id = 0
+      u.name = 'Валентин Немцев'
+      u.email = 'zlob.o.zlob@gmail.com'
+      u.password = u.password_confirmation = 'qweqwe'
+    end
+    user.save
   end
 
   def self.down
