@@ -20,13 +20,13 @@ table#content {
 }
 td#sidebar {
 	border:1px solid gray;
-	width:38%;
+	width:30%;
 	padding:4px;
 }
 
 td#content {
 	border: 1px solid #999;
-	width:62%;
+	width:70%;
 	padding: 4px;
 }
 
