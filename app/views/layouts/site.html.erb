@@ -7,13 +7,32 @@
 		<%= stylesheet_link_tag 'site' %>
 	</head>
 	<body>
-		<div id="header">
-			<h1>Полит-грамота</h1>
+		<div id="container">
+			<div id="header">
+				<h1 style="margin: 25px auto; display:block; text-align:center">Полит-грамота</h1>
+			</div>
+			
+			<div id="navigation">
+				<%= link_to_unless_current("На главную", root_path)%> |
+				<%= link_to_unless_current("Управление", admin_root_path) %> 
+			</div>
+			
+			<table id="content">
+				<tr>
+					<td id="sidebar">
+						<div id="menu">
+							<% for category in @categories do -%>
+								<div class="menu-item">
+									 <%= link_to category.title , category_url(category.link) %>
+								</div>
+							<% end -%>
+						</div>
+					</td>
+					<td id="content">
+						<%= yield  %>
+					</td>
+				</tr>
+			</table>
 		</div>
-		<div id="navigation">
-			<%= link_to_unless_current("На главную", root_path)%> |
-			<%= link_to_unless_current("Управление", admin_root_path) %> 
-		</div>
-		<%= yield  %>
 	</body>
 </html>

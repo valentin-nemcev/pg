@@ -15,5 +15,6 @@ ActionController::Routing::Routes.draw do |map|
   end  
   
   map.root :controller => "site", :action => "main"
-  map.article ":article", :controller => "site", :action => "article"
+  map.category ":category_link/", :controller => "site", :action =>"category"
+  map.article "category_link/:article_link/", :controller => "site", :action => "article"
 end

@@ -23,7 +23,7 @@ class Admin::CategoriesController < AdminController
       flash[:notice] = 'Category was successfully created.'
       redirect_to admin_categories_url
     else
-      render :action => "new" 
+      render :action => "edit" 
     end
   end
 
