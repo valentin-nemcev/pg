@@ -8,9 +8,11 @@
     		<p><%=h article.subtitle %></p>
 		</td>
     <td>
-			<strong><%=h article.category.title unless article.category.nil? %></strong>
-			<% article_path = article_path(:category_link => article.category.link, :article_link => article.link) -%>
-			<p><%= link_to article_path, article_path, {:class => 'to_site'} %></p>
+			<strong><%= article.category.nil? ? '(нет рубрики)' : article.category.title %></strong>
+			<% if not article.category.nil? %>	
+				<% article_path = article_path(:category_link => article.category.link, :article_link => article.link)  -%>
+				<p><%= link_to article_path, article_path, {:class => 'to_site'} %></p>
+			<% end -%>
 		</td>
     <td class="action">
 			<%= link_to 'Редактировать', edit_admin_article_path(article), :class => 'action' %>
