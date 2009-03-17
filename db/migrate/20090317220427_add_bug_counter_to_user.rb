@@ -1,6 +1,6 @@
 class AddBugCounterToUser < ActiveRecord::Migration
   def self.up
-    add_column :users, :bug_counter, :number
+    add_column :users, :bug_counter, :integer
   end
 
   def self.down
