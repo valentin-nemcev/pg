@@ -1,10 +1,30 @@
-body { background-color: #fff; color: #333; }
+* { /* Padding reset */
+	padding:0;
+	margin:0;
+	list-style : none;
+}
 
-body, p, ol, ul, td {
+
+table {
+	border-spacing:0; /*cellspacing=0*/
+	border-collapse:collapse;
+}
+
+tr {height: 100%; }
+td {padding:3px 6px; line-height: 20px; margin:5px; }
+table.list tr:hover td { background-color: #DDD;}
+
+table.list {padding-left:15px; margin: 4px;}
+
+body { background-color: #fff; color: #333; padding:3px;}
+
+body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   13px;
   line-height: 18px;
 }
+
+li { padding-left: 15px; margin: 5px 0;}
 
 pre {
   background-color: #eee;
@@ -12,11 +32,20 @@ pre {
   font-size: 11px;
 }
 
+h1 { font-size:180%; margin: 20px 3px 15px;}
+
+ul h3 { margin:0; font-size:110%;}
+
 a, a:visited { color: #666; }
 a:hover { color: #000;}
 
+a.action {  color: #eee; padding: 3px 6px;}
+td.action { padding: 0; height:100%; }
+table.list tr:hover td.action:hover, a.action:hover { background: #333; }
+
+
 a.to_site {color:#001962;}
-a.to_site:hover  {background-color:black; color:white;}
+a.to_site:hover  { color:#000; }
 .fieldWithErrors {
   padding: 2px;
   background-color: red;

@@ -1,22 +1,23 @@
 <h1>Статьи</h1>
 
-<table>
-  <tr>
-    <th>Рубрика</th>
-    <th>Заголовок</th>
-    <th>Подзаголовок</th>
-    <th>Ссылка</th>
-  </tr>
-
+<table class="list">
 <% for article in @articles %>
   <tr>
-    <td><%=h article.category.title unless article.category.nil? %></td>
-    <td><%=h article.title %></td>
-    <td><%=h article.subtitle %></td>
-    <td><%=h article.link %></td>
-    <td><%= link_to 'Редактировать', edit_admin_article_path(article) %></td>
     <td>
-			<%= link_to 'Удалить', admin_article_path(article), :confirm => 'Действительно удалить?', :method => :delete %>
+				<h3><%=h article.title %></h3>
+    		<p><%=h article.subtitle %></p>
+		</td>
+    <td>
+			<strong><%=h article.category.title unless article.category.nil? %></strong>
+			<% article_path = article_path(:category_link => article.category.link, :article_link => article.link) -%>
+			<p><%= link_to article_path, article_path, {:class => 'to_site'} %></p>
+		</td>
+    <td class="action">
+			<%= link_to 'Редактировать', edit_admin_article_path(article), :class => 'action' %>
+		</td>
+    <td class="action">
+			<%= link_to 'Удалить', admin_article_path(article), :class => 'action',
+						:confirm => 'Действительно удалить?', :method => :delete %>
 		</td>
   </tr>
 <% end %>
