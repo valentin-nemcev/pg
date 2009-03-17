@@ -1,5 +1,5 @@
 class Admin::UsersController < AdminController
-  
+  before_filter :admin_only, :except => :index
   def index
     @users = User.all
   end
@@ -46,5 +46,14 @@ class Admin::UsersController < AdminController
      @user = User.find(params[:id])
      @user.destroy
      redirect_to admin_users_path
+   end
+   
+   protected 
+   
+   def admin_only
+     if not current_user.is_admin?
+       flash[:notice] = "Admin only"
+       redirect_to admin_users_path
+     end
    end
 end
