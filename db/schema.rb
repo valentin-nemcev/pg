@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090317075448) do
+ActiveRecord::Schema.define(:version => 20090317220427) do
 
   create_table "articles", :force => true do |t|
     t.integer  "category_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20090317075448) do
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
     t.string   "role"
+    t.decimal  "bug_counter"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

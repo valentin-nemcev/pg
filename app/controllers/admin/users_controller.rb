@@ -23,6 +23,17 @@ class Admin::UsersController < AdminController
     end
 
   end 
+  
+  def increment_bug_counter
+    @user = User.find(params[:id])
+    
+    @user.bug_counter ||= 0;
+    @user.bug_counter += 1;
+    @user.save
+    redirect_to admin_users_path
+    
+
+  end
  
   def create
     logout_keeping_session!

@@ -9,8 +9,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.login '/login', :controller => 'sessions', :action => 'new'
     admin.register '/register', :controller => 'users', :action => 'create'
     admin.signup '/signup', :controller => 'users', :action => 'new'
-    admin.resources :users
-
+    admin.resources :users, :member => {:increment_bug_counter => :get}
+    
     admin.resource :session
   end  
   
