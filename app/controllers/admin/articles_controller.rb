@@ -21,7 +21,7 @@ class Admin::ArticlesController < AdminController
     @article = Article.new(params[:article])
 
     if @article.save
-      flash[:notice] = 'Article was successfully created.'
+      flash[:notice] = 'Статья сохранена'
       redirect_to admin_articles_path
     else
       render :action => "edit"
@@ -33,7 +33,7 @@ class Admin::ArticlesController < AdminController
     @article = Article.find(params[:id])
 
     if @article.update_attributes(params[:article])
-      flash[:notice] = 'Article was successfully updated.'
+      flash[:notice] = 'Статья сохранена'
       redirect_to admin_articles_path
     else
       render :action => "edit"
@@ -44,6 +44,8 @@ class Admin::ArticlesController < AdminController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
+    
+    flash[:notice] = 'Статья удалена'
     redirect_to admin_articles_path
   end
 end

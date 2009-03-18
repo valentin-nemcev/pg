@@ -1,0 +1,15 @@
+ru:
+    activerecord:
+        models:
+            article: Статья
+            category: Рубрика
+        attributes:
+            article:
+                category_id: Рубрика
+                title: Заголовок
+                subtitle: Подзаголовок
+                link: Ссылка
+                text: Текст 
+            category:
+                title: Заголовок
+                link: Ссылка

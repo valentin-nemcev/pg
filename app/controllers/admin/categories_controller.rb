@@ -20,7 +20,7 @@ class Admin::CategoriesController < AdminController
     @category = Category.new(params[:category])
 
     if @category.save
-      flash[:notice] = 'Category was successfully created.'
+      flash[:notice] = 'Рубрика сохранена'
       redirect_to admin_categories_url
     else
       render :action => "edit" 
@@ -31,7 +31,7 @@ class Admin::CategoriesController < AdminController
     @category = Category.find(params[:id])
 
     if @category.update_attributes(params[:category])
-      flash[:notice] = 'Category was successfully updated.'
+      flash[:notice] = 'Рубрика сохранена'
       redirect_to admin_categories_url
     else
       render :action => "edit" 
@@ -41,7 +41,7 @@ class Admin::CategoriesController < AdminController
   def destroy
     @category = Category.find(params[:id])
     @category.destroy
-
+    flash[:notice] = 'Рубрика удалена'
     redirect_to admin_categories_url
   end
 end

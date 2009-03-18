@@ -11,7 +11,7 @@ table {
 }
 
 tr {height: 100%; }
-td {padding:3px 6px; line-height: 20px; margin:5px; }
+td {padding:3px 6px; line-height: 20px; margin:5px; vertical-align: top;}
 table.list tr:hover td { background-color: #DDD;}
 
 table.list {padding-left:15px; margin: 4px;}
@@ -23,6 +23,8 @@ body {
   font-size:   13px;
   line-height: 18px;
 }
+
+div.flash { color:#3C6749; margin: 5px 0 -20px; height:20px; padding:0 6px; text-align:right; font-size:15px; }
 
 li { padding-left: 15px; margin: 5px 0;}
 
@@ -40,25 +42,23 @@ a, a:visited { color: #666; }
 a:hover { color: #000;}
 
 a.action {  color: #eee; padding: 3px 6px;}
-td.action { padding: 0; height:100%; }
+td.action { padding: 0; height:100%; vertical-align: middle;}
 table.list tr:hover td.action:hover, a.action:hover { background: #333; }
 
+a.back, a.new { margin:6px; font-size:110%; }
 
 a.to_site {color:#001962;}
 a.to_site:hover  { color:#000; }
-.fieldWithErrors {
-  padding: 2px;
-  background-color: red;
-  display: table;
+
+
+.formError {
+  color:red;
 }
 
 #errorExplanation {
-  width: 400px;
-  border: 2px solid red;
   padding: 7px;
   padding-bottom: 12px;
   margin-bottom: 20px;
-  background-color: #f0f0f0;
 }
 
 #errorExplanation h2 {
@@ -80,5 +80,14 @@ a.to_site:hover  { color:#000; }
 #errorExplanation ul li {
   font-size: 12px;
   list-style: square;
+  padding:2px;
+	margin-left:15px;
 }
 
+option {padding:2px;}
+
+form { padding: 3px;}
+form p { margin: 5px 0; }
+input { padding: 2px; font-size:105%; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box;}
+textarea {font: inherit; width: 100%;  padding: 2px; box-sizing: border-box; -moz-box-sizing: border-box;}
+input[type="submit"] { width: 100px; margin:3px; }
