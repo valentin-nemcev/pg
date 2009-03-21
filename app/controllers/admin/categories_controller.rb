@@ -1,6 +1,5 @@
 class Admin::CategoriesController < AdminController
-  
-  
+
   def index
     @categories = Category.find(:all)
     render :action => "index"

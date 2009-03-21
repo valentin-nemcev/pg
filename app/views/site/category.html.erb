@@ -1,3 +1,5 @@
 <% for article in @articles do -%>
 	<h2><%= link_to article.title, article_path(:category_link => article.category.link, :article_link => article.link) %></h2>
+	<h3><%= article.subtitle %></h3>
+	<p><%= article.lead %></p>
 <% end -%>
