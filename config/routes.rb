@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => "main", :action => "main"    
     admin.resources :articles, :except => [:show] 
     admin.resources :categories, :except => [:show]
+    admin.resources :images, :except => [:show]
     
     admin.logout '/logout', :controller => 'sessions', :action => 'destroy'
     admin.login '/login', :controller => 'sessions', :action => 'new'

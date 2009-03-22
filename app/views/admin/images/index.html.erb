@@ -1,0 +1,22 @@
+<h1>Изображения</h1>
+
+<table class="list">
+<% for image in @images -%>
+  <tr>
+		<td><h3><%=h image.title %></h3></td>
+   	<td>
+			<%= image.link %>
+		</td>
+   	<td class="action">
+   		<%= link_to 'Изменить', edit_admin_image_path(image), :class => 'action' %>
+    </td>
+		<td class="action">
+			<%= link_to 'Удалить', admin_image_path(image), :class => 'action',
+ 						:confirm => 'Действительно удалить?', :method => :delete %>
+   	</td>
+  </tr>
+<% end -%>
+</table>
+<br />
+
+<%= link_to 'Новое изображение', new_admin_image_path, :class => 'new' %>
