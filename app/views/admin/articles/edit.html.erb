@@ -19,15 +19,16 @@
     <%= f.text_field :link %>
   </p>
   <p>
-    <%= f.label :lead %><br />
-    <%= f.text_area :lead, :rows => 10 %>
+  	<%= f.label :text %><br />
+	  <%= textile_editor :article, :lead, :rows => 8 -%>
   </p>
 	<p>
     <%= f.label :text %><br />
-    <%= f.text_area :text %>
+    <%= textile_editor :article, :text -%>
   </p>
   <p>
     <%= f.submit "Сохранить" %>
+		<%= textile_editor_initialize -%>
   </p>
 <% end %>
 
