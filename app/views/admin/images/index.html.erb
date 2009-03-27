@@ -4,8 +4,12 @@
 <% for image in @images -%>
   <tr>
 		<td><h3><%=h image.title %></h3></td>
-   	<td>
+   	<td><%= image_tag thumb_admin_image_path(image) %></td>
+		<td>
 			<%= image.link %>
+		</td>
+		<td>
+			<%= image.filename %>
 		</td>
    	<td class="action">
    		<%= link_to 'Изменить', edit_admin_image_path(image), :class => 'action' %>

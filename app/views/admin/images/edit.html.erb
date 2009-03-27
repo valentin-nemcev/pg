@@ -1,6 +1,6 @@
 <h1>Редактирование изображения</h1>
 
-<% form_for [:admin, @image] do |f| %>
+<% form_for [:admin, @image], :html => {:multipart => true} do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -10,6 +10,10 @@
   <p>
     <%= f.label :link %><br />
     <%= f.text_field :link %>
+  </p>
+	<p>
+    <%= f.label :image_file %><br />
+    <%= file_field :image, :image_file %>
   </p>
   <p>
     <%= f.submit "Сохранить" %>

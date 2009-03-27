@@ -1,5 +1,15 @@
 class Admin::ImagesController < AdminController
-
+  
+  def show
+    @image = Image.find(params[:id])
+    send_data @image.image_blob, :disposition => 'inline'
+  end
+  
+  def thumb
+    @image = Image.find(params[:id])
+    send_data @image.thumb_blob, :disposition => 'inline'
+  end
+  
   def index
     @images = Image.find(:all)
     render :action => "index"
