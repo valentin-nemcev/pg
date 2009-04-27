@@ -2,7 +2,12 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace :admin do |admin|
     admin.root :controller => "main", :action => "main"    
-    admin.resources :articles, :except => [:show] 
+    
+    admin.resources :links, :except => [:show]
+    
+    admin.resources :articles, :has_many => :revisions
+    admin.resources :revisions, :except => :edit 
+    
     admin.resources :categories, :except => [:show]
     admin.resources :images, :member => { :thumb => :get }
     
@@ -11,7 +16,6 @@ ActionController::Routing::Routes.draw do |map|
     admin.register '/register', :controller => 'users', :action => 'create'
     admin.signup '/signup', :controller => 'users', :action => 'new'
     admin.resources :users, :member => {:increment_bug_counter => :get}
-    
     admin.resource :session
   end  
   

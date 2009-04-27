@@ -25,14 +25,8 @@ class Admin::UsersController < AdminController
   end 
   
   def increment_bug_counter
-    @user = User.find(params[:id])
-    
-    @user.bug_counter ||= 0;
-    @user.bug_counter += 1;
-    @user.save
+    User.find(params[:id]).increment!(:bug_counter)
     redirect_to admin_users_path
-    
-
   end
  
   def create

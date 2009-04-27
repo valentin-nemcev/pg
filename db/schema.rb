@@ -9,17 +9,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090322111607) do
+ActiveRecord::Schema.define(:version => 20090412160549) do
 
   create_table "articles", :force => true do |t|
-    t.integer  "category_id"
-    t.string   "title"
-    t.string   "subtitle"
-    t.string   "link"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "text"
-    t.text     "lead"
+    t.integer "current_revision_id"
   end
 
   create_table "categories", :force => true do |t|
@@ -34,6 +27,29 @@ ActiveRecord::Schema.define(:version => 20090322111607) do
     t.string   "title"
     t.string   "link"
     t.string   "filename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "links", :force => true do |t|
+    t.string   "text"
+    t.integer  "linkable_id"
+    t.string   "linkable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "revisions", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "article_id"
+    t.integer  "editor_id"
+    t.string   "title"
+    t.string   "subtitle"
+    t.string   "link"
+    t.datetime "publication_date"
+    t.boolean  "publicated",       :default => false
+    t.text     "text"
+    t.text     "lead"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

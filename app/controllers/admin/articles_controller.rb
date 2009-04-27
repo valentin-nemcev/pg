@@ -1,42 +1,30 @@
 class Admin::ArticlesController < AdminController
   
-
   def index
     @articles = Article.find(:all)
     render :action => "index"
   end
 
   def new
-    @article = Article.new
+    @revision = Revision.new
     @form_method = :put
     @form_url = new_admin_article_path()
-    render :action => "edit"
+    render  "admin/revisions/edit"
   end
 
   def edit
-    @article = Article.find(params[:id])
+    redirect_to new_admin_article_revision_path(params[:id])
   end
 
   def create
-    @article = Article.new(params[:article])
-
-    if @article.save
+    @revision = Revision.new(params[:revision])
+    
+    if @revision.save
+      @revision.create_article
       flash[:notice] = 'Статья сохранена'
       redirect_to admin_articles_path
     else
-      render :action => "edit"
-    end
-
-  end
-
-  def update
-    @article = Article.find(params[:id])
-
-    if @article.update_attributes(params[:article])
-      flash[:notice] = 'Статья сохранена'
-      redirect_to admin_articles_path
-    else
-      render :action => "edit"
+      render :action => "revisions/edit"
     end
 
   end

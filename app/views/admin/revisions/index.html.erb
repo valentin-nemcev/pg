@@ -1,10 +1,8 @@
 <h1>Статьи</h1>
 
 <table class="list">
-<% for article in @articles %>
-  <% revision = article.current_revision -%>
-	<% revision = Revision.new if revision.nil? %>
-	<tr>
+<% for revision in @revisions %>
+  <tr>
     <td>
 				<h3><%=h revision.title %></h3>
     		<p><%=h revision.subtitle %></p>
@@ -16,14 +14,14 @@
 				<p><%= link_to article_path, article_path, {:class => 'to_site'} %></p>
 			<% end -%>
 		</td>
-    <td class="action">
-			<%= link_to 'Редактировать', edit_admin_article_path(article), :class => 'action' %>
-		</td>
-		<td class="action">
-			<%= link_to 'Правки', admin_article_revisions_path(article), :class => 'action' %>
+		<td>
+			<%= revision.editor.nil? ? '(нет автора)' : revision.editor.name %>
 		</td>
     <td class="action">
-			<%= link_to 'Удалить', admin_article_path(article), :class => 'action',
+			<%= link_to 'Редактировать', edit_admin_article_revision_path(revision.article, revision), :class => 'action' %>
+		</td>
+    <td class="action">
+			<%= link_to 'Удалить', admin_revision_path(revision), :class => 'action',
 						:confirm => 'Действительно удалить?', :method => :delete %>
 		</td>
   </tr>
@@ -32,4 +30,3 @@
 
 <br />
 
-<%= link_to 'Новая статья', new_admin_article_path, :class => 'new' %>

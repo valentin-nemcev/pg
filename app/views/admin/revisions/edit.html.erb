@@ -1,0 +1,37 @@
+<h1>Редактирование статьи</h1>
+
+<% form_for [:admin, @revision] do |f| %>
+  <%= f.error_messages %>
+  	<%= f.hidden_field :article_id %>
+	<p>
+    <%= f.label :category_id %><br />
+    <%= collection_select(:revision, :category_id, Category.all, :id, :title, :include_blank => ('Нет рубрики')) %>
+  </p>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :subtitle %><br />
+    <%= f.text_field :subtitle %>
+  </p>
+  <% f.fields_for :links do |link_fields| %>
+		<%= link_fields.label :text %><br />
+    <%= link_fields.text_field :text %>
+	<% end %>
+  <p>
+  	<%= f.label :text %><br />
+	  <%= textile_editor :revision, :lead, :rows => 8 -%>
+  </p>
+	<p>
+    <%= f.label :text %><br />
+    <%= textile_editor :revision, :text -%>
+  </p>
+  <p>
+    <%= f.submit "Сохранить" %>
+		<%= textile_editor_initialize -%>
+  </p>
+<% end %>
+
+
+<%= link_to 'Назад', admin_articles_path, :class => 'back' %>
