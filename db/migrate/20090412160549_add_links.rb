@@ -5,6 +5,7 @@ class AddLinks < ActiveRecord::Migration
       t.references :linkable, :polymorphic => true
       t.timestamps
     end
+    remove_column :revisions, :link
   end
 
   def self.down

@@ -1,7 +1,6 @@
 class Admin::RevisionsController < AdminController
   
   def index
-    #@revisions = Revision.find(:all)
     @revisions = Revision.all(:conditions => ["article_id = ?", params[:article_id]])
     render :action => "index"
   end
@@ -22,8 +21,6 @@ class Admin::RevisionsController < AdminController
     if @revision.save
       @revision.build_article if @revision.article.nil? 
       @revision.article.current_revision = @revision
-      # @revision.article.update_attributes(params[:revision][:article_attributes])  Иначе вложенные атрибуты не сохраняются
-      #@revision.article.save
       @revision.editor = current_user
       @revision.save(false)
       flash[:notice] = 'Статья сохранена'

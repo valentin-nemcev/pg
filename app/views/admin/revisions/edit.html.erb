@@ -15,26 +15,10 @@
     <%= f.label :subtitle %><br />
     <%= f.text_field :subtitle %>
   </p>
-  <% f.fields_for :article do |article_fields| %>
-		<!-- 
-			Так это должно работать в теории
-			На практике оно не работает
-			<%# article_fields.fields_for :links do |link_fields| %>
-						<pre><%#= h link_fields.object.inspect %></pre>
-						<%#= link_fields.text_field :text,  %>
-			<%# end %>
-		 
-		 Вот так правильно передаетются параметры
- 		<%#№ @revision.article.links.each do |link| %>
-			<%# article_fields.fields_for 'links_attributes', link do |link_fields| -%>
-			  <%# index = link.new_record? ? 'new' : link.id -%>
-				<pre><%#= h link_fields.object.inspect %></pre>
-				<%# link_fields.text_field :text, :index => index %>
-				<%# link_fields.hidden_field :id, :index => index %>
-			<%# end -%>
-		<%# end -%>
-		 -->
-	<% end %>
+  <p>
+    <%= f.label :link %><br />
+    <%= f.text_field :link %>
+  </p>
   <p>
   	<%= f.label :text %><br />
 	  <%= textile_editor :revision, :lead, :rows => 8 -%>

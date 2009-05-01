@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20090412160549) do
     t.integer  "editor_id"
     t.string   "title"
     t.string   "subtitle"
-    t.string   "link"
     t.datetime "publication_date"
     t.boolean  "publicated",       :default => false
     t.text     "text"

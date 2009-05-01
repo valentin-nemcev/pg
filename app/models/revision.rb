@@ -11,8 +11,16 @@ class Revision < ActiveRecord::Base
   accepts_nested_attributes_for :article
 
   after_destroy :delete_article_without_revisions
+  before_save :make_link
+  attr_accessor :link
   
   protected
+    def make_link
+      return true if self.link.empty?
+      link = Link.new(:text => self.link, :linkable => self.article)
+      link.save
+    end
+    
     def delete_article_without_revisions
       if self.article.revisions.size == 0
         self.article.destroy

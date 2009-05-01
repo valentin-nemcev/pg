@@ -5,5 +5,10 @@ class Admin::LinksController < AdminController
     render :action => "index"
   end
 
-
+  def destroy
+    link = Link.find(params[:id])    
+    link.destroy
+    
+    redirect_to admin_links_path
+  end
 end
