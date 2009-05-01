@@ -9,10 +9,6 @@
 		</td>
     <td>
 			<strong><%= revision.category.nil? ? '(нет рубрики)' : revision.category.title %></strong>
-			<% if not revision.category.nil? %>	
-				<% article_path = article_path(:category_link => revision.category.link, :article_link => revision.link)  -%>
-				<p><%= link_to article_path, article_path, {:class => 'to_site'} %></p>
-			<% end -%>
 		</td>
 		<td>
 			<%= revision.editor.nil? ? '(нет автора)' : revision.editor.name %>

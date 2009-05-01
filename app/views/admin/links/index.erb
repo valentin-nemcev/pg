@@ -1,10 +1,16 @@
 <h1>Ссылки</h1>
 
 <table class="list">
-<% for link1 in @links %>
+<% for link in @links %>
 	<tr>
     <td>
-				<h3><%=h link1.text %></h3>
+				<h3><%=h link.text %></h3>
+		</td>
+		<td>
+			<%= link.linkable.class %>
+		</td>
+		<td>
+			<%= link.linkable.title unless link.linkable.title.nil? %>
 		</td>
   </tr>
 <% end %>
