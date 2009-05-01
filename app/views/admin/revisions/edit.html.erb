@@ -3,10 +3,10 @@
 <% form_for [:admin, @revision] do |f| %>
   <%= f.error_messages %>
   	<%= f.hidden_field :article_id %>
-	<p>
+	<!--p>
     <%= f.label :category_id %><br />
     <%= collection_select(:revision, :category_id, Category.all, :id, :title, :include_blank => ('Нет рубрики')) %>
-  </p>
+  </p-->
   <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>

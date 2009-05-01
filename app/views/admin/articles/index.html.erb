@@ -9,9 +9,9 @@
 				<h3><%=h revision.title %></h3>
     		<p><%=h revision.subtitle %></p>
 		</td>
-    <td>
+    <!--td>
 			<strong><%= revision.category.nil? ? '(нет рубрики)' : revision.category.title %></strong>
-		</td>
+		</td-->
     <td class="action">
 			<%= link_to 'Редактировать', edit_admin_article_path(article), :class => 'action' %>
 		</td>

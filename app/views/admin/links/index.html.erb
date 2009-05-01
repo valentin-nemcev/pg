@@ -1,0 +1,23 @@
+<h1>Ссылки</h1>
+
+<table class="list">
+<% for link in @links %>
+	<tr>
+    <td>
+				<h3><%=h link.text %></h3>
+		</td>
+		<td>
+			<%= link.linkable.class %>
+		</td>
+		<td>
+			<%= link.linkable.title unless link.linkable.nil? or link.linkable.title.nil? %>
+		</td>
+		<td class="action">
+			<%= link_to 'Удалить', admin_link_path(link), :class => 'action',
+						:confirm => 'Действительно удалить?', :method => :delete %>
+		</td>
+  </tr>
+<% end %>
+</table>
+
+

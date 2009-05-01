@@ -1,3 +1,1 @@
-<h1><%= @article.title %></h1>
-<h2><%= @article.subtitle %></h2>
-<p><%= RedCloth.new(@article.text).to_html %></p>
+<%= render :partial => @article %>
