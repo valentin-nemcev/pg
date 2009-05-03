@@ -1,3 +1,8 @@
-<h1><%= @article.title %></h1>
-<h2><%= @article.subtitle %></h2>
-<p><%= RedCloth.new(@article.text).to_html %></p>
+
+<div class="article_with_lead">
+<h2>
+<%= link_to article.current_revision.title, article_url(article.canonical_link.text) %> 
+<div class="subtitle"><%= article.current_revision.subtitle unless article.current_revision.subtitle.nil? %></div>
+</h2>
+<%= RedCloth.new(article.current_revision.lead).to_html %>
+</div>

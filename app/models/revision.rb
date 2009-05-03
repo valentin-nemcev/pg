@@ -17,8 +17,10 @@ class Revision < ActiveRecord::Base
   protected
     def make_link
       return true if self.link.empty?
-      link = Link.new(:text => self.link, :linkable => self.article)
+      link = Link.new(:text => self.link, :linked => self.article)
       link.save
+      self.article.canonical_link = link
+      return true
     end
     
     def delete_article_without_revisions

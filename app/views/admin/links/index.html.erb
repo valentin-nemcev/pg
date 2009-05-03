@@ -7,10 +7,10 @@
 				<h3><%=h link.text %></h3>
 		</td>
 		<td>
-			<%= link.linkable.class %>
+			<%= link.linked.class %>
 		</td>
 		<td>
-			<%= link.linkable.title unless link.linkable.nil? or link.linkable.title.nil? %>
+			<%= link.linked.title unless link.linked.nil? or link.linked.title.nil? %>
 		</td>
 		<td class="action">
 			<%= link_to 'Удалить', admin_link_path(link), :class => 'action',

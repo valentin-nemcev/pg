@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
     
     admin.resources :links, :except => [:show]
     
-    admin.resources :articles, :has_many => :revisions
+    admin.resources :articles, :has_many => [:revisions, :links]
     admin.resources :revisions, :except => :edit 
     
     admin.resources :categories, :except => [:show]
@@ -20,6 +20,6 @@ ActionController::Routing::Routes.draw do |map|
   end  
   
   map.root :controller => "site", :action => "main"
-  map.category ":category_link/", :controller => "site", :action =>"category"
-  map.article ":category_link/:article_link/", :controller => "site", :action => "article"
+  # map.category ":category_link/", :controller => "site", :action =>"category"
+  map.article ":article_link", :controller => "site", :action => "article"
 end

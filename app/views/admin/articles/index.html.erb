@@ -18,6 +18,9 @@
 		<td class="action">
 			<%= link_to 'Правки', admin_article_revisions_path(article), :class => 'action' %>
 		</td>
+		<td class="action">
+			<%= link_to 'Ссылки', admin_article_links_path(article), :class => 'action' %>
+		</td>
     <td class="action">
 			<%= link_to 'Удалить', admin_article_path(article), :class => 'action',
 						:confirm => 'Действительно удалить?', :method => :delete %>

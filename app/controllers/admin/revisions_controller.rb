@@ -18,9 +18,10 @@ class Admin::RevisionsController < AdminController
 
   def create
     @revision = Revision.new(params[:revision])
+    @revision.build_article if @revision.article.nil?
     if @revision.save
-      @revision.build_article if @revision.article.nil? 
       @revision.article.current_revision = @revision
+      @revision.article.save
       @revision.editor = current_user
       @revision.save(false)
       flash[:notice] = 'Статья сохранена'

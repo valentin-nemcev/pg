@@ -1,7 +1,11 @@
 class Admin::LinksController < AdminController
   
   def index
-    @links = Link.find(:all)
+    if params[:article_id].nil? 
+      @links = Link.find(:all)
+    else
+      @links = Link.find(:all, :conditions => ["linked_id = ? and linked_type = 'Article'", params[:article_id]])
+    end
     render :action => "index"
   end
 
