@@ -64,5 +64,6 @@ td#content {
 
 .full_article p {line-height: 20px; font-size:16px; margin-bottom: 16px;}
 
+.full_article p.signature { text-align: right;}
 
 h2 a {}
