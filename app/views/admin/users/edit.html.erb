@@ -1,13 +1,13 @@
 <h1>Добавить администратора</h1>
 
-<% form_for [:admin, @user] do |f| -%>
+<% form_for [:admin, @usr] do |f| -%>
 <%= f.error_messages %>
 
 <p><%= f.label 'Имя и фамилия' %><br/>
 <%= f.text_field :name %></p>
 
 <p><%= f.label 'Роль' %><br/>
-<%= f.select :role, {'Пользователь' => 'user', 'Администратор' => 'admin'}, {:selected => @user.role }  %></p>
+<%= f.select :role, {'Пользователь' => 'user', 'Администратор' => 'admin', 'Бот' => 'bot'}, {:selected => @usr.role }  %></p>
 
 <p><%= f.label 'Должность' %><br/>
 <%= f.text_field :position %></p>

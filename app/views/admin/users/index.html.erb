@@ -1,20 +1,23 @@
 <h1>Администраторы</h1>
 
-<ul>
+<table class="list">
 	<% for user in @users %>
-	  <li>
-   		<%= user.name %> <%= '(Администратор)' if user.is_admin? %>
-			<% if not user.bug_counter.nil? %>
-				(Найдено ошибок: <%= number_with_precision(user.bug_counter, :precision => 0)  %>)
-			<% end %>
-			<% if current_user.is_admin? -%>
-				<%= link_to '+1', increment_bug_counter_admin_user_path(user) %>
-				<%= link_to 'Редактировать', edit_admin_user_path(user) %>
-				<%= link_to 'Удалить', admin_user_path(user), :confirm => 'Действительно удалить?', :method => :delete %>
-			<% end -%>
-	  </li>
+	  <tr>
+   		<td><%= user.name %> <%= '(Администратор)' if user.is_admin? %></td>
+			<!-- <% if not user.bug_counter.nil? %>
+							(Найдено ошибок: <%= number_with_precision(user.bug_counter, :precision => 0)  %>)
+						<% end %> -->
+			<td><%= user.role unless user.role.nil? %></td>
+			<td>
+				<% if current_user.is_admin? -%>
+					<%= link_to '+1', increment_bug_counter_admin_user_path(user) %>
+					<%= link_to 'Редактировать', edit_admin_user_path(user) %>
+					<%= link_to 'Удалить', admin_user_path(user), :confirm => 'Действительно удалить?', :method => :delete %>
+				<% end -%>
+	  	</td>
+		</tr>
 	<% end %>
-</ul>
+</table>
 
 <br />
 

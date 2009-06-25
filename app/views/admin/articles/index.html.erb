@@ -8,6 +8,10 @@
     <td>
 				<h3><%=h revision.title %></h3>
     		<p><%=h revision.subtitle %></p>
+				<p>
+					<%= revision.editor.name unless revision.editor.nil? %>
+					<%= article.canonical_link.text unless article.canonical_link.nil? %>
+				</p>
 		</td>
     <!--td>
 			<strong><%= revision.category.nil? ? '(нет рубрики)' : revision.category.title %></strong>

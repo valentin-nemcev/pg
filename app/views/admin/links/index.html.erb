@@ -10,7 +10,10 @@
 			<%= link.linked.class %>
 		</td>
 		<td>
-			<%= link.linked.title unless link.linked.nil? or link.linked.title.nil? %>
+			<%= link.editor.nil? ? '(нет автора)' : link.editor.name %>
+		</td>
+		<td>
+			<%#= link.linked.title unless link.linked.nil? or link.linked.title.nil? %>
 		</td>
 		<td class="action">
 			<%= link_to 'Удалить', admin_link_path(link), :class => 'action',

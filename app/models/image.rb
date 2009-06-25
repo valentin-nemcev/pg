@@ -10,23 +10,23 @@ class Image < ActiveRecord::Base
   before_save :save_image_file
   before_destroy :delete_image_file
   
-  def thumb_blob
+  def thumb_data
     begin
       img = Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
     rescue Magick::ImageMagickError, Magick::FatalImageMagickError
       return false;
     end
     
-    return img.resize_to_fit!(64,64).to_blob
+    return img.resize_to_fit!(64,64)
   end
   
-  def image_blob
+  def image_data
     begin
       img = Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
     rescue Magick::ImageMagickError, Magick::FatalImageMagickError
       return false;
     end
-    return img.to_blob
+    return img
   end
   
   protected  

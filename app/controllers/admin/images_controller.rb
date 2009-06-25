@@ -2,12 +2,12 @@ class Admin::ImagesController < AdminController
   
   def show
     @image = Image.find(params[:id])
-    send_data @image.image_blob, :disposition => 'inline'
+    send_data @image.image_data.to_blob, :disposition => 'inline'
   end
   
   def thumb
     @image = Image.find(params[:id])
-    send_data @image.thumb_blob, :disposition => 'inline'
+    send_data @image.thumb_data.to_blob, :type => @image.thumb_data.mime_type, :filename => @image.link+@image.thumb_data.format, :disposition => 'inline'
   end
   
   def index
@@ -17,7 +17,7 @@ class Admin::ImagesController < AdminController
 
   def new
     @image = Image.new
-    render :action => "edit" #Заменить на что-нибудь более логичное
+    render :action => "edit" 
   end
 
   def edit

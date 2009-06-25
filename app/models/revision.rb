@@ -11,12 +11,12 @@ class Revision < ActiveRecord::Base
   accepts_nested_attributes_for :article
 
   after_destroy :delete_article_without_revisions
-  before_save :make_link
+  after_save :make_link
   attr_accessor :link
   
   protected
     def make_link
-      return true if self.link.empty?
+      return true if self.link.nil? or self.link.empty?
       link = Link.new(:text => self.link, :linked => self.article)
       link.save
       self.article.canonical_link = link

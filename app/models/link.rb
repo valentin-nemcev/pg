@@ -1,5 +1,7 @@
 class Link < ActiveRecord::Base
   belongs_to :linked, :polymorphic => true
+  belongs_to :editor, :class_name => 'User', :foreign_key => 'editor_id'
+  
   validates_uniqueness_of :text
   validates_length_of :text, :in => 2..100
 end

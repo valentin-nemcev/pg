@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
-  validates_inclusion_of    :role, :in => ['admin', 'user']
+  validates_inclusion_of    :role, :in => ['admin', 'user', 'bot']
   validates_numericality_of :bug_counter, :greater_than => 0, :allow_blank => true
   
 
@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
     self.role == 'admin'
   end
 
+  
   protected
     
 
