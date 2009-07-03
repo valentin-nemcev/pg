@@ -16,10 +16,11 @@ class Revision < ActiveRecord::Base
   
   protected
     def make_link
-      return true if self.link.nil? or self.link.empty?
-      link = Link.new(:text => self.link, :linked => self.article)
-      link.save
-      self.article.canonical_link = link
+      # return true if self.link.nil? or self.link.empty?
+      link = Link.new(:text => Russian.translit(self.title), :linked => self.article, :editor => self.editor)
+      if link.save
+        self.article.canonical_link = link
+      end
       return true
     end
     

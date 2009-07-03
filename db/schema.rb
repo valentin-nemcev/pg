@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090503091336) do
+ActiveRecord::Schema.define(:version => 20090625093707) do
 
   create_table "articles", :force => true do |t|
     t.integer "current_revision_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20090503091336) do
     t.string   "linked_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "editor_id"
   end
 
   create_table "revisions", :force => true do |t|

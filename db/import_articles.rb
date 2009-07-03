@@ -40,7 +40,7 @@ DBConn.connection.select_all('SELECT * FROM articles LIMIT 5 ').each do |a|
     :editor => cb
   )
   art.save
-  art.canonical_link = art.links.create(:text => a['link'], :linked => art)
+  art.canonical_link = art.links.create(:text => a['link'], :linked => art, :editor => cb)
   
   p art
 end

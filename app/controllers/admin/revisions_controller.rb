@@ -18,11 +18,11 @@ class Admin::RevisionsController < AdminController
 
   def create
     @revision = Revision.new(params[:revision])
+    @revision.editor = current_user
     @revision.build_article if @revision.article.nil?
     if @revision.save
       @revision.article.current_revision = @revision
       @revision.article.save
-      @revision.editor = current_user
       @revision.save(false)
       flash[:notice] = 'Статья сохранена'
       redirect_to admin_articles_path
