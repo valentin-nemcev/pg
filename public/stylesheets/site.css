@@ -16,7 +16,7 @@ html {
 }
 
 body {
-	
+	font-family: Arial, "MS Trebuchet", sans-serif;
 }
 
 #header {}
@@ -46,24 +46,31 @@ td#content {
 
 
 
- h2, h2 a { 
+h2, h2 a { 
 	color: #bf2215; 
 	line-height:20px; 
 	font-size:20px;
 	text-decoration: none;
+	font-weight:bold;
+}
+
+h3 { 
+	color: #222; 
+	line-height:20px; 
+	font-size:17px;
 } 
 .article_with_lead h2 a:hover { text-decoration: underline; }
-.article_with_lead h2 .subtitle { color: #333; line-height:20px; font-size:17px;}
+.article_with_lead h2 .subtitle { color: #222; line-height:20px; font-size:17px;}
 
 .article_with_lead p {line-height: 20px; font-size:16px; font-family: sans-serif;}
 .article_with_lead p + p { text-indent: 35px;}
 
 .article_with_lead {margin: 20px 0;}
 
-.full_article h2 .subtitle { color: #333; line-height:20px; font-size:17px;}
+.full_article h2 .subtitle { color: #222; line-height:20px; font-size:17px; font-weight:bold;}
 
 .full_article p {line-height: 20px; font-size:16px; margin-bottom: 16px;}
 
-.full_article p.signature { text-align: right;}
+.full_article p.signature { text-align: right; font-weight:bold; color: #222;}
 
 h2 a {}

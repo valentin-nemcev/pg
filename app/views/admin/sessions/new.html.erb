@@ -1,16 +1,31 @@
-<h1>Вход с паролем</h1>
-<%= flash[:error] %>
-<% form_tag admin_session_path do -%>
-<p><%= label_tag 'login', 'E-mail' %><br />
-<%= text_field_tag 'login', @login %></p>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
 
-<p><%= label_tag 'password', 'Пароль' %><br/>
-<%= password_field_tag 'password', nil %></p>
+	<head>
+		<title>Полит-грамота – Вход с паролем</title>
+	</head>
+	<body>
+		<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
+			<tr>
+				<td valign="middle" align="center">
+					<h1>Вход с паролем</h1>
+					<%= flash[:error] %>
+					<% form_tag admin_session_path do -%>
+					<p><%= label_tag 'login', 'E-mail' %><br />
+					<%= text_field_tag 'login', @login %></p>
 
-<!-- Uncomment this if you want this functionality
-<p><%= label_tag 'remember_me', 'Remember me' %>
-<%= check_box_tag 'remember_me', '1', @remember_me %></p>
--->
+					<p><%= label_tag 'password', 'Пароль' %><br/>
+					<%= password_field_tag 'password', nil %></p>
 
-<p><%= submit_tag 'Войти' %></p>
-<% end -%>
+					<p><%= submit_tag 'Войти' %></p>
+					<% end -%>
+				</td>
+			</tr>
+		</table>
+		
+		
+		
+	</body>
+</html>
+
