@@ -1,6 +1,33 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
+<%
+=begin
+	TODO Вынести в хелпер, добавить поддержку локализации и замену id на заголовки
+=end
+def get_bread_crumb(url) 
+  begin
+    names = {'admin' => 'Управление'}
+		breadcrumbs = []
+    sofar = '/'
+    elements = url.split('/')
+		elements.shift
+    elements.each_with_index do |elm, i|
+      sofar += elm + '/'
+			name = names.has_key?(elm) ? names[elm] : elm
+      if i < (elements.length - 1)
+				breadcrumbs << "<a href='#{sofar}'>#{name}</a>"
+			else
+				breadcrumbs << "<b>#{name}</b>"
+			end
+    end
+    breadcrumbs * ' -> '
+  rescue
+    'Not available'
+  end
+end
 
+
+%>
 
 <html>
 <head>
@@ -32,7 +59,7 @@
 	</tr>
 </table>
 <div class="flash"><%= flash[:notice] %></div>
-
+<div><%= get_bread_crumb(request.path) %></div>
 <%= yield  %>
 
 </body>
