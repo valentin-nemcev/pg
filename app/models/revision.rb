@@ -11,18 +11,9 @@ class Revision < ActiveRecord::Base
   accepts_nested_attributes_for :article
 
   after_destroy :delete_article_without_revisions
-  after_save :make_link
-  attr_accessor :link
   
   protected
-    def make_link
-      # return true if self.link.nil? or self.link.empty?
-      link = Link.new(:text => Russian.translit(self.title).parameterize, :linked => self.article, :editor => self.editor)
-      if link.save
-        self.article.canonical_link = link
-      end
-      return true
-    end
+    
     
     def delete_article_without_revisions
       if self.article.revisions.size == 0
