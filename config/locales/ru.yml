@@ -19,3 +19,7 @@ ru:
                 title: Заголовок
                 link: Ссылка
                 image_file: Файл
+    breadcrumbs: 
+        articles: Статьи
+        admin: Управление
+        edit: Правка
