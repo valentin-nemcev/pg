@@ -1,4 +1,4 @@
-<h1>Статьи</h1>
+<h1>Ревизии</h1>
 
 <table class="list">
 <% for revision in @revisions %>
@@ -7,19 +7,10 @@
 				<h3><%=h revision.title %></h3>
     		<p><%=h revision.subtitle %></p>
 		</td>
-    <!--td>
-			<strong><%= revision.category.nil? ? '(нет рубрики)' : revision.category.title %></strong>
-		</td-->
 		<td>
 			<%= revision.editor.nil? ? '(нет автора)' : revision.editor.name %>
 		</td>
-    <td class="action">
-			<%= link_to 'Редактировать', edit_admin_article_revision_path(revision.article, revision), :class => 'action' %>
-		</td>
-    <td class="action">
-			<%= link_to 'Удалить', admin_revision_path(revision), :class => 'action',
-						:confirm => 'Действительно удалить?', :method => :delete %>
-		</td>
+
   </tr>
 <% end %>
 </table>
