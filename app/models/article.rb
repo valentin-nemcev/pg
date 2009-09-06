@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
   
   def make_link
     # return true if self.link.nil? or self.link.empty?
-    link = Link.new(:text => Russian.translit(self.title).parameterize, :linked => self, :editor => self.editor)
+    link = Link.new(:text => Link.make_link_text(self.title), :linked => self, :editor => self.editor)
     if link.save
       self.canonical_link = link
     end

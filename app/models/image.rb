@@ -4,10 +4,13 @@ class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
   IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'storage')
   
-  attr_accessor :image_file
-  attr_protected :filename
+  validates_presence_of :title 
+  validates_length_of :title, :in => 3..250
   
-  before_save :save_image_file
+  attr_accessor :image_file
+  attr_protected :filename, :link
+  
+  before_save :save_image_file, :make_link
   before_destroy :delete_image_file
   
   def thumb_data
@@ -30,9 +33,16 @@ class Image < ActiveRecord::Base
   end
   
   protected  
+    
+    def make_link
+      self.link = Link.make_link_text(self.title)      
+    end
   
     def save_image_file
-      return true if @image_file.nil?
+      if @image_file.nil?
+        errors.add(:image_file, "^Отсутствует файл с изображением")
+        return false
+      end
       begin
         img = Magick::Image.read(@image_file.path).first
       rescue Magick::ImageMagickError, Magick::FatalImageMagickError

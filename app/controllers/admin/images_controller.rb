@@ -7,7 +7,10 @@ class Admin::ImagesController < AdminController
   
   def thumb
     @image = Image.find(params[:id])
-    send_data @image.thumb_data.to_blob, :type => @image.thumb_data.mime_type, :filename => @image.link+@image.thumb_data.format, :disposition => 'inline'
+    send_data @image.thumb_data.to_blob, 
+      :type => @image.thumb_data.mime_type, 
+      :filename => @image.link+@image.thumb_data.format, 
+      :disposition => 'inline'
   end
   
   def index
