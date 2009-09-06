@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090625093707) do
+ActiveRecord::Schema.define(:version => 20090906075947) do
 
   create_table "articles", :force => true do |t|
     t.integer "current_revision_id"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20090625093707) do
     t.integer  "article_id"
     t.string   "title"
     t.string   "link"
-    t.string   "filename"
+    t.string   "filename",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
