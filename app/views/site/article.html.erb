@@ -1,7 +1,7 @@
 <div class="full_article">
 <h2>
-<%= @article.current_revision.title %> 
-<div class="subtitle"><%= @article.current_revision.subtitle unless @article.current_revision.subtitle.nil? %></div>
+<%= @article.title %> 
+<div class="subtitle"><%= @article.subtitle unless @article.subtitle.nil? %></div>
 </h2>
-<%= RedCloth.new(@article.current_revision.text).to_html %>
+<%= RedCloth.new(@article.text).to_html %>
 </div>

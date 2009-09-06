@@ -4,7 +4,7 @@
 <% for link in @links %>
 	<tr>
     <td>
-				<h3><%=h link.text %></h3>
+				<h3 class="<%='canonical' if link == @canonical_link %>"><%=h link.text %></h3>
 		</td>
 		<td>
 			<%= link.linked.class %>

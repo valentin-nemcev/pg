@@ -5,6 +5,7 @@ class Admin::LinksController < AdminController
       @links = Link.find(:all)
     else
       @links = Link.find(:all, :conditions => ["linked_id = ? and linked_type = 'Article'", params[:article_id]])
+      @canonical_link = Article.find(params[:article_id]).canonical_link
     end
     render :action => "index"
   end

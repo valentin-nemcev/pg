@@ -2,7 +2,7 @@ require 'ftools'
 require 'RMagick'
 class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
-  IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'storage')
+  IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'public/img')
   
   validates_presence_of :title 
   validates_length_of :title, :in => 3..250
@@ -49,7 +49,8 @@ class Image < ActiveRecord::Base
         errors.add(:image_file, "^Неверный формат изображения (#{@image_file.original_filename})")
         return false;
       end
-      filename = "#{Time.now.to_i}#{rand(1000)}.jpg"
+      # filename = "#{Time.now.to_i}#{rand(1000)}.jpg"
+      filename =  Link.make_link_text(self.title)+'.jpg'
       img.write File.join(IMAGE_STORAGE_PATH, filename)
       write_attribute(:filename, filename)
       # logger.debug 'test!' if ACCEPTED_FORMATS.include? img.format 

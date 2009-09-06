@@ -60,6 +60,7 @@ a.back, a.new { margin:6px; font-size:110%; }
 a.to_site {color:#001962;}
 a.to_site:hover  { color:#000; }
 
+.canonical { font-style: italic; }
 
 .formError {
   color:red;
