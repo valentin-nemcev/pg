@@ -20,4 +20,5 @@ teButtons.push(new TextileEditorButton('ed_block',   		'blockquote.png',    'bq'
 // teButtons.push(new TextileEditorButton('ed_justify', 		'justify.png',       '<>',  '\n', 'j', 'Justify'));
 teButtons.push(new TextileEditorButton('ed_signature',   		'',    'p(signature)',  '\n', 'q', 'Signature'));
 
+teButtons.push('<b>test</b>');
 // teButtons.push(new TextileEditorButton('ed_code','code','@','@','c','Code'));

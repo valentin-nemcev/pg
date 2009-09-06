@@ -29,6 +29,10 @@
   </p>
   <p>
     <%= f.submit "Сохранить" %>
+		<% textile_editor_button image_tag('textile-editor/bold.png') + ' Greetings', 
+		  :onclick => "TextileEditor.insertText(this, 'ffffff'); return false" 
+		%>
+
 		<%= textile_editor_initialize -%>
   </p>
 <% end %>
