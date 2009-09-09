@@ -6,6 +6,7 @@ class Admin::ArticlesController < AdminController
   end
 
   def new
+    return create if request.post?
     @article = Article.new
     render :action => "edit"
   end

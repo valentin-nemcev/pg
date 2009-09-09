@@ -1,41 +1,30 @@
-<h1>Редактирование статьи</h1>
-
-<% form_for [:admin, @article] do |f| %>
-  <%= f.error_messages %>
-  	<%#= f.hidden_field :article_id %> 
-	<!--p>
-    <%#= f.label :category_id %><br />
-    <%#= collection_select(:revision, :category_id, Category.all, :id, :title, :include_blank => ('Нет рубрики')) %>
-  </p-->
-  <p>
-    <%= f.label :title %><br />
+<%- url = @article.new_record? ? new_polymorphic_path([:admin, @article]) : polymorphic_path([:admin, @article]) %>
+<% form_for [:admin, @article], :url => url, :html => {:class => 'full-page'} do |f| %>
+	<div class="field">
+    <%= f.label :title %>
+		<%= error_message_on @article, :title %>
     <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :subtitle %><br />
+  </div>
+  <div class="field">
+    <%= f.label :subtitle %>
     <%= f.text_field :subtitle %>
-  </p>
-  <!-- <p>
-      <%#= f.label :link %><br />
-      <%#= f.text_field :link %>
-    </p> -->
-  <p>
-  	<%= f.label :lead %><br />
+  </div>
+  <div class="field">
+  	<%= f.label :lead %>
 	  <%= textile_editor :article, :lead, :rows => 8 -%>
-  </p>
-	<p>
-    <%= f.label :text %><br />
+  </div>
+	<div class="field">
+    <%= f.label :text %>
     <%= textile_editor :article, :text -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.submit "Сохранить" %>
 		<% textile_editor_button 'Image', 
 		  :onclick => "TextileEditor.insertText(this, '!img/'+prompt('Insert image.  File name:', '')+'!'); return false" 
 		%>
 
 		<%= textile_editor_initialize -%>
-  </p>
+  </div>
 <% end %>
 
 
-<%= link_to 'Назад', admin_articles_path, :class => 'back' %>

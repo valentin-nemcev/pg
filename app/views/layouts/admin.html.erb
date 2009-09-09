@@ -8,30 +8,33 @@
 	<%= javascript_include_tag 'prototype' %>
 </head>
 <body>
-<table id="navigation" style="width:100%">
-	<tr>
-		<td>
-			<%= link_to_unless_current("Главная", admin_root_path)%> |
-			<%= link_to_unless_current("Ссылки", admin_links_path) %> | 
-			<%= link_to_unless_current("Статьи", admin_articles_path) %> | 
-			<%#= link_to_unless_current("Рубрики", admin_categories_path) %> 
-			<%= link_to_unless_current("Изображения", admin_images_path) %> |
-			<%= link_to_unless_current("Администраторы", admin_users_path) %> |
-			<%= link_to_unless_current("На сайт", root_path, { :class => "to_site" })%> 
-		</td>
-		<td style="text-align:right">
-			<% if logged_in? -%>
-			  Администратор: <%=current_user.name %>
-			  (<%= link_to "Выйти", admin_logout_path, { :title => "Выйти", :class => "to_site" }    %>)
-			<% else -%>
-				Сбой в матрице. Вы не должны видеть эту страницу.
-			<% end -%>
-		</td>
-	</tr>
-</table>
-<div class="flash"><%= flash[:notice] %></div>
-<div class="breadcrumbs"><%= breadcrumbs(request.path) %></div>
-<%= yield  %>
-
+<!-- <div id="overlay-container"><table><td>1<td>2<td>3<td>4<td>5</table></div> -->
+<div id="page-header">
+	<table id="navigation" style="width:100%">
+		<tr>
+			<td>
+				<!-- <%= link_to_unless_current("Главная", admin_root_path)%> |
+						<%= link_to_unless_current("Ссылки", admin_links_path) %> | 
+						<%= link_to_unless_current("Статьи", admin_articles_path) %> | 
+						<%#= link_to_unless_current("Рубрики", admin_categories_path) %> 
+						<%= link_to_unless_current("Изображения", admin_images_path) %> |
+						<%= link_to_unless_current("Администраторы", admin_users_path) %> |
+						<%= link_to_unless_current("На сайт", root_path, { :class => "to_site" })%>  -->
+			</td>
+			<td style="text-align:right">
+				<% if logged_in? -%>
+				  Администратор: <%=current_user.name %>
+				  (<%= link_to "Выйти", admin_logout_path, { :title => "Выйти", :class => "to_site" }    %>)
+				<% else -%>
+					Сбой в матрице. Вы не должны видеть эту страницу.
+				<% end -%>
+			</td>
+		</tr>
+	</table>
+	<table class="breadcrumbs"><%= breadcrumbs(request.path) %></table>
+</div>
+<div id="page-content">
+	<%= yield  %>
+</div>
 </body>
 </html>

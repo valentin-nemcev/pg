@@ -5,7 +5,7 @@ ru:
             category: Рубрика
             imgaes: Изображения
         attributes:
-            revision:
+            article:
                 category_id: Рубрика
                 title: Заголовок
                 subtitle: Подзаголовок
@@ -26,3 +26,4 @@ ru:
         revisions: Правки
         links: Ссылки
         images: Изображения
+        new: Добавить

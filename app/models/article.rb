@@ -24,6 +24,7 @@ class Article < ActiveRecord::Base
     link = Link.new(:text => Link.make_link_text(self.title), :linked => self, :editor => self.editor)
     if link.save
       self.canonical_link = link
+      self.save
     end
     return true
   end

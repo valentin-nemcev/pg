@@ -1,38 +1,35 @@
-<h1>Статьи</h1>
-
-<table class="list">
+<div class="panel">
+	<div class="item">
+		<a href="<%=new_admin_article_path %>" class="to-form new">Добавить...</a>
+	</div>
+</div>
+<div id="article-list" class="list">
+	<div class="no-items">Статей нет</div>
 <% for article in @articles %>
   <% revision = article.current_revision -%>
 	<% revision = Revision.new if revision.nil? %>
-	<tr>
-    <td>
-				<h3><%=h revision.title %></h3>
-    		<p><%=h revision.subtitle %></p>
-				<p>
-					<%= revision.editor.name unless revision.editor.nil? %>
-					<%= article.canonical_link.text unless article.canonical_link.nil? %>
-				</p>
-		</td>
-    <!--td>
-			<strong><%= revision.category.nil? ? '(нет рубрики)' : revision.category.title %></strong>
-		</td-->
-    <td class="action">
-			<%= link_to 'Редактировать', edit_admin_article_path(article), :class => 'action' %>
-		</td>
-		<td class="action">
-			<%= link_to 'Правки', admin_article_revisions_path(article), :class => 'action' %>
-		</td>
-		<td class="action">
-			<%= link_to 'Ссылки', admin_article_links_path(article), :class => 'action' %>
-		</td>
-    <td class="action">
-			<%= link_to 'Удалить', admin_article_path(article), :class => 'action',
-						:confirm => 'Действительно удалить?', :method => :delete %>
-		</td>
-  </tr>
+  <div class="item article hovershow-container">
+		<table>
+			<td class="header">
+				<div class="title">
+					<a href="<%=edit_admin_article_path(article)%>"><%=h revision.title %></a>
+				</div>
+				<div class="subtitle"><%=h revision.subtitle %>&nbsp;</div>
+			</td>
+			<td class="controls">		
+
+				<%= link_to 'Редактировать', edit_admin_article_path(article), :class => 'to-form' %>
+				<%= link_to 'Правки', admin_article_revisions_path(article), :class => 'to-list' %>
+		
+				<%= link_to 'Ссылки', admin_article_links_path(article), :class => 'to-list' %>
+		    
+				<%= link_to 'Удалить', admin_article_path(article), :class => 'to-action',
+							:confirm => 'Действительно удалить?', :method => :delete %>
+			</td>
+		</table>
+	</div>
 <% end %>
-</table>
+</div>
 
-<br />
 
-<%= link_to 'Новая статья', new_admin_article_path, :class => 'new' %>
+

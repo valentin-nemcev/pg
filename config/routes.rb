@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
     
     admin.resources :links, :except => [:show]
     
-    admin.resources :articles, :has_many => [:revisions, :links]
+    admin.resources :articles, :has_many => [:revisions, :links], :collection => { :new => [:get, :post] } 
     admin.resources :revisions, :except => :edit 
     
     admin.resources :categories, :except => [:show]

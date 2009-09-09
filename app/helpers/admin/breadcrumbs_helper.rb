@@ -21,12 +21,12 @@ module Admin::BreadcrumbsHelper
 		  name ||= t "breadcrumbs.#{elm}", :default => elm
             
       if i < (elements.length - 1)
-				breadcrumbs << "<a href='#{sofar}'>#{name}</a>"
+				breadcrumbs << "<td class=\"link\"><a href='#{sofar}'>#{name}</a></td>"
 			else
-				breadcrumbs << '<span class="current">'+name+'</span>'
+				breadcrumbs << '<td class="current">'+name+'</td>'
 			end
     end
-    breadcrumbs * ' -> '
+    breadcrumbs * '<td class="separator"> → </td>'
   # rescue
   #     'Not available'
   end
