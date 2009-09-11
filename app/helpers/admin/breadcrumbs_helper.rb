@@ -23,7 +23,7 @@ module Admin::BreadcrumbsHelper
       if i < (elements.length - 1)
 				breadcrumbs << "<td class=\"link\"><a href='#{sofar}'>#{name}</a></td>"
 			else
-				breadcrumbs << '<td class="current">'+name+'</td>'
+        # breadcrumbs << '<td class="current">'+name+'</td>'
 			end
     end
     breadcrumbs * '<td class="separator"> → </td>'

@@ -14,8 +14,13 @@ class Admin::ImagesController < AdminController
   end
   
   def index
-    @images = Image.find(:all)
-    render :action => "index"
+     @images = Image.find(:all)
+     if (request.xhr?)
+       render :partial => @images
+       
+     else
+       render :action => "index"
+     end
   end
 
   def new

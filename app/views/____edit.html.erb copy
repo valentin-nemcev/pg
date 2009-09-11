@@ -1,0 +1,49 @@
+<%- url = @article.new_record? ? new_polymorphic_path([:admin, @article]) : polymorphic_path([:admin, @article]) %>
+<% form_for [:admin, @article], :url => url, :html => {:class => 'full-page'} do |f| %>
+	<div class="field">
+    <%= f.label :title %>
+		<%= error_message_on @article, :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :subtitle %>
+    <%= f.text_field :subtitle %>
+  </div>
+  <div class="field">
+  	<%= f.label :lead %>
+		<table class="textile-editor">  
+			<td class="editor">
+	    	<%= textile_editor :article, :lead, :rows => 8  -%>
+		  </td>
+			<td class="images list">
+			 		
+			</td>
+		</table>
+  </div>
+	<div class="field">
+		<%= f.label :text %>
+		<table class="textile-editor">  
+			<td class="editor">
+	    	<%= textile_editor :article, :text -%>
+		  </td>
+			<td class="images list">
+			 		<div>
+			</td>
+		</table>
+	</div>
+	<div class="field">
+	    <%= f.submit "Сохранить" %>
+			
+	</div>
+	<% textile_editor_button 'Изображение', 
+	  :onclick => "TextileEditor.insertText(this, '!img/'+prompt('Insert image.  File name:', '')+'!'); return false" 
+	%>
+	<% textile_editor_options(:framework => :jquery)%>
+	<%= textile_editor_initialize -%>
+	<% javascript_tag do -%>
+    <%= remote_function :url => admin_images_path, :method => :get, :update => ".images" %>
+  <% end -%>
+  	
+<% end %>
+
+

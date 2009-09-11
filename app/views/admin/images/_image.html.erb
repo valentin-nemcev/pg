@@ -1,0 +1,5 @@
+<div class="item image">
+	<%= image_tag thumb_admin_image_path(image) %>
+	<div class="title"><%= image.title %></div>
+	<%= link_to_function("Вставить", "TextileEditor.insertText({canvas:$(this).parents('.textile-editor').find('textarea').get(0)}, '!img/'+'#{image.link}'+'!');" ) %>
+</div>

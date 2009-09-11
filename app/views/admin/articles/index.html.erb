@@ -1,10 +1,12 @@
-<div class="panel">
+<div class="page-title">Список статей</div>
+<div id="article-list" class="list">
 	<div class="item">
 		<a href="<%=new_admin_article_path %>" class="to-form new">Добавить...</a>
 	</div>
-</div>
-<div id="article-list" class="list">
-	<div class="no-items">Статей нет</div>
+	<%- if @articles.empty? %>
+		<div class="no-items">Статей нет</div>	
+	<%- end %>
+	
 <% for article in @articles %>
   <% revision = article.current_revision -%>
 	<% revision = Revision.new if revision.nil? %>
