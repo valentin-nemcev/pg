@@ -4,3 +4,4 @@ public/dispatch.fcgi
 pg.tmproj
 public/.htaccess
 storage/*
+tmp/

@@ -49,6 +49,6 @@ div.textile-toolbar button.publish {
 div.textile-toolbar {
 	background-color: #f0f0ee;
 	padding: 3px;
-	border: 1px solid #999;
+	border-bottom: 1px solid #999;
 	margin-bottom: -1px;
 }

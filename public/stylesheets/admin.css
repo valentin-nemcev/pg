@@ -144,6 +144,11 @@ form .field { margin: 8px 0; }
 
   
 }
+.field textarea {
+  border: 1px solid #fff;
+/*  border-style: none/hidden/dotted/dashed/solid/double/groove/ridge/inset/outset;*/
+}
+
 .field input[type="text"]:focus, .field textarea:focus { border: 1px inset #999; background: #f8f8f8;  }
 
 .field input {

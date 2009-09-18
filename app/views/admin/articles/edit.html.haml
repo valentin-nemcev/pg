@@ -21,10 +21,9 @@
       %td.images.list
   .field
     = f.submit "Сохранить"
-      
-  - textile_editor_button 'Изображение',     :onclick => "TextileEditor.insertText(this, '!img/'+prompt('Insert image.  File name:', '')+'!'); return false" 
-  -textile_editor_options(:framework => :jquery)
+  
   = textile_editor_initialize 
+  
   - javascript_tag do 
     = remote_function :url => admin_images_path, :method => :get, :update => ".images" 
     

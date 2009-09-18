@@ -16,7 +16,7 @@ module TextileEditorHelper
   end
   
   def textile_editor_options(options={})
-    (@textile_editor_options ||= { :framework => :prototype }).merge! options
+    (@textile_editor_options ||= { :framework => :jquery }).merge! options
   end
   
   # adds the necessary javascript include tags, stylesheet tags,
