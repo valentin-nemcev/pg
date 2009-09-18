@@ -22,51 +22,14 @@
 
 
 
-* { /* Padding reset */
-	padding:0;
-	margin:0;
-	list-style : none;
-	box-sizing: border-box; 
-  -moz-box-sizing: border-box;
-}
 
-table {
-	border-spacing:0; /*cellspacing=0*/
-	border-collapse:collapse;
-	width: 100%;
-}
-
-td { vertical-align: top;}
-
-
-html { width: 100%; }
-body { margin:auto; max-width:1000px; background-color: #fff; color: #333; padding:3px;}
-
-body {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
-}
 
 #page-header { background: #FFF;}
 
 
 
-.breadcrumbs { padding: 0 3px; width:auto;}
-.breadcrumbs td { padding: 0 2px 2px;}
-.breadcrumbs .link { font-size: 13px; line-height:13px;}
-.breadcrumbs .separator { font-size: 13px; line-height:13px;}
-.breadcrumbs .current {
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 22px;
-  border-radius: 6px 6px 0 0; 
-  -ms-border-radius: 6px 6px 0 0; 
-  -moz-border-radius: 3px 3px 0 0; 
-  -webkit-border-radius: 6px 6px 0 0; 
-  padding: 0 3px 3px;
-  
-}
+
+
 
 .panel { width: 100%; padding:2px;}
 

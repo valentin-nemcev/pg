@@ -19,9 +19,10 @@ module Admin::BreadcrumbsHelper
 		  end
 		  
 		  name ||= t "breadcrumbs.#{elm}", :default => elm
-            
+      
+      css_class = (i==0) ? 'link first' : 'link'      
       if i < (elements.length - 1)
-				breadcrumbs << "<td class=\"link\"><a href='#{sofar}'>#{name}</a></td>"
+				breadcrumbs << "<td class=\"#{css_class}\"><a href='#{sofar}'>#{name}</a></td>"
 			else
         # breadcrumbs << '<td class="current">'+name+'</td>'
 			end

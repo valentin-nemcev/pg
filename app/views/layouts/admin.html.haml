@@ -1,0 +1,33 @@
+!!!
+%html
+  %head
+    %meta{'http-equiv'=>'content-type', :content=>'text/html;charset=UTF-8'}
+    %title
+      Полит-грамота - управление
+    = stylesheet_link_tag 'admin', 'admin-new' 
+    = javascript_include_tag :defaults 
+
+  %body
+    / #overlay-container
+    /       %table
+    /         %td 1
+    /         %td 2
+    /         %td 3
+    /         %td 4
+    /         %td 5
+        
+    #page-header
+      %table#navigation
+        %tr
+          %td
+            %a.title{:href=>"/"} Полит-грамота
+          %td(style="text-align:right")
+            - if logged_in? 
+              Администратор: #{current_user.name}
+              (#{link_to "Выйти", admin_logout_path, { :title => "Выйти", :class => "to_site" } })
+            - else 
+              Сбой в матрице. Вы не должны видеть эту страницу.
+      %table.breadcrumbs
+        = breadcrumbs(request.path)
+    #page-content
+      = yield 
