@@ -7,6 +7,7 @@
 
 table {
   border-collapse: collapse;
+  border-spacing: 0;
   width: 100%; }
 
 td {
@@ -23,32 +24,41 @@ body {
   padding: 3px;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
-  line-height: 18px; }
+  line-height: 180%; }
 
-#page-header {
-  margin-bottom: 4px; }
-  #page-header .title {
-    font-size: 26px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #D10000;
-    display: block;
-    padding: 6px 0; }
-    #page-header .title:hover {
-      color: #000; }
-  #page-header .breadcrumbs {
-    width: auto;
-    margin: 4px 0; }
-    #page-header .breadcrumbs td {
-      padding: 0 2px 2px; }
-    #page-header .breadcrumbs .link {
-      font-size: 13px;
-      line-height: 13px; }
-      #page-header .breadcrumbs .link.first {
-        font-weight: bold; }
-    #page-header .breadcrumbs .separator {
-      font-size: 13px;
-      line-height: 13px; }
+#page-header td.title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #666; }
+  #page-header td.title a {
+    text-decoration: none; }
+  #page-header td.title a:hover {
+    color: #000 !important; }
+  #page-header td.title a.title {
+    color: #D10000; }
+  #page-header td.title a.subtitle {
+    color: #555; }
+#page-header .breadcrumbs {
+  width: auto; }
+  #page-header .breadcrumbs td {
+    padding: 0 2px 2px; }
+  #page-header .breadcrumbs .link {
+    font-size: 13px; }
+    #page-header .breadcrumbs .link.first {
+      font-weight: bold; }
+  #page-header .breadcrumbs .separator {
+    font-size: 13px; }
+
+#main {
+  padding-top: 8px; }
+  #main .item {
+    padding-left: 8px; }
+    #main .item .header {
+      color: #444;
+      font-size: 22.5px;
+      font-weight: bold; }
+    #main .item .contents {
+      padding-left: 6px; }
 
 .textile-editor .images, .textile-editor .editor {
   border: 1px solid #999; }

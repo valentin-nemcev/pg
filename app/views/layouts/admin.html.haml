@@ -19,15 +19,17 @@
     #page-header
       %table#navigation
         %tr
-          %td
-            %a.title{:href=>"/"} Полит-грамота
+          %td.title
+            %a.title{:href=>"/"} Полит-грамота 
+            –
+            %a.subtitle{:href=>"/admin/"}управление
           %td(style="text-align:right")
             - if logged_in? 
               Администратор: #{current_user.name}
               (#{link_to "Выйти", admin_logout_path, { :title => "Выйти", :class => "to_site" } })
             - else 
               Сбой в матрице. Вы не должны видеть эту страницу.
-      %table.breadcrumbs
-        = breadcrumbs(request.path)
+      / %table.breadcrumbs
+      / = #breadcrumbs(request.path)
     #page-content
       = yield 

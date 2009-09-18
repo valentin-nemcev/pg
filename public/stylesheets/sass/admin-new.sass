@@ -7,6 +7,7 @@
 
 table 
   :border-collapse collapse
+  :border-spacing 0
   :width 100%
 
 td 
@@ -26,36 +27,50 @@ body
   :font
     :family verdana, arial, helvetica, sans-serif
     :size 13px
-  :line-height 18px
+  :line-height 180%
 
-
+!step = 0.75
+!size1 = 30px
+!size2 = !size1*!step
 #page-header 
-  :margin-bottom 4px
-  .title
+  td.title
     :font
-      :size 26px
+      :size #{!size1}
       :weight bold
-    :text-decoration none
-    :color #D10000
-    &:hover
-      :color #000
-    :display block
-    :padding 6px 0
+    :color #666
+    a
+      :text-decoration none
+    a:hover
+      :color #000 !important
+    a.title
+      :color #D10000
+    a.subtitle
+      :color #555
     
   .breadcrumbs 
     :width auto
-    :margin 4px 0 
     td 
       :padding 0 2px 2px
     .link 
       :font-size 13px
       &.first 
         :font-weight bold
-      :line-height 13px
     .separator 
       :font-size 13px
-      :line-height 13px
 
+
+#main
+  :padding-top 8px
+  .item
+    :padding-left 8px
+    .header
+      :color #444
+      :font
+        :size #{!size2}
+        :weight bold
+    .contents
+      :padding-left 6px
+      
 
 .textile-editor
   .images, .editor
