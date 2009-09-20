@@ -13,9 +13,17 @@ table
 td 
   :vertical-align top
 
+td.last
+  :width 100%
 
 html 
   :width 100%
+
+!step = 0.75
+!size1 = 30px
+!size2 = !size1*!step
+!size3 = !size2*!step
+!size4 = !size3*!step
    
 body
   :margin auto
@@ -26,14 +34,10 @@ body
   
   :font
     :family verdana, arial, helvetica, sans-serif
-    :size 13px
-  :line-height 180%
+    :size #{!size4}
+  :line-height 1.2
 
-!step = 0.75
-!size1 = 30px
-!size2 = !size1*!step
-!size3 = !size2*!step
-!size4 = !size3*!step
+
 #page-header 
   td.title
     :padding 4px 0
@@ -61,17 +65,30 @@ body
     .separator 
       :font-size 13px
 
-#page-navigation
-  :margin 8px 0 0
-  :font-size #{!size2}
-  :padding 1px
+.page-navigation
+  :background #eee
+  :margin-bottom 4px
+  td
+    :padding 2px 0
   a, span
-    :padding 0 2px
-    :border 1px solid #fff 
+    :padding 1px 4px
+    :font-size #{!size3}
   a:hover
-    :background #eee
-    :border-color #ccc
+    :background #ccc
   span
+    :background #ccc
+    
+a, a:visited 
+  :color inherit
+  &:hover
+    :color #000
+
+
+a.control 
+  :padding 1px
+  :line-height 1.6
+  :border 1px solid #fff
+  &:hover
     :background #eee
     :border-color #ccc
     
@@ -90,13 +107,20 @@ body
       :padding-left 6px
       a
         :font-size #{!size4}
-        :padding 1px
-        :border 1px solid #fff
-        &:hover
-          :background #eee
-          :border-color #ccc
-          
-
+        
+#article-list
+  :padding-left 4px
+  .item
+    :margin-bottom 2px
+    :padding 4px
+    :border 1px solid #fff
+    &:hover
+      :border 1px solid #ccc
+    td.header
+      :width 70%
+    .title
+      :font-weight bold
+  
 .textile-editor
   .images, .editor
     :border  1px solid #999 

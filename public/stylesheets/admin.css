@@ -24,59 +24,6 @@
 
 
 
-#page-header { background: #FFF;}
-
-
-
-
-
-
-.panel { width: 100%; padding:2px;}
-
-.breadcrumbs .current, .panel {  background: #F0F0EE; }
-form.full-page { border-top: 4px solid #F0F0EE; margin-top:0px;  }
-
-
-.navigation .item .header, .navigation .item .header a { font: bold 30px/40px sans-serif; color: #000; }
-.navigation .item .contents { border-left: 2px solid #999; margin-left: 4px; padding: 3px;}
-
-.list .item { margin:4px 0; padding: 2px;}
-
-.list .item .controls { padding: 2px; text-align: right; min-width: 30%;}
-.list .item:hover {background: #eee;}
-.list .no-items { margin: 8px; font: italic normal 15px/18px sans-serif;}
- 
-.hovershow-container .controls a {display: none;} 
-.hovershow-container:hover .controls a {display: inline;} 
-
-.article .title { font: bold 15px/18px sans-serif; color: #000;}
-.article .subtitle { font: normal 13px/14px sans-serif; }
-
-
-
-
-li { padding-left: 15px; margin: 5px 0;}
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-}
-
-
-a, a:visited { color:inherit; }
-a:hover { color: #000;}
-
-a.new { font-weight: bold;  }
-
-
-
-
-a.to_site { color:#001962; }
-a.to_site:hover  { color:#000; }
-
-.canonical { font-style: italic; }
-
 
 .formError {
   color:red;

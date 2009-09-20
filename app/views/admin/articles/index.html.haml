@@ -1,0 +1,24 @@
+#article-list
+  .item
+    %a.control{:href=>"#{new_admin_article_path}"} Добавить
+  - if @articles.empty?
+    .no-items Статей нет
+  
+  - for article in @articles 
+    .item.article
+      %table
+        %td.header
+          .title
+            = link_to article.title, edit_admin_article_path(article)
+          .subtitle 
+            = article.subtitle
+        %td.controls
+          %div
+            = link_to "Правки (#{article.revisions.count})", admin_article_revisions_path(article), :class => 'control' 
+            = link_to "Ссылки (#{article.links.count})", admin_article_links_path(article), :class => 'control'
+          %div
+            = link_to 'Редактировать', edit_admin_article_path(article), :class => 'control' 
+            = link_to 'Удалить', admin_article_path(article), :class => 'control', |
+                          :confirm => 'Действительно удалить?', :method => :delete |
+          
+            
