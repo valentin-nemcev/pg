@@ -31,5 +31,10 @@
               Сбой в матрице. Вы не должны видеть эту страницу.
       / %table.breadcrumbs
       / = #breadcrumbs(request.path)
+    - if true or params[:controller]!='admin/main' 
+      #page-navigation
+        = navigation_link params[:controller]=='admin/main', 'Главная', admin_root_path
+        = navigation_link params[:controller]=='admin/articles', 'Статьи', admin_articles_path
+        = navigation_link params[:controller]=='admin/images', 'Изображения', admin_images_path
     #page-content
       = yield 
