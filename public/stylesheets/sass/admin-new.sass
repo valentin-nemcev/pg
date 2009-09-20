@@ -29,9 +29,11 @@ body
     :size 13px
   :line-height 180%
 
-!step = 0.75
+!step = 0.7
 !size1 = 30px
 !size2 = !size1*!step
+!size3 = !size2*!step
+
 #page-header 
   td.title
     :font
@@ -63,6 +65,7 @@ body
   :padding-top 8px
   .item
     :padding-left 8px
+    :margin-bottom 8px
     .header
       :color #444
       :font
@@ -70,7 +73,14 @@ body
         :weight bold
     .contents
       :padding-left 6px
-      
+      a
+        :font-size #{!size3}
+        :padding 1px
+        :border 1px solid #fff
+        &:hover
+          :background #eee
+          :border-color #ccc
+          
 
 .textile-editor
   .images, .editor

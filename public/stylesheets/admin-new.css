@@ -52,13 +52,21 @@ body {
 #main {
   padding-top: 8px; }
   #main .item {
-    padding-left: 8px; }
+    padding-left: 8px;
+    margin-bottom: 8px; }
     #main .item .header {
       color: #444;
-      font-size: 22.5px;
+      font-size: 21px;
       font-weight: bold; }
     #main .item .contents {
       padding-left: 6px; }
+      #main .item .contents a {
+        font-size: 14.7px;
+        padding: 1px;
+        border: 1px solid #fff; }
+        #main .item .contents a:hover {
+          background: #eee;
+          border-color: #ccc; }
 
 .textile-editor .images, .textile-editor .editor {
   border: 1px solid #999; }
