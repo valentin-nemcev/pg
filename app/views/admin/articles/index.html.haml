@@ -1,11 +1,11 @@
-#article-list
-  .item
+#articles.list
+  .new.item
     %a.control{:href=>"#{new_admin_article_path}"} Добавить
   - if @articles.empty?
-    .no-items Статей нет
+    .empty.item Статей нет
   
   - for article in @articles 
-    .item.article
+    .item
       %table
         %td.header
           .title

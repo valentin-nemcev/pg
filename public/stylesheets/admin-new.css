@@ -30,8 +30,9 @@ body {
   line-height: 1.2; }
 
 #page-header td.title {
-  padding: 4px 0;
-  font-size: 30px;
+  padding: 0 4px;
+  margin: 0.25em 0;
+  font-size: 22.5px;
   font-weight: normal;
   color: #666; }
   #page-header td.title a {
@@ -42,29 +43,19 @@ body {
     color: #D10000; }
   #page-header td.title a.subtitle {
     color: #555; }
-#page-header .breadcrumbs {
-  width: auto; }
-  #page-header .breadcrumbs td {
-    padding: 0 2px 2px; }
-  #page-header .breadcrumbs .link {
-    font-size: 13px; }
-    #page-header .breadcrumbs .link.first {
-      font-weight: bold; }
-  #page-header .breadcrumbs .separator {
-    font-size: 13px; }
 
 .page-navigation {
-  background: #eee;
-  margin-bottom: 4px; }
-  .page-navigation td {
-    padding: 2px 0; }
+  margin: 0.25em 0;
+  color: #666;
+  font-size: 16.875px;
+  line-height: 1.6; }
   .page-navigation a, .page-navigation span {
     padding: 1px 4px;
-    font-size: 16.875px; }
-  .page-navigation a:hover {
-    background: #ccc; }
-  .page-navigation span {
-    background: #ccc; }
+    border: 1px solid #fff; }
+  .page-navigation a:hover, .page-navigation span {
+    background: #eee;
+    border-color: #ccc;
+    color: #000; }
 
 a, a:visited {
   color: inherit; }
@@ -79,31 +70,37 @@ a.control {
     background: #eee;
     border-color: #ccc; }
 
-#main {
-  padding-top: 8px; }
-  #main .item {
-    padding-left: 8px;
-    margin-bottom: 8px; }
-    #main .item .header {
-      color: #444;
-      font-size: 16.875px;
-      font-weight: bold; }
-    #main .item .contents {
-      padding-left: 6px; }
-      #main .item .contents a {
-        font-size: 12.656px; }
+#main .item {
+  padding-left: 8px;
+  margin: 0.25em 0; }
+  #main .item .header {
+    color: #444;
+    font-size: 16.875px;
+    font-weight: bold; }
+  #main .item .contents {
+    padding-left: 6px; }
+    #main .item .contents a {
+      font-size: 12.656px; }
 
-#article-list {
+.list {
   padding-left: 4px; }
-  #article-list .item {
-    margin-bottom: 2px;
-    padding: 4px;
+  .list .item {
+    margin: 0.25em 0;
+    padding: 2px;
     border: 1px solid #fff; }
-    #article-list .item:hover {
+    .list .item:hover {
       border: 1px solid #ccc; }
-    #article-list .item td.header {
+    .list .item.new {
+      font-weight: bold; }
+    .list .item.new:hover {
+      border: 1px solid #fff; }
+    .list .item td.header {
       width: 70%; }
-    #article-list .item .title {
+    .list .item td.controls {
+      width: 30%; }
+    .list .item td.thumb {
+      padding-right: 4px; }
+    .list .item .title {
       font-weight: bold; }
 
 .textile-editor .images, .textile-editor .editor {

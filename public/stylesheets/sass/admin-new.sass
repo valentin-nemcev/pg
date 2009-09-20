@@ -24,6 +24,8 @@ html
 !size2 = !size1*!step
 !size3 = !size2*!step
 !size4 = !size3*!step
+
+!margin2 = 0.25em
    
 body
   :margin auto
@@ -40,9 +42,10 @@ body
 
 #page-header 
   td.title
-    :padding 4px 0
+    :padding 0 4px
+    :margin #{!margin2} 0
     :font
-      :size #{!size1}
+      :size #{!size2}
       :weight normal
     :color #666
     a
@@ -54,29 +57,18 @@ body
     a.subtitle
       :color #555
     
-  .breadcrumbs 
-    :width auto
-    td 
-      :padding 0 2px 2px
-    .link 
-      :font-size 13px
-      &.first 
-        :font-weight bold
-    .separator 
-      :font-size 13px
-
 .page-navigation
-  :background #eee
-  :margin-bottom 4px
-  td
-    :padding 2px 0
+  :margin #{!margin2} 0
+  :color #666
+  :font-size #{!size3}
+  :line-height 1.6
   a, span
     :padding 1px 4px
-    :font-size #{!size3}
-  a:hover
-    :background #ccc
-  span
-    :background #ccc
+    :border 1px solid #fff
+  a:hover, span
+    :background #eee
+    :border-color #ccc
+    :color #000
     
 a, a:visited 
   :color inherit
@@ -94,10 +86,9 @@ a.control
     
 
 #main
-  :padding-top 8px
   .item
     :padding-left 8px
-    :margin-bottom 8px
+    :margin #{!margin2} 0
     .header
       :color #444
       :font
@@ -108,16 +99,24 @@ a.control
       a
         :font-size #{!size4}
         
-#article-list
+.list
   :padding-left 4px
   .item
-    :margin-bottom 2px
-    :padding 4px
+    :margin #{!margin2} 0
+    :padding 2px
     :border 1px solid #fff
     &:hover
       :border 1px solid #ccc
+    &.new
+      :font-weight bold
+    &.new:hover
+      :border 1px solid #fff
     td.header
       :width 70%
+    td.controls
+      :width 30%
+    td.thumb
+      :padding-right 4px
     .title
       :font-weight bold
   
