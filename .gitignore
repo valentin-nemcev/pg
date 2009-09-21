@@ -5,3 +5,4 @@ pg.tmproj
 public/.htaccess
 storage/*
 tmp/
+public/stylesheets/admin-new.css

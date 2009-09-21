@@ -26,7 +26,7 @@ html
 !size4 = !size3*!step
 
 !margin2 = 0.25em
-   
+!margin3 = 0.5em   
 body
   :margin auto
   :max-width  1000px
@@ -65,10 +65,14 @@ body
   a, span
     :padding 1px 4px
     :border 1px solid #fff
-  a:hover, span
-    :background #eee
+  a:hover, a:focus, span
+    :background-color #eee
     :border-color #ccc
     :color #000
+    :outline none
+  a:active 
+    :border-color #000
+    :outline none
     
 a, a:visited 
   :color inherit
@@ -80,9 +84,13 @@ a.control
   :padding 1px
   :line-height 1.6
   :border 1px solid #fff
-  &:hover
-    :background #eee
+  &:hover, &:focus
+    :background-color #eee
     :border-color #ccc
+    :outline none
+  &:active
+    :border-color #000
+    :outline none
     
 
 #main
@@ -119,6 +127,44 @@ a.control
       :padding-right 4px
     .title
       :font-weight bold
+  
+form.full 
+  :margin #{!margin2} 0
+  :padding-left 4px
+  .field 
+    :margin #{!margin3} 0
+    :font-size #{!size4}
+    .formError 
+      :color red
+    label
+      :display block
+      
+    input, textarea 
+      :width 100% 
+      :padding 2px
+      :background-color #fff
+      &:focus
+        :border 1px inset #999
+        :background-color #f8f8f8
+    textarea 
+      :border 1px solid #fff
+      :font-family inherit
+      :font-size #{!size4}
+    input 
+      :border 1px solid #999
+      :font-size #{!size3}
+    input[type="submit"]
+      :padding 2px 12px
+      :width auto
+      :font-size #{!size3}
+      &:hover  
+        :color #fff
+        :background-color #666
+
+      &:active  
+        :color #000
+        :background-color #f8f8f8
+        :border 1px inset #999
   
 .textile-editor
   .images, .editor

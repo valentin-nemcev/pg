@@ -1,5 +1,5 @@
 - url = @article.new_record? ? new_polymorphic_path([:admin, @article]) : polymorphic_path([:admin, @article]) 
-- form_for [:admin, @article], :url => url, :html => {:class => 'full-page'} do |f| 
+- form_for [:admin, @article], :url => url, :html => {:class => 'full'} do |f| 
   .field
     = f.label :title 
     = error_message_on @article, :title 

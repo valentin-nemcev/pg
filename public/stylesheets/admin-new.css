@@ -52,10 +52,14 @@ body {
   .page-navigation a, .page-navigation span {
     padding: 1px 4px;
     border: 1px solid #fff; }
-  .page-navigation a:hover, .page-navigation span {
-    background: #eee;
+  .page-navigation a:hover, .page-navigation a:focus, .page-navigation span {
+    background-color: #eee;
     border-color: #ccc;
-    color: #000; }
+    color: #000;
+    outline: none; }
+  .page-navigation a:active {
+    border-color: #000;
+    outline: none; }
 
 a, a:visited {
   color: inherit; }
@@ -66,9 +70,13 @@ a.control {
   padding: 1px;
   line-height: 1.6;
   border: 1px solid #fff; }
-  a.control:hover {
-    background: #eee;
-    border-color: #ccc; }
+  a.control:hover, a.control:focus {
+    background-color: #eee;
+    border-color: #ccc;
+    outline: none; }
+  a.control:active {
+    border-color: #000;
+    outline: none; }
 
 #main .item {
   padding-left: 8px;
@@ -102,6 +110,42 @@ a.control {
       padding-right: 4px; }
     .list .item .title {
       font-weight: bold; }
+
+form.full {
+  margin: 0.25em 0;
+  padding-left: 4px; }
+  form.full .field {
+    margin: 0.5em 0;
+    font-size: 12.656px; }
+    form.full .field .formError {
+      color: red; }
+    form.full .field label {
+      display: block; }
+    form.full .field input, form.full .field textarea {
+      width: 100%;
+      padding: 2px;
+      background-color: #fff; }
+      form.full .field input:focus, form.full .field textarea:focus {
+        border: 1px inset #999;
+        background-color: #f8f8f8; }
+    form.full .field textarea {
+      border: 1px solid #fff;
+      font-family: inherit;
+      font-size: 12.656px; }
+    form.full .field input {
+      border: 1px solid #999;
+      font-size: 16.875px; }
+    form.full .field input[type="submit"] {
+      padding: 2px 12px;
+      width: auto;
+      font-size: 16.875px; }
+      form.full .field input[type="submit"]:hover {
+        color: #fff;
+        background-color: #666; }
+      form.full .field input[type="submit"]:active {
+        color: #000;
+        background-color: #f8f8f8;
+        border: 1px inset #999; }
 
 .textile-editor .images, .textile-editor .editor {
   border: 1px solid #999; }
