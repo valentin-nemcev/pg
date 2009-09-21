@@ -149,3 +149,21 @@ form.full {
 
 .textile-editor .images, .textile-editor .editor {
   border: 1px solid #999; }
+.textile-editor .textile-toolbar {
+  background-color: #f0f0ee;
+  padding: 3px; }
+  .textile-editor .textile-toolbar button {
+    margin: 0;
+    background-color: #f0f0ee;
+    border: 1px solid #f0f0ee;
+    padding: 2px 0; }
+    .textile-editor .textile-toolbar button:hover, .textile-editor .textile-toolbar button.unselected:hover {
+      border: 1px solid #999; }
+    .textile-editor .textile-toolbar button.selected {
+      border: 1px solid #ce9100;
+      background-color: #ffffff; }
+    .textile-editor .textile-toolbar button.unselected {
+      border: 1px solid #f0f0ee;
+      background-color: #f0f0ee; }
+    .textile-editor .textile-toolbar button img {
+      vertical-align: text-bottom; }
