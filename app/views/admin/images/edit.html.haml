@@ -1,0 +1,12 @@
+- url = @image.new_record? ? new_polymorphic_path([:admin, @image]) : polymorphic_path([:admin, @image]) 
+- form_for [:admin, @image], :url => url, :html => {:class => 'full', :multipart => true} do |f|
+  .field
+    = f.label :title
+    = error_message_on @image, :title 
+    = f.text_field :title 
+  .field
+    = f.label :image_file
+    = error_message_on @image, :image_file   
+    = file_field :image, :image_file 
+  .field
+    = f.submit "Сохранить"

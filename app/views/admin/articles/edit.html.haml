@@ -9,23 +9,44 @@
     = f.text_field :subtitle 
   .field 
     = f.label :lead 
-    %table.textile-editor  
-      %td.editor
-        = textile_editor :article, :lead, :rows => 8  
-      %td.images.list     
+    .textile-editor  
+      = textile_editor :article, :lead, :rows => 8  
+  .field
+    = f.label "Изображения"
+    .images
+      .images-toolbar
+        .button{:onclick=>"refresh_images(); return false;"}
+          Обновить
+        .button{:onclick=>"refresh_images(); return false;"}
+          Добавить
+        .button{:onclick=>"load_add_image_form(); $.blockUI({ message: $('#add-image.dialog') }); return false;"}
+          Загрузить
+      .images-list
   .field
     = f.label :text
-    %table.textile-editor  
-      %td.editor
-        = textile_editor :article, :text 
-      %td.images.list
+    .textile-editor
+      = textile_editor :article, :text 
   .field
     = f.submit "Сохранить"
   
   = textile_editor_initialize 
   
-  - javascript_tag do 
-    = remote_function :url => admin_images_path, :method => :get, :update => ".images" 
-    
-
-
+  
+#add-image.dialog
+  .header
+    Добавить изображение 
+    %a.control{:href=>"#", :onclick=>"$.unblockUI();return false;"}
+      Закрыть
+  .contents
+    222
+  
+  :javascript
+    function refresh_images() {
+      #{remote_function :url => admin_images_path, :method => :get, :update => ".images-list"}
+      return false; 
+    }
+    function load_add_image_form() {
+      #{remote_function :url => new_admin_image_path, :method => :get, :update => "#add-image.dialog .contents"}
+      return false;
+    }
+    refresh_images();

@@ -81,17 +81,17 @@ a, a:visited
 
 
 a.control 
-  :padding 1px
+  :padding 2px
   :line-height 1.6
-  :border 1px solid #fff
-  &:hover, &:focus
+  :border none
+  &:hover, &:focus, &:active
+    :outline none
+    :padding 1px
+  &:hover, &:focus 
     :background-color #eee
-    :border-color #ccc
-    :outline none
+    :border 1px solid #ccc
   &:active
-    :border-color #000
-    :outline none
-    
+    :border 1px solid #000
 
 #main
   .item
@@ -120,11 +120,11 @@ a.control
     &.new:hover
       :border 1px solid #fff
     td.header
-      :width 70%
     td.controls
       :width 30%
     td.thumb
       :padding-right 4px
+      :width 70px
     .title
       :font-weight bold
   
@@ -167,27 +167,35 @@ form.full
         :border 1px inset #999
   
 .textile-editor
-  .images, .editor
-    :border  1px solid #999 
-    
-  .textile-toolbar 
+  :border  1px solid #999 
+  
+.textile-toolbar, .images-toolbar 
+  :background-color #f0f0ee
+  :padding 3px
+  :height 30px
+  button,.button 
+    :display inline
+    :cursor default    
+    :margin 0
     :background-color #f0f0ee
-    :padding 3px
-    button 
-      :margin 0
-      :background-color #f0f0ee
+    :border 1px solid #f0f0ee
+    :padding 2px 0
+    &:hover, &.unselected:hover
+      :border 1px solid #999
+    &.selected
+      :border 1px solid #ce9100
+      :background-color #ffffff
+    &.unselected 
       :border 1px solid #f0f0ee
-      :padding 2px 0
-      &:hover, &.unselected:hover
-        :border 1px solid #999
-      &.selected
-        :border 1px solid #ce9100
-        :background-color #ffffff
-      &.unselected 
-        :border 1px solid #f0f0ee
-        :background-color #f0f0ee
-      img
-        :vertical-align text-bottom
+      :background-color #f0f0ee
+    img
+      :vertical-align text-bottom
+.images
+  :border  1px solid #999   
+  .images-list
+    .item
+      :padding 2px
+      :display inline-block
 
 
       

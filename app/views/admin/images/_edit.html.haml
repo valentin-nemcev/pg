@@ -1,0 +1,31 @@
+- url = @image.new_record? ? new_polymorphic_path([:admin, @image]) : polymorphic_path([:admin, @image]) 
+- form_for [:admin, @image], :url => url, :html => {:id=>"upload_form", :multipart => true} do |f|
+  %input{:type=>"hidden", :name=>"xhr", :value=>"yes"}
+  .field
+    = f.label :title
+    = error_message_on @image, :title 
+    = f.text_field :title 
+  .field
+    = f.label :image_file
+    = error_message_on @image, :image_file   
+    = file_field :image, :image_file 
+  .field
+    = f.submit "Сохранить"
+
+  :javascript
+    //window.parent
+    if(jQuery === undefined) { var jQuery = window.parent.jQuery}
+    jQuery("#upload_form").ajaxForm({
+      dataType  : 'html',
+      iframe 	  : true,
+      success	  : function (data) {
+        jQuery("#add-image.dialog .contents").html(data);
+      }
+    });
+    
+    jQuery("#upload_form").unbind('submit');
+    //jQuery("#upload_form").submit(function() {
+      //jQuery(this).ajaxSubmit();
+      //return false;
+    //});
+    

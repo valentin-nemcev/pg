@@ -17,15 +17,19 @@ class Admin::ImagesController < AdminController
      @images = Image.find(:all)
      if (request.xhr?)
        render :partial => @images
-       
      else
        render :action => "index"
      end
   end
 
   def new
+    return create if request.post?
     @image = Image.new
-    render :action => "edit" 
+    if (request.xhr?)
+       render :partial => "edit"
+     else
+       render :action => "edit" 
+     end
   end
 
   def edit
@@ -35,12 +39,20 @@ class Admin::ImagesController < AdminController
 
   def create
     @image = Image.new(params[:image])
-
+    
+        
+    
+    logger.info 'params ' + params.inspect
+    
     if @image.save
       flash[:notice] = 'Изображение сохранено'
       redirect_to admin_images_url
     else
-      render :action => "edit" 
+      if (params[:xhr])
+         render :partial => "edit"
+       else
+         render :action => "edit" 
+       end
     end
   end
 
@@ -51,7 +63,11 @@ class Admin::ImagesController < AdminController
       flash[:notice] = 'Изображение сохранено'
       redirect_to admin_images_url
     else
-      render :action => "edit" 
+      if (params[:xhr])
+         render :partial => "edit"
+       else
+         render :action => "edit" 
+       end
     end
   end
 

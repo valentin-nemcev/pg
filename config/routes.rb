@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :revisions, :except => :edit 
     
     admin.resources :categories, :except => [:show]
-    admin.resources :images, :member => { :thumb => :get }
+    admin.resources :images, :member => { :thumb => :get }, :collection => { :new => [:get, :post] } 
     
     admin.logout '/logout', :controller => 'sessions', :action => 'destroy'
     admin.login '/login', :controller => 'sessions', :action => 'new'

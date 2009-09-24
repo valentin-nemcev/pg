@@ -39,14 +39,18 @@ class Image < ActiveRecord::Base
     end
   
     def save_image_file
-      if @image_file.nil?
-        errors.add(:image_file, "^Отсутствует файл с изображением")
-        return false
+      if @image_file.nil? or not @image_file.kind_of?(Tempfile)
+        if self.new_record?
+          errors.add(:image_file, "Отсутствует файл с изображением")
+          return false
+        else
+          return true
+        end
       end
       begin
         img = Magick::Image.read(@image_file.path).first
       rescue Magick::ImageMagickError, Magick::FatalImageMagickError
-        errors.add(:image_file, "^Неверный формат изображения (#{@image_file.original_filename})")
+        errors.add(:image_file, "Неверный формат изображения (#{@image_file.original_filename})")
         return false;
       end
       # filename = "#{Time.now.to_i}#{rand(1000)}.jpg"
