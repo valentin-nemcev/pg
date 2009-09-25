@@ -1,5 +1,4 @@
 class Revision < ActiveRecord::Base
-  belongs_to :category
   belongs_to :article
   belongs_to :editor, :class_name => 'User', :foreign_key => 'editor_id'
   

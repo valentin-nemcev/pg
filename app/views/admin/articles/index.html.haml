@@ -12,6 +12,8 @@
             = link_to article.title, edit_admin_article_path(article)
           .subtitle 
             = article.subtitle
+          .category 
+            = article.category.title unless article.category.nil?
         %td.controls
           %div
             = link_to "Правки (#{article.revisions.count})", admin_article_revisions_path(article), :class => 'control' 

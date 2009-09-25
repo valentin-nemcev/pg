@@ -1,0 +1,11 @@
+class AddCategoryToArticle < ActiveRecord::Migration
+  def self.up
+    add_column :articles, :category_id, :integer
+    remove_column :revisions, :category_id
+  end
+
+  def self.down
+    remove_column :articles, :category_id
+    add_column :revisions, :category_id, :integer
+  end
+end

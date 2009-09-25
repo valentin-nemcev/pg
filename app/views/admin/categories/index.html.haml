@@ -1,0 +1,17 @@
+#categories.list
+  .new.item
+    %a.control{:href=>"#{new_admin_category_path}"} Добавить
+    
+  - for category in @categories
+    .item
+      %table
+        %td.header
+          .title
+            = link_to category.title, edit_admin_category_path(category)
+        %td.controls
+          / %div
+          /   = link_to "Ссылки (#{category.links.count})", admin_category_links_path(category), :class => 'control'
+          %div
+            = link_to 'Редактировать', edit_admin_category_path(category), :class => 'control' 
+            = link_to 'Удалить', admin_category_path(category), :class => 'control', |
+                          :confirm => 'Действительно удалить?', :method => :delete |
