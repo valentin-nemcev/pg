@@ -13,9 +13,14 @@
           .title
             = link_to image.title, edit_admin_image_path(image)
           .subtitle
-            = image.link
-            |
-            = image.filename
+            %div
+              = image.link
+              |
+              = image.filename
+            %div
+              - for article in image.articles
+                = article.title
+                ;
         %td.controls
           = link_to 'Редактировать', edit_admin_image_path(image), :class => 'control'
           = link_to 'Удалить', admin_image_path(image), :class => 'control', :confirm => 'Действительно удалить?', :method => :delete

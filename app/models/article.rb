@@ -3,6 +3,7 @@ class Article < ActiveRecord::Base
   belongs_to :current_revision, :foreign_key => 'current_revision_id', :class_name => 'Revision'
   has_many :links, :as => :linked
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
+  has_and_belongs_to_many :images
   # accepts_nested_attributes_for :links
   
   validate :validate_revision

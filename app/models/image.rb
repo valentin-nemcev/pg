@@ -4,6 +4,8 @@ class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
   IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'public/img')
   
+  has_and_belongs_to_many :articles
+  
   validates_presence_of :title 
   validates_length_of :title, :in => 3..250
   

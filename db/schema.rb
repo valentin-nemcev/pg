@@ -9,11 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090906075947) do
+ActiveRecord::Schema.define(:version => 20090924214326) do
 
   create_table "articles", :force => true do |t|
     t.integer "current_revision_id"
     t.integer "canonical_link_id"
+  end
+
+  create_table "articles_images", :id => false, :force => true do |t|
+    t.integer "image_id"
+    t.integer "article_id"
   end
 
   create_table "categories", :force => true do |t|

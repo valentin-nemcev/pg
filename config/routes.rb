@@ -5,11 +5,12 @@ ActionController::Routing::Routes.draw do |map|
     
     admin.resources :links, :except => [:show]
     
-    admin.resources :articles, :has_many => [:revisions, :links], :collection => { :new => [:get, :post] } 
+    admin.resources :articles, :has_many => [:revisions, :links, :images], :collection => { :new => [:get, :post] } 
     admin.resources :revisions, :except => :edit 
     
     admin.resources :categories, :except => [:show]
-    admin.resources :images, :member => { :thumb => :get }, :collection => { :new => [:get, :post] } 
+    admin.resources :images, :has_many => [:articles], 
+                    :member => { :thumb => :get }, :collection => { :new => [:get, :post] } 
     
     admin.logout '/logout', :controller => 'sessions', :action => 'destroy'
     admin.login '/login', :controller => 'sessions', :action => 'new'

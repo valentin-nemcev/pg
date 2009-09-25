@@ -14,7 +14,8 @@ class Admin::ImagesController < AdminController
   end
   
   def index
-     @images = Image.find(:all)
+     @images = params[:article_id] ? Article.find(params[:article_id]).images : @images = Image.find(:all)
+      
      if (request.xhr?)
        render :partial => @images
      else
