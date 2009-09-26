@@ -15,7 +15,7 @@ class Revision < ActiveRecord::Base
     
     
     def delete_article_without_revisions
-      if self.article.revisions.size == 0
+      if self.article and self.article.revisions.size == 0
         self.article.destroy
       end
     end

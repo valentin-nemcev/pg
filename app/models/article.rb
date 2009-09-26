@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   has_many :revisions, :dependent => :delete_all
   belongs_to :current_revision, :foreign_key => 'current_revision_id', :class_name => 'Revision'
   belongs_to :category
-  has_many :links, :as => :linked
+  has_many :links, :as => :linked, :dependent => :delete_all 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
   has_and_belongs_to_many :images 
   
@@ -23,6 +23,7 @@ class Article < ActiveRecord::Base
   protected
   
   def after_find
+    return true if self.current_revision.nil? 
     RevisionColumns.each do |attr_name| 
       self.send "#{attr_name}=", self.current_revision[attr_name]
     end

@@ -73,7 +73,39 @@ h3 {
   line-height: 20px;
   font-size: 16px;
   margin-bottom: 16px; }
-.full_article p.signature {
+
+p.signature {
   text-align: right;
   font-weight: bold;
-  color: #222; }
+  color: #222;
+  clear: both; }
+
+p.verses {
+  padding-left: 15px;
+  text-align: left; }
+
+p.image_list {
+  clear: both;
+  padding-top: 12px; }
+
+p.quote {
+  text-align: right;
+  font-style: italic; }
+
+p.list {
+  margin-left: 25px;
+  text-indent: 0;
+  clear: both; }
+
+p img {
+  display: block;
+  text-align: center;
+  margin: 0 auto; }
+
+p.caption {
+  font-style: italic;
+  margin: 0;
+  text-align: center; }
+
+p.question {
+  font-weight: bold; }

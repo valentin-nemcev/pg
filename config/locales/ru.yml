@@ -19,6 +19,9 @@ ru:
                 title: Заголовок
                 link: Ссылка
                 image_file: Файл
+        errors:
+            messages:
+                record_invalid: record_invalid
     breadcrumbs: 
         articles: Статьи
         admin: Управление
@@ -27,3 +30,4 @@ ru:
         links: Ссылки
         images: Изображения
         new: Добавить
+        
