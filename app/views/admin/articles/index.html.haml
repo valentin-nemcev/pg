@@ -14,6 +14,8 @@
             = article.subtitle
           .category 
             = article.category.title unless article.category.nil?
+          .date
+            = article.publication_date
         %td.controls
           %div
             = link_to "Правки (#{article.revisions.count})", admin_article_revisions_path(article), :class => 'control' 

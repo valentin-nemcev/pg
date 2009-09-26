@@ -37,20 +37,22 @@ def html2textile(text)
   text.gsub!(/<\/ul>/,"")
   text.gsub!(/<li>/,"p(list). ")
   text.gsub!(/<\/li>/,"\n\n")
-  text.gsub!(/<strong>/,"*")
-  text.gsub!(/<\/strong>/,"*")
-  text.gsub!(/<em>/,"_")
-  text.gsub!(/<\/em>/,"_")
+  text.gsub!(/<strong>\s*/,"*")
+  text.gsub!(/\s*<\/strong>/,"*")
+  text.gsub!(/<em>\s*/,"_")
+  text.gsub!(/\s*<\/em>/,"_")
   
+  images = []
   text.gsub!(/<img src="http:\/\/polit-gramota.ru\/images\/([^"]*)"(?: style="float: (\w+);[^"]*")?[^>]*>/) do
     img = $~[1]
+    images << img
     style = $~[2].nil? ? "" : "(#{$~[2]})"
     "!#{style}/img/#{img}!"
   end
-
+  
   text.gsub!(/<a href="(.+?)">(.+?)<\/a>/) do
     link = $~[1]; text = $~[2] 
-    link.gsub!('http://polit-gramota.ru','')
+    link.gsub!('http://polit-gramota.ru','') 
     text = "\"#{text}\"" if not text.match(/^!(.+?)!$/) # Это не изображение, текст ссылки в кавычки
     "#{text}:#{link}"
   end
@@ -63,25 +65,28 @@ def html2textile(text)
   text = coder.decode(text) # Заменили html entities
   text.gsub!(/^ +/, '') # Выкинули пробел в начале строки
   text.gsub!(/^ +/, '') # Выкинули nbsp пробел в начале строки
-  # puts "\n\n\n----------------"
-  # print text
-  return text
+  text.gsub!(/\n{3,}/, "\n\n");
+  return [text, images]
 end
 cb = User.find_by_name('ConvertBot')    
 deleted_revs = Revision.destroy_all(:editor_id => cb)
 puts "Deleted #{deleted_revs.length} earlier converted revisions"
 DBConn.connection.select_all('SELECT * FROM articles  ').each do |a|
+  lead, lead_images = html2textile(a['lead'])
+  text, text_images = html2textile(a['text'])
+  # pp Time.at(a['date'].to_i)
+  
+  # pp lead_images.to_a | text_images.to_a
   art = Article.new(
     :title => a['title'],
     :subtitle => a['subtitle'],
-    :publication_date => a['date'],
-    :text => html2textile(a['text']),
-    :lead => html2textile(a['lead']),
+    :publication_date => Time.at(a['date'].to_i),
+    :text => text,
+    :lead => lead,
     :editor => cb
   )
-   art.save
-   art.links.create(:text => a['link'], :editor => cb) 
-  # art.canonical_link = art.links.create(:text => a['link'], :linked => art, :editor => cb)
-  
-  p art
+  art.save
+    art.links.create(:text => a['link'], :editor => cb) 
+    #   
+  #   p art
 end

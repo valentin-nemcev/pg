@@ -9,12 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090925162914) do
+ActiveRecord::Schema.define(:version => 20090926203807) do
 
   create_table "articles", :force => true do |t|
-    t.integer "current_revision_id"
-    t.integer "canonical_link_id"
-    t.integer "category_id"
+    t.integer  "current_revision_id"
+    t.integer  "canonical_link_id"
+    t.integer  "category_id"
+    t.datetime "publication_date"
   end
 
   create_table "articles_images", :id => false, :force => true do |t|
@@ -52,8 +53,6 @@ ActiveRecord::Schema.define(:version => 20090925162914) do
     t.integer  "editor_id"
     t.string   "title"
     t.string   "subtitle"
-    t.datetime "publication_date"
-    t.boolean  "publicated",       :default => false
     t.text     "text"
     t.text     "lead"
     t.datetime "created_at"
