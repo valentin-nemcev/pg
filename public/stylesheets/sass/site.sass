@@ -1,0 +1,92 @@
+* 
+  :padding 0
+  :margin 0
+
+table 
+  :border-collapse collapse
+
+img 
+  :border none
+
+td 
+  :vertical-align top
+
+html 
+  :width 100%
+  
+body 
+  :font-family Arial, "MS Trebuchet", sans-serif
+  :line-height 1.4
+  :min-width 760px
+  :max-width 1200px
+  :margin 0 auto
+
+!pg_red = #bf2215
+!normal = 14px
+!big = 16px
+#container
+  :padding 0 8px
+
+#header 
+  :margin-top 4px
+  
+#top-navigation
+  :width 100%
+  td
+    :text-align center
+    a
+      :text-decoration none
+      :color #{!pg_red}
+      :font-size #{!normal}
+
+
+
+table#content 
+  :width 100%
+
+
+
+td#content
+  :width 100%
+
+h2
+  a  
+    :color #{!pg_red}
+    :font-size #{!big}
+    :text-decoration none
+    :font-weight bold
+
+h3  
+  :color #222 
+  :font-size #{!big}
+
+
+.article_with_lead 
+  :margin 20px 0
+  h2 
+    a:hover 
+      :text-decoration underline
+  .subtitle
+    :color #222
+    :font-size #{!big}
+  p 
+    :font-size #{!normal}
+  p + p 
+    :text-indent 35px
+
+  
+.full_article 
+  h2 .subtitle
+    :color #222
+    :line-height 20px
+    :font-size 17px
+    :font-weight bold
+  p 
+    :line-height 20px
+    :font-size 16px
+    :margin-bottom 16px
+  p.signature
+    :text-align right
+    :font-weight bold
+    :color #222
+

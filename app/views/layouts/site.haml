@@ -1,0 +1,19 @@
+!!! Transitional
+%html
+  %head
+    %meta(http-equiv="Content-type" content="text/html; charset=utf-8")
+    %title Полит-грамота
+    = stylesheet_link_tag 'site'
+  %body
+    #container
+      #header
+        %a(href="/")
+          %img(src="/images/logo_v3_small.jpg")
+      %table#top-navigation
+        - for category in Category.all
+          %td
+            %a{:href=>"#{category_url(category.link)}"}
+              = category.title
+      %table#content
+        %td#content
+          = yield 

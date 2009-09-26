@@ -17,6 +17,9 @@ class Article < ActiveRecord::Base
   
   attr_accessor :editor, *RevisionColumns
   
+  def link
+    return self.canonical_link.text until self.canonical_link.nil?
+  end
   protected
   
   def after_find

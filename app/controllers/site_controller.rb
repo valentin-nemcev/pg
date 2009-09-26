@@ -9,7 +9,7 @@ class SiteController < ApplicationController
   end
   
   def category
-    @articles = Article.find(:all, :include => { :current_revision => :category }, :conditions => [ 'categories.link = ?', params[:category_link] ] )
+    @articles = Article.find(:all, :include => :category, :conditions => [ 'categories.link = ?', params[:category_link] ] )
   end
   
   def article
