@@ -19,8 +19,6 @@ def html2textile(text)
   coder = HTMLEntities.new
   text.gsub!('&shy;', '') # Выкинули мягкие переносы
   text.gsub!('­', '') # Выкинули мягкие переносы
-  
-  # print text
   text.gsub!(/\s+/, ' ')
   text.gsub!(/<br[^>]*>/, "\n") # ...и переносы строк
   
@@ -41,21 +39,26 @@ def html2textile(text)
   text.gsub!(/\s*<\/strong>/,"*")
   text.gsub!(/<em>\s*/,"_")
   text.gsub!(/\s*<\/em>/,"_")
+  text.gsub!(/\*\*/,"")
+  text.gsub!(/\_\_/,"")
   
   images = []
   text.gsub!(/<img src="http:\/\/polit-gramota.ru\/images\/([^"]*)"(?: style="float: (\w+);[^"]*")?[^>]*>/) do
     img = $~[1]
     images << img
     style = $~[2].nil? ? "" : "(#{$~[2]})"
-    "!#{style}/img/#{img}!"
+    "!#{style}/img/#{Link.make_link_text(img.gsub('.jpg',''))}.jpg!"
   end
   
+  
   text.gsub!(/<a href="(.+?)">(.+?)<\/a>/) do
-    link = $~[1]; text = $~[2] 
+    link = $~[1]; link_text = $~[2] 
     link.gsub!('http://polit-gramota.ru','') 
-    text = "\"#{text}\"" if not text.match(/^!(.+?)!$/) # Это не изображение, текст ссылки в кавычки
-    "#{text}:#{link}"
+    link_text = "\"#{link_text}\"" if not link_text.match(/^!(.+?)!$/) # Это не изображение, текст ссылки в кавычки
+    "#{link_text}:#{link}"
   end
+  
+  
   # match = text.scan(/<[^>]*>/)
   # if not match.empty?
     # puts "#{article['title']} #{article['date']}"
@@ -66,17 +69,23 @@ def html2textile(text)
   text.gsub!(/^ +/, '') # Выкинули пробел в начале строки
   text.gsub!(/^ +/, '') # Выкинули nbsp пробел в начале строки
   text.gsub!(/\n{3,}/, "\n\n");
+  
   return [text, images]
 end
+
+DBConn.connection.select_all('SELECT * FROM categories').each do |c|
+  cat = Category.new(:title=>c['title'], :link=>c['link'])
+  p cat if cat.save
+end
+
+Image.destroy_all
 cb = User.find_by_name('ConvertBot')    
 deleted_revs = Revision.destroy_all(:editor_id => cb)
-puts "Deleted #{deleted_revs.length} earlier converted revisions"
-DBConn.connection.select_all('SELECT * FROM articles  ').each do |a|
+puts "Deleted #{deleted_revs.size} earlier converted revisions"
+DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id').each do |a|
   lead, lead_images = html2textile(a['lead'])
   text, text_images = html2textile(a['text'])
-  # pp Time.at(a['date'].to_i)
   
-  # pp lead_images.to_a | text_images.to_a
   art = Article.new(
     :title => a['title'],
     :subtitle => a['subtitle'],
@@ -85,8 +94,28 @@ DBConn.connection.select_all('SELECT * FROM articles  ').each do |a|
     :lead => lead,
     :editor => cb
   )
-  art.save
-    art.links.create(:text => a['link'], :editor => cb) 
+  art.category = Category.find_by_link(a['category_link'])
+   
+  if not art.save
+    p art
+    art.errors.each{|attr,msg| puts "#{attr} - #{msg}" }  
+  end
+  
+  art.links.create(:text => a['link'], :editor => cb) 
+  
+  (lead_images.to_a | text_images.to_a).each do |i|
+    
+    img = Image.find_or_create_by_title(:title => i.gsub('.jpg',''), :image_path => "#{RAILS_ROOT}/images/#{i}" )
+    
+    if img.save
+      art.images << img
+    else
+      p img
+      img.errors.each{|attr,msg| puts "#{attr} - #{msg}" }
+       
+    end
+    # pp img
+  end
     #   
-  #   p art
+  # p art
 end

@@ -1,8 +1,8 @@
 class Article < ActiveRecord::Base
-  has_many :revisions, :dependent => :delete_all
+  has_many :revisions, :dependent => :destroy
   belongs_to :current_revision, :foreign_key => 'current_revision_id', :class_name => 'Revision'
   belongs_to :category
-  has_many :links, :as => :linked, :dependent => :delete_all 
+  has_many :links, :as => :linked, :dependent => :destroy 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
   has_and_belongs_to_many :images 
   

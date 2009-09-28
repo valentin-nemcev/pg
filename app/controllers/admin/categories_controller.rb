@@ -39,7 +39,11 @@ class Admin::CategoriesController < AdminController
 
   def destroy
     @category = Category.find(params[:id])
-    @category.destroy
+    if params[:with_articles]
+      @category.destroy_with_articles
+    else
+      @category.destroy
+    end
     flash[:notice] = 'Рубрика удалена'
     redirect_to admin_categories_url
   end

@@ -9,4 +9,9 @@ class Category < ActiveRecord::Base
   validates_length_of :link, :in => 2..100
   validates_format_of :link, :with => /^[a-zA-Z0-9\-_]+$/
   validates_uniqueness_of :link, :title
+  
+  def destroy_with_articles
+    self.articles.each(&:destroy)
+    self.destroy
+  end
 end

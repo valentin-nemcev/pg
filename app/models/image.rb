@@ -7,9 +7,10 @@ class Image < ActiveRecord::Base
   has_and_belongs_to_many :articles
   
   validates_presence_of :title 
-  validates_length_of :title, :in => 3..250
+  # validates_length_of :title, :in => 1..250
+  validates_uniqueness_of :title
   
-  attr_accessor :image_file
+  attr_accessor :image_file, :image_path
   attr_protected :filename, :link
   
   before_save :save_image_file, :make_link
@@ -41,18 +42,26 @@ class Image < ActiveRecord::Base
     end
   
     def save_image_file
-      if @image_file.nil? or not @image_file.kind_of?(Tempfile)
-        if self.new_record?
-          errors.add(:image_file, "Отсутствует файл с изображением")
-          return false
-        else
-          return true
+      if not @image_path.nil?
+        image_path = @image_path
+      else
+        if @image_file.nil? or not @image_file.kind_of?(Tempfile)
+          if self.new_record?
+            errors.add(:image_file, "Отсутствует файл с изображением")
+            return false
+          else
+            return true
+          end
         end
+        image_path = @image_file.path
       end
+      
+      
       begin
-        img = Magick::Image.read(@image_file.path).first
+        img = Magick::Image.read(image_path).first
       rescue Magick::ImageMagickError, Magick::FatalImageMagickError
-        errors.add(:image_file, "Неверный формат изображения (#{@image_file.original_filename})")
+        original_name = @image_file.nil? ? image_path : @image_file.original_filename
+        errors.add(:image_file, "Неверный формат изображения (#{original_name})")
         return false;
       end
       # filename = "#{Time.now.to_i}#{rand(1000)}.jpg"
