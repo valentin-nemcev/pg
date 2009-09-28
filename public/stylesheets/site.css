@@ -45,8 +45,11 @@ a {
 table#content {
   width: 100%; }
 
-td#content {
-  width: 100%; }
+#content {
+  width: 60%; }
+
+#sidebar {
+  width: 40%; }
 
 h2 a {
   color: #bf2215;

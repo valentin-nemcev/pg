@@ -10,6 +10,12 @@ class Category < ActiveRecord::Base
   validates_format_of :link, :with => /^[a-zA-Z0-9\-_]+$/
   validates_uniqueness_of :link, :title
   
+  
+  def most_recent_article
+    Article.first(:conditions=>{:category_id=>self}, :order => 'publication_date DESC')
+  end
+  
+  
   def destroy_with_articles
     self.articles.each(&:destroy)
     self.destroy
