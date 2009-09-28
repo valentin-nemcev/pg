@@ -9,8 +9,8 @@ class SiteController < ApplicationController
   end
   
   def category
-    @articles = Article.find(
-      :all,
+    @articles = Article.paginate(
+      :page => params[:page],
       :include => :category,
       :conditions => [ 'categories.link = ?', params[:category_link] ],
       :order => 'publication_date DESC'

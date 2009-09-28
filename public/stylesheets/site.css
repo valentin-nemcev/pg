@@ -36,6 +36,12 @@ body {
       color: #bf2215;
       font-size: 14px; }
 
+a {
+  color: #bf2215; }
+
+.pagination {
+  text-align: center; }
+
 table#content {
   width: 100%; }
 
@@ -109,3 +115,11 @@ p.caption {
 
 p.question {
   font-weight: bold; }
+
+img.left {
+  float: left;
+  padding-right: 4px; }
+
+img.right {
+  float: right;
+  padding-left: 4px; }
