@@ -4,4 +4,4 @@
   .subtitle
     = article.subtitle unless article.subtitle.nil?
   = RedCloth.new(article.lead).to_html 
-  = RedCloth.new(article.text).to_html 
+  / = RedCloth.new(article.text).to_html 

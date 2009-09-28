@@ -6,6 +6,8 @@ class Article < ActiveRecord::Base
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
   has_and_belongs_to_many :images 
   
+  @@per_page = 10
+  
 =begin
     TODO Связывать изображения с ревизиями, а не со статьями
 =end

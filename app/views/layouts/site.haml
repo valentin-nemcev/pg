@@ -10,7 +10,7 @@
         %a(href="/")
           %img(src="/images/logo_v3_small.jpg")
       %table#top-navigation
-        - for category in Category.all
+        - for category in Category.find(:all, :conditions=>{:cat_type=>'normal'})
           %td
             %a{:href=>"#{category_url(category.link)}"}
               = category.title

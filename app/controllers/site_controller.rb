@@ -5,11 +5,16 @@ class SiteController < ApplicationController
   
   
   def main
-    @articles = Article.find(:all)
+     @articles = Article.paginate(:page => params[:page], :order => 'publication_date DESC', :limit=>10 )
   end
   
   def category
-    @articles = Article.find(:all, :include => :category, :conditions => [ 'categories.link = ?', params[:category_link] ] )
+    @articles = Article.find(
+      :all,
+      :include => :category,
+      :conditions => [ 'categories.link = ?', params[:category_link] ],
+      :order => 'publication_date DESC'
+       )
   end
   
   def article
