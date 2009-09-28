@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090926203807) do
+ActiveRecord::Schema.define(:version => 20090928181151) do
 
   create_table "articles", :force => true do |t|
     t.integer  "current_revision_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20090926203807) do
     t.string   "link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cat_type"
   end
 
   create_table "images", :force => true do |t|

@@ -8,6 +8,8 @@
         %td.header
           .title
             = link_to category.title, edit_admin_category_path(category)
+          .type
+            = category.cat_type
         %td.controls
           / %div
           /   = link_to "Ссылки (#{category.links.count})", admin_category_links_path(category), :class => 'control'

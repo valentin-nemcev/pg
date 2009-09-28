@@ -73,12 +73,16 @@ def html2textile(text)
   return [text, images]
 end
 
+Category.delete_all
 DBConn.connection.select_all('SELECT * FROM categories').each do |c|
-  cat = Category.new(:title=>c['title'], :link=>c['link'])
+  pp c
+  cat = Category.new(:cat_type=>c['type'], :title=>c['title'], :link=>c['link'])
   p cat if cat.save
 end
 
+
 Image.destroy_all
+
 cb = User.find_by_name('ConvertBot')    
 deleted_revs = Revision.destroy_all(:editor_id => cb)
 puts "Deleted #{deleted_revs.size} earlier converted revisions"
