@@ -24,5 +24,6 @@
             = link_to 'Редактировать', edit_admin_article_path(article), :class => 'control' 
             = link_to 'Удалить', admin_article_path(article), :class => 'control', |
                           :confirm => 'Действительно удалить?', :method => :delete |
+= will_paginate @articles, :previous_label => "←", :next_label => "→", :per_page => 30
           
             

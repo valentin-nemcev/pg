@@ -5,7 +5,7 @@ class SiteController < ApplicationController
   
   
   def main
-     @articles = Article.paginate(:page => params[:page], :order => 'publication_date DESC', :limit=>10 )
+     @articles = Article.paginate(:page => params[:page], :order => 'publication_date DESC' )
   end
   
   def category

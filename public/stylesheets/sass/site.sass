@@ -22,6 +22,7 @@ body
   :margin 0 auto
 
 !pg_red = #bf2215
+!small = 12px
 !normal = 14px
 !big = 16px
 #container
@@ -54,10 +55,10 @@ table#content
 
 #content
   :width 60%
-
+  :padding-right 8px
 #sidebar
   :width 40%
-
+  
 
 h2
   a  
@@ -65,6 +66,19 @@ h2
     :font-size #{!big}
     :text-decoration none
     :font-weight bold
+    :line-height 1.2
+    
+    
+.subtitle
+  :color #333 
+  :font-size #{!big}
+  :text-decoration none
+  :font-weight bold
+  :line-height 1.2
+  
+.date, .category
+  :display inline
+  :font-size #{!small}
 
 h3  
   :color #222 
@@ -81,8 +95,6 @@ h3
     :font-size #{!big}
   p 
     :font-size #{!normal}
-  p + p 
-    :text-indent 35px
 
   
 .full_article 

@@ -1,7 +1,7 @@
 class Admin::ArticlesController < AdminController
   
   def index
-    @articles = Article.find(:all)
+    @articles = Article.paginate(:page => params[:page], :per_page => 30)
     render :action => "index"
   end
 

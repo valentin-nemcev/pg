@@ -14,13 +14,17 @@ class Admin::ImagesController < AdminController
   end
   
   def index
-     @images = params[:article_id] ? Article.find(params[:article_id]).images : @images = Image.find(:all)
+    if params[:article_id] 
+      @images = Article.find(params[:article_id]).images 
+    else
+      @images = Image.paginate(:page => params[:page], :per_page => 30)
+    end
       
-     if (request.xhr?)
-       render :partial => @images
-     else
-       render :action => "index"
-     end
+    if (request.xhr?)
+      render :partial => @images
+    else
+      render :action => "index"
+    end
   end
 
   def new
