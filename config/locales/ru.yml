@@ -19,6 +19,9 @@ ru:
                 title: Заголовок
                 link: Ссылка
                 image_file: Файл
+            quote:
+                text: Текст
+                author: Автор
         errors:
             messages:
                 record_invalid: record_invalid

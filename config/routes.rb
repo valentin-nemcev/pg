@@ -3,6 +3,8 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root :controller => "main", :action => "main"    
     
+    
+    admin.resources :quotes, :except => [:show], :collection => { :new => [:get, :post] } 
     admin.resources :links, :except => [:show]
     
     admin.resources :articles, :has_many => [:revisions, :links, :images], :collection => { :new => [:get, :post] } 
