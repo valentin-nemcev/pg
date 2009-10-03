@@ -4,7 +4,8 @@
 
 table 
   :border-collapse collapse
-
+  :width 100%
+  
 img 
   :border none
 
@@ -28,18 +29,29 @@ body
 !normal = 14px
 !big = 16px
 !menu = 16px
+
+=cambria
+  :font-family Cambria, Times New Roman, serif
+  
 #container
   :padding 0 16px
 
 #header 
   :margin-top 4px
   
+  #quote
+    :font-size #{!small}
+    +cambria
+    :text-align right
+    .author
+      :font-style italic
+  
 #top-navigation
   :width 100%
   :border-top solid 3px #fff
   :background #fff
   :margin 0px -3px 8px 
-  :font-family Cambria, Times New Roman
+  +cambria
   td
     :text-align left
     :font-size #{!menu}

@@ -7,11 +7,15 @@
   %body
     #container
       %table#header
-        %td
+        %td#logo
           %a(href="/")
             %img(src="/images/logo_v3_site.png")
-        %td
-          
+        %td#quote
+          - quote = Quote.find_random(DateTime.now.strftime("%Y%m%d"))
+          .text
+            = "«#{quote.text}»"
+          .author
+            = quote.author
       %table#top-navigation
         %td
           - if not current_page?  "/"
