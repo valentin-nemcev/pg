@@ -1,2 +1,2 @@
-= render :partial => 'article', :collection => @articles, :as => 'article' 
+= render :partial => 'article', :collection => @articles, :as => 'article', :locals => { :with_category => true} 
 = will_paginate @articles, :previous_label => "←", :next_label => "→"

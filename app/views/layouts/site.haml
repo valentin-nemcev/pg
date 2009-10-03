@@ -6,19 +6,31 @@
     = stylesheet_link_tag 'site'
   %body
     #container
-      #header
-        %a(href="/")
-          %img(src="/images/logo_v3_small.jpg")
+      %table#header
+        %td
+          %a(href="/")
+            %img(src="/images/logo_v3_site.png")
+        %td
+          
       %table#top-navigation
+        %td
+          - if not current_page?  "/"
+            = link_to "Главная",  "/"
+          - else
+            %span.current< 
+              Главная
         - for category in Category.find(:all, :conditions=>{:cat_type=>'normal'})
           %td
-            %a{:href=>"#{category_url(category.link)}"}
-              = category.title
+            - if not current_page? category_url(category.link)
+              = link_to category.title, category_url(category.link)
+            - else
+              %span.current< 
+                = category.title
       %table#content
         %td#content
           = yield 
         %td#sidebar
           - for category in Category.find(:all, :conditions=>{:cat_type=>'special'})
             .side-article
-              = render :partial => "article", :object => category.most_recent_article 
+              = render :partial => "article", :object => category.most_recent_article, :locals => { :with_category => true}  
               

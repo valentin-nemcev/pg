@@ -1,8 +1,11 @@
 .article_with_lead
-  .category
-    = article.category.title unless article.category.nil?
+  
   .date
     = article.publication_date.strftime('%d.%m.%y');
+  - if defined? with_category
+    .category
+      –
+      = article.category.title unless article.category.nil?
   %h2
     = link_to article.title, article_url(article.link)
   .subtitle

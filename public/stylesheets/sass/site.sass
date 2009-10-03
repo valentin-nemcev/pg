@@ -13,33 +13,62 @@ td
 
 html 
   :width 100%
+  :background #fff
   
 body 
-  :font-family Arial, "MS Trebuchet", sans-serif
+  :font-family Arial, Helvetica, sans-serif
   :line-height 1.4
   :min-width 760px
   :max-width 1200px
   :margin 0 auto
+  :padding-bottom 30px
 
 !pg_red = #bf2215
 !small = 12px
 !normal = 14px
 !big = 16px
+!menu = 16px
 #container
-  :padding 0 8px
+  :padding 0 16px
 
 #header 
   :margin-top 4px
   
 #top-navigation
   :width 100%
+  :border-top solid 3px #fff
+  :background #fff
+  :margin 0px -3px 8px 
+  :font-family Cambria, Times New Roman
   td
-    :text-align center
+    :text-align left
+    :font-size #{!menu}
+    :font-weight bold
+    :vertical-align top
+    :padding 4px 3px
     a
       :text-decoration none
       :color #{!pg_red}
-      :font-size #{!normal}
-
+      &:hover
+        :color #666
+      &:before, &:after
+        :color #fff
+    .current
+      :color #000
+      &:before, &:after
+        :color #{!pg_red}
+    
+    a, .current
+      &:before, &:after
+        :font-size #{!menu+3px}
+        :line-height 0
+      &:before
+        :content "["
+        :padding-right 1px
+      &:after
+        :content "]" 
+        :padding-left 1px
+    
 
 a 
   color: #{!pg_red} 
@@ -55,19 +84,19 @@ table#content
 
 #content
   :width 60%
-  :padding-right 8px
+  
 #sidebar
   :width 40%
+  :padding-left 16px
   
 
 h2
+  :font-weight bold
+  :line-height 1.2
+  :font-size #{!big}
+  :color #{!pg_red}
   a  
-    :color #{!pg_red}
-    :font-size #{!big}
     :text-decoration none
-    :font-weight bold
-    :line-height 1.2
-    
     
 .subtitle
   :color #333 
@@ -78,35 +107,37 @@ h2
   
 .date, .category
   :display inline
+  :font-size #{!normal}
+  :font-weight bold
+  :color #C47B66
+.category
+  :font-weight bold
+  :color #666
   :font-size #{!small}
-
 h3  
   :color #222 
   :font-size #{!big}
 
 
 .article_with_lead 
-  :margin 20px 0
+  :margin-bottom 16px
   h2 
     a:hover 
       :text-decoration underline
-  .subtitle
-    :color #222
-    :font-size #{!big}
   p 
     :font-size #{!normal}
+    
+  img
+    :display block
+    :width 100%
+    :text-align center
+    :margin 2px auto
 
   
-.full_article 
-  h2 .subtitle
-    :color #222
-    :line-height 20px
-    :font-size 17px
-    :font-weight bold
-  p 
-    :line-height 20px
-    :font-size 16px
-    :margin-bottom 16px
+
+p 
+  :font-size #{!normal}
+  :margin-bottom 16px
 
 p.signature
   :text-align right
@@ -148,9 +179,11 @@ p.question
 img.left
   :float left
   :padding-right 4px
+  :width auto
 
 img.right
   :float right
   :padding-left 4px
+  :width auto
 
 
