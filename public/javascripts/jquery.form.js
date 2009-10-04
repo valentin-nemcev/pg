@@ -309,6 +309,7 @@ $.fn.ajaxSubmit = function(options) {
                 if (opts.dataType == 'json' || opts.dataType == 'script') {
                     var ta = doc.getElementsByTagName('textarea')[0];
                     xhr.responseText = ta ? ta.value : xhr.responseText;
+                    log(xhr.responseText);
                 }
                 else if (opts.dataType == 'xml' && !xhr.responseXML && xhr.responseText != null) {
                     xhr.responseXML = toXml(xhr.responseText);

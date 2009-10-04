@@ -31,7 +31,7 @@ class Admin::ImagesController < AdminController
     return create if request.post?
     @image = Image.new
     if (request.xhr?)
-       render :partial => "edit"
+       render :action => "edit.js"
      else
        render :action => "edit" 
      end
@@ -44,20 +44,33 @@ class Admin::ImagesController < AdminController
 
   def create
     @image = Image.new(params[:image])
-    
-        
-    
-    logger.info 'params ' + params.inspect
-    
+    # if @image.save
+    #    if(params[:xhr])
+    #      response.headers['Content-type'] = 'text/html; charset=utf-8' # Что бы ответ не оборачивался в <pre> в iframe-е
+    #      render :action => "edit_ok.js", :layout => 'textarea'
+    #    else
+    #      render :text => 'no'
+    #    end
+    #  else
+    #    err = ""
+    #    @image.errors.each{|attr,msg| err << "#{attr} - #{msg}" }
+    #    render :text => err
+    #  end
     if @image.save
-      flash[:notice] = 'Изображение сохранено'
-      redirect_to admin_images_url
+      if (params[:xhr])
+        response.headers['Content-type'] = 'text/html; charset=utf-8' # Что бы ответ не оборачивался в <pre> в iframe-е
+        render :action => "edit_ok.js", :layout => 'textarea'
+      else
+        flash[:notice] = 'Изображение сохранено'
+        redirect_to admin_images_url
+      end
     else
       if (params[:xhr])
-         render :partial => "edit"
-       else
-         render :action => "edit" 
-       end
+        response.headers['Content-type'] = 'text/html; charset=utf-8' # Что бы ответ не оборачивался в <pre> в iframe-е
+        render :action => "edit.js", :layout => 'textarea'
+      else
+        render :action => "edit" 
+      end
     end
   end
 

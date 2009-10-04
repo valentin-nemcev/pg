@@ -13,19 +13,7 @@
     = f.submit "Сохранить"
 
   :javascript
-    //window.parent
-    if(jQuery === undefined) { var jQuery = window.parent.jQuery}
-    jQuery("#upload_form").ajaxForm({
-      dataType  : 'html',
-      iframe 	  : true,
-      success	  : function (data) {
-        jQuery("#add-image.dialog .contents").html(data);
-      }
-    });
-    
+    if(jQuery == undefined) { var jQuery = window.parent.jQuery; }
+    jQuery.fn.ajaxSubmit.debug = true
+    jQuery("#upload_form").ajaxForm({dataType: 'script', iframe: true });
     jQuery("#upload_form").unbind('submit');
-    //jQuery("#upload_form").submit(function() {
-      //jQuery(this).ajaxSubmit();
-      //return false;
-    //});
-    

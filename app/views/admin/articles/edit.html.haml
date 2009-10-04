@@ -21,12 +21,9 @@
     = f.label "Изображения"
     .images
       .images-toolbar
-        .button{:onclick=>"refresh_images(); return false;"}
+        .button{:onclick=>"refresh_images(#{@article.new_record?})"}
           Обновить
-        .button{:onclick=>"refresh_images(); return false;"}
-          Добавить
-        .button{:onclick=>"load_add_image_form(); $.blockUI({ message: $('#add-image.dialog') }); return false;"}
-          Загрузить
+        = link_to_remote "Загрузить", :class => 'button', :url => new_admin_image_path(:article_id => @article), :method => :get
       .images-list
   .field
     = f.label :text
@@ -38,21 +35,18 @@
   = textile_editor_initialize 
   
   
-#add-image.dialog
-  .header
-    Добавить изображение 
-    %a.control{:href=>"#", :onclick=>"$.unblockUI();return false;"}
-      Закрыть
-  .contents
-    222
+
   
-  :javascript
-    function refresh_images() {
+  
+:javascript
+    function refresh_images(is_new_record) {
+      if(is_new_record) return false;
       #{remote_function :url => admin_article_images_path(@article), :method => :get, :update => ".images-list"}
-      return false; 
     }
     function load_add_image_form() {
+      console.info(jQuery('#add-image.dialog.contents'))
+      
       #{remote_function :url => new_admin_image_path, :method => :get, :update => "#add-image.dialog.contents"}
       return false;
     }
-    refresh_images();
+    refresh_images(#{@article.new_record?});
