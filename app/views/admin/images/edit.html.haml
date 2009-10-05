@@ -5,9 +5,8 @@
     = error_message_on @image, :title 
     = f.text_field :title 
   .field
-    = f.label "Статья"
-    = f.collection_select :article_ids, Article.all, :id, :title,  { :selected => @image.article_ids }, { :multiple => true, :name => 'image[article_ids][]' }
-    
+    = f.label "Правка"
+    = f.collection_select :revision_ids, Revision.all, :id, :title,  { :selected => @image.revision_ids }, { :multiple => true, :name => 'image[revision_ids][]' }
   .field
     = f.label :image_file
     = error_message_on @image, :image_file   

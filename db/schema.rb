@@ -9,18 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091003154700) do
+ActiveRecord::Schema.define(:version => 20091004135342) do
 
   create_table "articles", :force => true do |t|
     t.integer  "current_revision_id"
     t.integer  "canonical_link_id"
     t.integer  "category_id"
     t.datetime "publication_date"
-  end
-
-  create_table "articles_images", :id => false, :force => true do |t|
-    t.integer "image_id"
-    t.integer "article_id"
   end
 
   create_table "categories", :force => true do |t|
@@ -38,6 +33,11 @@ ActiveRecord::Schema.define(:version => 20091003154700) do
     t.string   "filename",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "images_revisions", :id => false, :force => true do |t|
+    t.integer "image_id"
+    t.integer "revision_id"
   end
 
   create_table "links", :force => true do |t|

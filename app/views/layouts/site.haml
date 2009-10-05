@@ -3,38 +3,61 @@
   %head
     %meta(http-equiv="Content-type" content="text/html; charset=utf-8")
     %title Полит-грамота
-    = stylesheet_link_tag 'site'
+    = stylesheet_link_tag 'site', 'overlay'
   %body
+    #overlay-container
+      %table
+        %td 1
+        %td 2
+        %td 3
+        %td 4
+        %td 5
     #container
-      %table#header
-        %td#logo
-          %a(href="/")
-            %img(src="/images/logo_v3_site.png")
-        %td#quote
-          - quote = Quote.find_random(DateTime.now.strftime("%Y%m%d"))
-          .text
-            = "«#{quote.text}»"
-          .author
-            = quote.author
-      %table#top-navigation
-        %td
-          - if not current_page?  "/"
-            = link_to "Главная",  "/"
-          - else
-            %span.current< 
-              Главная
-        - for category in Category.find(:all, :conditions=>{:cat_type=>'normal'})
+      #footer-wrapper
+        %table#header
+          %td#logo
+            %a(href="/")
+              %img(src="/images/logo_v3_site.png")
+          %td#quote
+            - quote = Quote.find_random(DateTime.now.strftime("%Y%m%d"))
+            .text
+              = "«#{quote.text}»"
+            .author
+              = quote.author
+        %table#top-navigation
           %td
-            - if not current_page? category_url(category.link)
-              = link_to category.title, category_url(category.link)
+            - if not current_page?  "/"
+              = link_to "Главная",  "/"
             - else
               %span.current< 
-                = category.title
-      %table#content
-        %td#content
-          = yield 
-        %td#sidebar
-          - for category in Category.find(:all, :conditions=>{:cat_type=>'special'})
-            .side-article
-              = render :partial => "article", :object => category.most_recent_article, :locals => { :with_category => true}  
+                Главная
+          - for category in Category.find(:all, :conditions=>{:cat_type=>'normal'})
+            %td
+              - if not current_page? category_url(category.link)
+                = link_to category.title, category_url(category.link)
+              - else
+                %span.current< 
+                  = category.title
+        %table#content
+          %td#content
+            = yield 
+          %td#sidebar
+            - for category in Category.find(:all, :conditions=>{:cat_type=>'special'})
+              - next if category.most_recent_article.nil?
+              .side-article
+                = render :partial => "article", :object => category.most_recent_article, :locals => { :with_category => true}  
+        #footer-push
+      #footer
+        %table
+          %td#copyright
+            %p © «Полит-грамота», 2007—#{Date.today.year}  
+            %p 
+              Мнение редакции сайта может не совпадать с мнением авторов статей, опубликованных на сайте. 
+              %br
+              При использовании материалов ссылка на ресурс обязательна.
+            %p 
+              Почта: 
+              %a(href='mailto:mail&#64;polit-gramota.ru') mail&#64;polit-gramota.ru
+          
+      
               

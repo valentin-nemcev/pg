@@ -4,7 +4,7 @@ class Article < ActiveRecord::Base
   belongs_to :category
   has_many :links, :as => :linked, :dependent => :destroy 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
-  has_and_belongs_to_many :images 
+   
   
   @@per_page = 10
   
@@ -15,13 +15,18 @@ class Article < ActiveRecord::Base
   
   validate :validate_revision
   after_save :make_link, :update_revision 
-  RevisionColumns = Revision.column_names - %w{id article_id created_at updated_at}
+  RevisionColumns = Revision.column_names + %w{image_ids} - %w{id article_id created_at updated_at}
   
   attr_accessor :editor, *RevisionColumns
   
   def link
     return self.canonical_link.text until self.canonical_link.nil?
   end
+  
+  def images
+    return self.current_revision.images until self.current_revision.nil?
+  end
+  
   protected
   
   def after_find
@@ -36,7 +41,7 @@ class Article < ActiveRecord::Base
     link = Link.new(:text => Link.make_link_text(self.title), :linked => self, :editor => self.editor)
     if link.save
       self.canonical_link = link
-      self.save
+      self.save(false)
     end
     return true
   end

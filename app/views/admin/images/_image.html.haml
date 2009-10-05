@@ -2,4 +2,4 @@
   = image_tag thumb_admin_image_path(image)
   .title
     = image.title 
-  = link_to_function("Вставить", "TextileEditor.insertText({canvas:$(this).parents('.textile-editor').find('textarea').get(0)}, '!img/'+'#{image.link}'+'!');" ) 
+  = link_to_function("Вставить", "TextileEditor.insertText({canvas:$('textarea[focused]').get(0)}, '!img/'+'#{image.link}'+'!');" ) 
