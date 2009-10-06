@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091004135342) do
+ActiveRecord::Schema.define(:version => 20091005150111) do
 
   create_table "articles", :force => true do |t|
     t.integer  "current_revision_id"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(:version => 20091004135342) do
   create_table "images_revisions", :id => false, :force => true do |t|
     t.integer "image_id"
     t.integer "revision_id"
+  end
+
+  create_table "layout_items", :force => true do |t|
+    t.string   "place"
+    t.integer  "top"
+    t.integer  "left"
+    t.integer  "height"
+    t.integer  "width"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "links", :force => true do |t|

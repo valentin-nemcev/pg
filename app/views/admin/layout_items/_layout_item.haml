@@ -1,0 +1,18 @@
+- form_for [:admin, item], :html => {:class => 'inline'} do |f|
+  .field
+    = f.label :place
+    = f.text_field :place 
+  .field
+    = f.label :left
+    = f.text_field :left , :class => 'short'
+  .field
+    = f.label :top
+    = f.text_field :top, :class => 'short' 
+  .field
+    = f.label :width
+    = f.text_field :width, :class => 'short' 
+  .field
+    = f.label :height
+    = f.text_field :height, :class => 'short' 
+  .field
+    = f.submit "Сохранить"

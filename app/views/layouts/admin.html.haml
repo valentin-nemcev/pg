@@ -35,6 +35,8 @@
     .page-navigation
       = navigation_link params[:controller]=='admin/main', 'Главная', admin_root_path
       |
+      = navigation_link params[:controller]=='admin/layout_items', 'Верстка', admin_layout_items_path
+      |
       = navigation_link params[:controller]=='admin/articles', 'Статьи', admin_articles_path
       |
       = navigation_link params[:controller]=='admin/images', 'Изображения', admin_images_path
