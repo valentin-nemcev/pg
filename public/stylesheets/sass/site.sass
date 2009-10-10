@@ -31,6 +31,9 @@ body
 
 =cambria
   :font-family Cambria, Times New Roman, serif
+
+a 
+  color: #{!pg_red}
   
 #container
   :padding 0 16px
@@ -103,24 +106,17 @@ html, body, #container
         :padding-left 1px
     
 
-a 
-  color: #{!pg_red} 
-
 
 .pagination
   :text-align center
 
 table#content 
   :width 100%
-
-
-
-#content
-  :width 60%
-  
-#sidebar
-  :width 40%
-  :padding-left 16px
+  td.sidebar
+    :width 40%
+    :padding-left 16px
+    
+  table.grid
   
 
 h2

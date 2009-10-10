@@ -4,14 +4,9 @@ class Article < ActiveRecord::Base
   belongs_to :category
   has_many :links, :as => :linked, :dependent => :destroy 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
-   
+  has_many :layout_items, :as => :content, :dependent => :destroy  
   
   @@per_page = 10
-  
-=begin
-    TODO Связывать изображения с ревизиями, а не со статьями
-=end
-  # accepts_nested_attributes_for :links
   
   validate :validate_revision
   after_save :make_link, :update_revision 

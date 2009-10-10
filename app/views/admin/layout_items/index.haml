@@ -9,8 +9,12 @@
       
       
 %table
-  - LayoutItem.grid.each do |row|
+  - LayoutItem.grid('main').each do |row|
     %tr
       - row.each do |cell|
-        %td(style="border: 1px solid #ccc")
-          = cell
+        - if cell.kind_of? LayoutItem
+          %td(style="border: 1px solid #ccc; width: #{100/5*cell.width}%" rowspan="#{cell.height}" colspan="#{cell.width}")
+            = cell.content.title unless cell.content.nil? 
+        - else
+          %td(style="border: 1px solid #ccc; width: #{100/5}%")
+            empty

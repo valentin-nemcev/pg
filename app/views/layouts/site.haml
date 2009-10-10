@@ -39,13 +39,18 @@
                 %span.current< 
                   = category.title
         %table#content
-          %td#content
-            = yield 
-          %td#sidebar
-            - for category in Category.find(:all, :conditions=>{:cat_type=>'special'})
-              - next if category.most_recent_article.nil?
-              .side-article
-                = render :partial => "article", :object => category.most_recent_article, :locals => { :with_category => true}  
+          - case params[:action] 
+            - when 'main'
+              %td.main
+                = yield
+            - else
+              %td.mainbar
+                = yield
+              %td.sidebar
+                - for category in Category.find(:all, :conditions=>{:cat_type=>'special'})
+                  - next if category.most_recent_article.nil?
+                  .side-article
+                    = render :partial => "article", :object => category.most_recent_article, :locals => { :with_category => true}  
         #footer-push
       #footer
         %table

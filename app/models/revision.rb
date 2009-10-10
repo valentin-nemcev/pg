@@ -17,28 +17,36 @@ class Revision < ActiveRecord::Base
   
   module RedCloth::Formatters::ImageExtractor
     include RedCloth::Formatters::Base
-   
+    include RedCloth::Formatters::HTML 
     @@extracted_images = []
-    
+
     def self.extracted_images
-      @@extracted_images
+     @@extracted_images
     end
-    
+
     def image(opts)
-      Rails.logger.info opts.inspect
-      @@extracted_images << opts[:src] unless opts[:src].nil?
-      return ''
+     Rails.logger.info opts.inspect
+     @@extracted_images << opts[:src] unless opts[:src].nil?
+     return ''
     end
-    
-    
-    
+  
   end
+  
+  module ::RedCloth
+    class TextileDoc
+      def extract_images( *rules )
+        apply_rules(rules)
+        to(RedCloth::Formatters::ImageExtractor)
+      end
+    end
+  end
+  
   
   protected
     
     def extract_images
-      r = RedCloth.new(self.text)
-      r.to(RedCloth::Formatters::ImageExtractor)
+      RedCloth.new(self.text).extract_images
+      # r.to(RedCloth::Formatters::ImageExtractor)
       logger.info { "!________" }
       logger.info { RedCloth::Formatters::ImageExtractor.extracted_images }
       true

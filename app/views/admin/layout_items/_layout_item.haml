@@ -1,7 +1,11 @@
 - form_for [:admin, item], :html => {:class => 'inline'} do |f|
   .field
     = f.label :place
-    = f.text_field :place 
+    = f.select :place, LayoutItem::Places 
+  .field
+    = f.label :article
+    = f.collection_select(:content_id, Article.all, :id, :title, { :include_blank => true })
+    = f.hidden_field :content_type, :value=>'Article'
   .field
     = f.label :left
     = f.text_field :left , :class => 'short'
@@ -12,7 +16,7 @@
     = f.label :width
     = f.text_field :width, :class => 'short' 
   .field
-    = f.label :height
+    = f.label :height 
     = f.text_field :height, :class => 'short' 
   .field
-    = f.submit "Сохранить"
+    = f.submit "Сохранить" 
