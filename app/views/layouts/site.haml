@@ -22,9 +22,9 @@
             %td#quote
               - quote = Quote.find_random(DateTime.now.strftime("%Y%m%d"))
               .text
-                = "«#{quote.text}»"
+                = "«#{quote.text}»" unless quote.nil?
               .author
-                = quote.author
+                = quote.author unless quote.nil?
         #top-navigation-inline
           - for category in Category.find(:all, :conditions=>{:cat_type=>'normal'})
             - if not current_page? category_url(category.link)

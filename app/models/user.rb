@@ -12,20 +12,19 @@ class User < ActiveRecord::Base
   
   validates_presence_of     :name
   # validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
-  #   validates_length_of       :name,     :maximum => 100
+  # validates_length_of       :name,     :maximum => 100
   
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   validates_inclusion_of    :role, :in => ['admin', 'user', 'bot']
-  validates_numericality_of :bug_counter, :greater_than => 0, :allow_blank => true
   
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :bug_counter, :role, :email, :name, :position, :password, :password_confirmation
+  attr_accessible :role, :email, :name, :position, :password, :password_confirmation
 
 
 

@@ -1,6 +1,8 @@
 #categories.list
   .new.item
     %a.control{:href=>"#{new_admin_category_path}"} Добавить
+  - if @categories.empty?
+    .empty.item Рубрик нет
     
   - for category in @categories
     .item
