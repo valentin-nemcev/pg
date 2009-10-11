@@ -24,11 +24,10 @@
         .button{:onclick=>"refresh_images(#{@article.new_record?})"}
           Обновить
         = link_to_remote "Загрузить", :class => 'button', :url => new_admin_image_path(:article_id => @article), :method => :get
+        = link_to_remote "Добавить", :class => 'button', :url => admin_images_path, :method => :get
       .images-list
         - for image in (@article.images || [])
-          = render :partial => "admin/images/image.html.haml", :locals => {:image => image}
-    - for image in (@article.images || [])
-      %input{:type=>'hidden', :name=>"article[image_ids][]", :value=>"#{image.id}"}   
+          = render :partial => "admin/images/image.haml", :locals => {:image => image}
   .field
     = f.label :text
     .textile-editor
@@ -40,15 +39,3 @@
   
 :javascript
     $('textarea').focus(function(){$('textarea').removeAttr('focused'); $(this).attr('focused', 'focused') })
-    
-    function refresh_images(is_new_record) {
-      if(is_new_record) return false;
-      #{remote_function :url => admin_article_images_path(@article), :method => :get, :update => ".images-list"}
-    }
-    function load_add_image_form() {
-      console.info(jQuery('#add-image.dialog.contents'))
-      
-      #{remote_function :url => new_admin_image_path, :method => :get, :update => "#add-image.dialog.contents"}
-      return false;
-    }
-    //refresh_images(#{@article.new_record?});

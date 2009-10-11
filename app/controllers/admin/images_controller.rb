@@ -21,7 +21,7 @@ class Admin::ImagesController < AdminController
     end
       
     if (request.xhr?)
-      render :partial => @images
+      render :action => "index_for_adding.js"
     else
       render :action => "index"
     end
@@ -31,12 +31,12 @@ class Admin::ImagesController < AdminController
     return create if request.post?
     @image = Image.new
     if (request.xhr?)
-       render :action => "edit.js"
+       render :action => "upload.js"
      else
        render :action => "edit" 
      end
   end
-
+  
   def edit
     @image = Image.find(params[:id])
     render :action => "edit"
@@ -44,22 +44,10 @@ class Admin::ImagesController < AdminController
 
   def create
     @image = Image.new(params[:image])
-    # if @image.save
-    #    if(params[:xhr])
-    #      response.headers['Content-type'] = 'text/html; charset=utf-8' # Что бы ответ не оборачивался в <pre> в iframe-е
-    #      render :action => "edit_ok.js", :layout => 'textarea'
-    #    else
-    #      render :text => 'no'
-    #    end
-    #  else
-    #    err = ""
-    #    @image.errors.each{|attr,msg| err << "#{attr} - #{msg}" }
-    #    render :text => err
-    #  end
     if @image.save
       if (params[:xhr])
         response.headers['Content-type'] = 'text/html; charset=utf-8' # Что бы ответ не оборачивался в <pre> в iframe-е
-        render :action => "edit_ok.js", :layout => 'textarea'
+        render :action => "upload_ok.js", :layout => 'textarea'
       else
         flash[:notice] = 'Изображение сохранено'
         redirect_to admin_images_url
@@ -67,7 +55,7 @@ class Admin::ImagesController < AdminController
     else
       if (params[:xhr])
         response.headers['Content-type'] = 'text/html; charset=utf-8' # Что бы ответ не оборачивался в <pre> в iframe-е
-        render :action => "edit.js", :layout => 'textarea'
+        render :action => "upload.js", :layout => 'textarea'
       else
         render :action => "edit" 
       end
