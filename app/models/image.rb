@@ -4,6 +4,8 @@ class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
   IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'public/img')
   
+  Types = ['face', 'banner', 'photo']
+  
   has_and_belongs_to_many :revisions
   
   validates_presence_of :title 
@@ -17,25 +19,20 @@ class Image < ActiveRecord::Base
   before_destroy :delete_image_file
   
   def thumb_data
-    begin
-      img = Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
-    rescue Magick::ImageMagickError, Magick::FatalImageMagickError
-      return false;
-    end
-    
-    return img.resize_to_fit!(64,64)
+    return read_image.resize_to_fit(64,64)
   end
   
   def image_data
-    begin
-      img = Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
-    rescue Magick::ImageMagickError, Magick::FatalImageMagickError
-      return false;
-    end
-    return img
+    return read_image
   end
   
   protected  
+    
+    def read_image
+      Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
+    rescue Magick::ImageMagickError, Magick::FatalImageMagickError
+      return false;
+    end
     
     def make_link
       self.link = Link.make_link_text(self.title)      

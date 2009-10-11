@@ -14,6 +14,8 @@
             = link_to image.title, edit_admin_image_path(image)
           .subtitle
             %div
+              = image.img_type
+              |
               = image.link
               |
               = image.filename
