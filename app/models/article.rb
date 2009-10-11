@@ -60,7 +60,7 @@ class Article < ActiveRecord::Base
   
   def article_not_changed?
     return false if self.current_revision.nil?
-    RevisionColumns.all? do |attr_name|
+    (RevisionColumns - %w{text_html lead_html}).all? do |attr_name|
       self.send(attr_name) == self.current_revision.send(attr_name)
     end
   end

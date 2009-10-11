@@ -11,6 +11,7 @@ class Revision < ActiveRecord::Base
   # accepts_nested_attributes_for :article
 
   before_save :parse_text_fields
+  after_save :save_images
   after_destroy :delete_article_without_revisions
   
   
@@ -24,20 +25,35 @@ class Revision < ActiveRecord::Base
     def self.extracted_images
      @@extracted_images
     end
+    
+    def self.reset_extracted_images
+     @@extracted_images = []
+    end
 
     def image(opts)
-     Rails.logger.info opts.inspect
-     @@extracted_images << opts[:src] unless opts[:src].nil?
-     return ''
+     return '' unless image = Image.find_by_link(opts[:src])
+     @@extracted_images << image
+     opts[:src] = "/images/#{opts[:src]}"
+     "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"
     end
-  
+    
+    # def image(opts)
+    #       opts.delete(:align)
+    #       opts[:alt] = opts[:title]
+    #       img = "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"  
+    #       img = "<a href=\"#{escape_attribute opts[:href]}\">#{img}</a>" if opts[:href]
+    #       img
+    #     end
   end
   
   module ::RedCloth
     class TextileDoc
       def parse_text( *rules )
         apply_rules(rules)
-        to(RedCloth::Formatters::HTMLWithImageParser)
+        RedCloth::Formatters::HTMLWithImageParser.reset_extracted_images
+        html = to(RedCloth::Formatters::HTMLWithImageParser)
+        images = RedCloth::Formatters::HTMLWithImageParser.extracted_images
+        return html, images
       end
     end
   end
@@ -46,12 +62,16 @@ class Revision < ActiveRecord::Base
   protected
     
     def parse_text_fields
-      self.text_html = RedCloth.new(self.text).to_html
-      self.lead_html = RedCloth.new(self.lead).to_html
+      self.text_html, @text_images = RedCloth.new(self.text).parse_text
+      self.lead_html, @lead_images = RedCloth.new(self.lead).parse_text
       # r.to(RedCloth::Formatters::ImageExtractor)
       logger.info { "!________" }
-      logger.info { RedCloth::Formatters::ImageExtractor.extracted_images }
       true
+    end
+    
+    def save_images
+      self.images.clear
+      (@text_images + @lead_images).each {|img| self.images << img }
     end
     
     def delete_article_without_revisions
