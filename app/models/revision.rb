@@ -10,16 +10,17 @@ class Revision < ActiveRecord::Base
   
   # accepts_nested_attributes_for :article
 
-  before_save :extract_images
+  before_save :parse_text_fields
   after_destroy :delete_article_without_revisions
   
   
   
-  module RedCloth::Formatters::ImageExtractor
-    include RedCloth::Formatters::Base
+  module RedCloth::Formatters::HTMLWithImageParser
     include RedCloth::Formatters::HTML 
+    alias_method :html_image, :image
+    
     @@extracted_images = []
-
+    
     def self.extracted_images
      @@extracted_images
     end
@@ -34,9 +35,9 @@ class Revision < ActiveRecord::Base
   
   module ::RedCloth
     class TextileDoc
-      def extract_images( *rules )
+      def parse_text( *rules )
         apply_rules(rules)
-        to(RedCloth::Formatters::ImageExtractor)
+        to(RedCloth::Formatters::HTMLWithImageParser)
       end
     end
   end
@@ -44,8 +45,9 @@ class Revision < ActiveRecord::Base
   
   protected
     
-    def extract_images
-      RedCloth.new(self.text).extract_images
+    def parse_text_fields
+      self.text_html = RedCloth.new(self.text).to_html
+      self.lead_html = RedCloth.new(self.lead).to_html
       # r.to(RedCloth::Formatters::ImageExtractor)
       logger.info { "!________" }
       logger.info { RedCloth::Formatters::ImageExtractor.extracted_images }

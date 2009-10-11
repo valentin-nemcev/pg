@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091011111938) do
+ActiveRecord::Schema.define(:version => 20091011115958) do
 
   create_table "articles", :force => true do |t|
     t.integer  "current_revision_id"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(:version => 20091011111938) do
     t.text     "lead"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "text_html"
+    t.text     "lead_html"
   end
 
   create_table "users", :force => true do |t|
