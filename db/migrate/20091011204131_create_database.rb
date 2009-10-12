@@ -11,7 +11,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
       t.string   "title"
-      t.string   "link"
+      t.integer  "canonical_link_id"
       t.string   "cat_type"
     end
 

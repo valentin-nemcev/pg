@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20091011204131) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
-    t.string   "link"
+    t.integer  "canonical_link_id"
     t.string   "cat_type"
   end
 

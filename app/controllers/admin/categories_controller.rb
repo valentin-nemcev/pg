@@ -6,13 +6,14 @@ class Admin::CategoriesController < AdminController
   end
 
   def new
+    return create if request.post?
     @category = Category.new
-    render :action => "edit" #Заменить на что-нибудь более логичное
+    render :action => "form.haml" #Заменить на что-нибудь более логичное
   end
 
   def edit
     @category = Category.find(params[:id])
-    render :action => "edit"
+    render :action => "form.haml"
   end
 
   def create
@@ -22,7 +23,7 @@ class Admin::CategoriesController < AdminController
       flash[:notice] = 'Рубрика сохранена'
       redirect_to admin_categories_url
     else
-      render :action => "edit" 
+      render :action => "form.haml" 
     end
   end
 
@@ -33,7 +34,7 @@ class Admin::CategoriesController < AdminController
       flash[:notice] = 'Рубрика сохранена'
       redirect_to admin_categories_url
     else
-      render :action => "edit" 
+      render :action => "form.haml" 
     end
   end
 

@@ -1,0 +1,8 @@
+- url = @category.new_record? ? new_polymorphic_path([:admin, @category]) : polymorphic_path([:admin, @category]) 
+- form_for [:admin, @category], :url => url, :html => {:class => 'full'} do |f|
+  .field
+    = f.label :title 
+    = f.error_message_on :title
+    = f.text_field :title 
+  .field
+    = f.submit "Сохранить" 
