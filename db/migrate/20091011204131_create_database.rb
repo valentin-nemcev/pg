@@ -85,6 +85,18 @@ class CreateDatabase < ActiveRecord::Migration
     end
 
     add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+    
+    User.create(:role=>'admin', 
+    :email=>'zlob.o.zlob@gmail.com', 
+    :name=>'Валентин Немцев', 
+    :position=>'Разработчик', 
+    :password=>'politPass', :password_confirmation=>'politPass')
+    
+    User.create(:role=>'bot', 
+    :email=>'bot@polit-gramota.ru', 
+    :name=>'Скрипт импорта', 
+    :position=>'Робот', 
+    :password=>'politPass', :password_confirmation=>'politPass')
   end
 
   def self.down

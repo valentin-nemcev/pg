@@ -84,6 +84,7 @@ a.control
   :padding 2px
   :line-height 1.6
   :border none
+  :display inline-block
   &:hover, &:focus, &:active
     :outline none
     :padding 1px
@@ -121,12 +122,16 @@ a.control
       :border 1px solid #fff
     td.header
     td.controls
-      :width 30%
+      :width 50%
+      :text-align right
     td.thumb
       :padding-right 4px
       :width 70px
     .title
       :font-weight bold
+#links.list .title.canonical 
+  :font-style italic
+  
   
 form.full 
   :margin #{!margin2} 0

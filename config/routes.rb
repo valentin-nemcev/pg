@@ -6,12 +6,19 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :layout_items, :except => [:show, :edit, :new]
     
     admin.resources :quotes, :except => [:show], :collection => { :new => [:get, :post] } 
-    admin.resources :links, :except => [:show]
     
-    admin.resources :articles, :has_many => [:revisions, :links, :images], :collection => { :new => [:get, :post] } 
+    links_route_params = {:except => [:show, :edit], :member => { :make_canonical => :post }, :collection => { :new => [:get, :post] }}
+    
+    admin.resources :links, :except => [:show, :edit], :member => { :make_canonical => :post } 
+    
+    admin.resources :articles, :has_many => [:revisions, :images], :collection => { :new => [:get, :post] } do |a|
+      a.resources :links, links_route_params
+    end
     admin.resources :revisions, :except => :edit 
     
-    admin.resources :categories, :has_many => [:articles, :links], :except => [:show], :collection => { :new => [:get, :post] } 
+    admin.resources :categories, :has_many => [:articles], :except => [:show], :collection => { :new => [:get, :post] } do |c|
+      c.resources :links, links_route_params
+    end
     admin.resources :images, :has_many => [:articles], 
                     :member => { :thumb => :get }, :collection => { :new => [:get, :post] } 
     

@@ -47,7 +47,7 @@ def html2textile(text)
     img = $~[1]
     images << img
     style = $~[2].nil? ? "" : "(#{$~[2]})"
-    "!#{style}/img/#{Link.make_link_text(img.gsub('.jpg',''))}.jpg!"
+    "!#{style}#{Link.make_link_text(img.gsub('.jpg',''))}!"
   end
   
   
@@ -72,23 +72,36 @@ def html2textile(text)
   
   return [text, images]
 end
+cb = User.find_by_email('bot@polit-gramota.ru') 
 
-Category.delete_all
+Category.destroy_all
 DBConn.connection.select_all('SELECT * FROM categories').each do |c|
-  pp c
-  cat = Category.new(:cat_type=>c['type'], :title=>c['title'], :link=>c['link'])
-  p cat if cat.save
+  # pp c
+  cat = Category.create(:cat_type=>c['type'], :title=>c['title'])
+  cat_link = cat.links.create(:text => c['link'], :editor => cb) 
+  
+  p cat.save
 end
-
 
 Image.destroy_all
 
-cb = User.find_by_name('ConvertBot')    
-deleted_revs = Revision.destroy_all(:editor_id => cb)
+   
+deleted_revs = Revision.destroy_all
 puts "Deleted #{deleted_revs.size} earlier converted revisions"
-DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id').each do |a|
+DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id LIMIT 10').each do |a|
   lead, lead_images = html2textile(a['lead'])
   text, text_images = html2textile(a['text'])
+  
+  (lead_images.to_a | text_images.to_a).each do |i|
+    
+    img = Image.find_or_create_by_title(:title => i.gsub('.jpg',''), :image_path => "#{RAILS_ROOT}/images/#{i}" )
+    
+    if not img.save
+      p img
+      img.errors.each{|attr,msg| puts "#{attr} - #{msg}" }
+    end
+    # pp img
+  end
   
   art = Article.new(
     :title => a['title'],
@@ -98,7 +111,7 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
     :lead => lead,
     :editor => cb
   )
-  art.category = Category.find_by_link(a['category_link'])
+  art.category = Link.find_by_text(a['category_link']).linked
    
   if not art.save
     p art
@@ -107,19 +120,6 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
   
   art.links.create(:text => a['link'], :editor => cb) 
   
-  (lead_images.to_a | text_images.to_a).each do |i|
-    
-    img = Image.find_or_create_by_title(:title => i.gsub('.jpg',''), :image_path => "#{RAILS_ROOT}/images/#{i}" )
-    
-    if img.save
-      art.images << img
-    else
-      p img
-      img.errors.each{|attr,msg| puts "#{attr} - #{msg}" }
-       
-    end
-    # pp img
-  end
     #   
   # p art
 end

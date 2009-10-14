@@ -7,7 +7,7 @@ class Article < ActiveRecord::Base
   
   belongs_to :category
   
-  has_many :links, :as => :linked, :dependent => :destroy 
+  has_many :links, :as => :linked, :dependent => :delete_all 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
   after_save :make_link
   
@@ -44,8 +44,9 @@ class Article < ActiveRecord::Base
   end
   
   def update_revision
+    return true if self.current_revision.nil?
     self.current_revision.article_id = self.id
-    self.current_revision.editor_id = editor.id
+    self.current_revision.editor_id = editor.id unless editor.nil?
     self.current_revision.save(false) 
   end
   
