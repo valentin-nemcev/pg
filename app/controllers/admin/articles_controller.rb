@@ -1,7 +1,11 @@
 class Admin::ArticlesController < AdminController
   
+  parent_resources :category
+  
   def index
-    @articles = Article.paginate(:page => params[:page], :per_page => 30)
+    @category = parent_object
+    conditions = @category ? {:category_id => @category} : {}
+    @articles = Article.paginate(:conditions => conditions, :page => params[:page], :per_page => 30)
     render :action => "index"
   end
 

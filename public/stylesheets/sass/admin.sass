@@ -29,7 +29,8 @@ html
 !margin3 = 0.5em   
 body
   :margin auto
-  :max-width  1000px
+  :max-width  1260px
+  :width 92%
   :background-color  #fff
   :color  #333
   :padding  3px
@@ -41,38 +42,37 @@ body
 
 
 #page-header 
-  td.title
-    :padding 0 4px
+  :margin-bottom 8px
+  :width auto
+  td
+    :padding 2px
+  .userbox
+    :padding-right 16px
+  .links
+    :text-align right
     :margin #{!margin2} 0
+    :font-size #{!size4}
+
+#navigation
+  :width auto
+  :font-size #{!size4}
+  td.title
     :font
-      :size #{!size2}
-      :weight normal
+      :size #{!size4}
+      :weight bold
     :color #666
     a
       :text-decoration none
-    a:hover
+    a.title:hover
       :color #000 !important
+      :text-decoration underline !important
     a.title
       :color #D10000
-    a.subtitle
-      :color #555
-    
-.page-navigation
-  :margin #{!margin2} 0
-  :color #666
-  :font-size #{!size3}
-  :line-height 1.6
-  a, span
-    :padding 1px 4px
-    :border 1px solid #fff
-  a:hover, a:focus, span
-    :background-color #eee
-    :border-color #ccc
-    :color #000
-    :outline none
-  a:active 
-    :border-color #000
-    :outline none
+  td
+    :padding 2px
+  .current
+    :color #222
+    :font-weight bold
     
 a, a:visited 
   :color inherit

@@ -1,0 +1,43 @@
+#articles.list
+  .new.item
+    = link_to 'Добавить', |
+              new_polymorphic_path([:admin, @category, Article]), |
+              :class => 'control' |
+  - if @articles.empty?
+    .empty.item Статей нет
+  
+  - for article in @articles 
+    .item
+      %table
+        %td.header
+          .title
+            = link_to article.title, |
+                      edit_polymorphic_path([:admin, @category, article]) |
+          .subtitle 
+            = article.subtitle
+          .category 
+            = article.category.title unless article.category.nil?
+          .date
+            = article.publication_date
+        %td.controls
+          %div
+            = link_to "Правки (#{article.revisions.count})",                      |
+                      polymorphic_path([:admin, @category, article, :revisions]), |
+                      :class => 'control'                                         |
+            -          
+            = link_to "Ссылки (#{article.links.count})", |
+                      polymorphic_path([:admin, @category, article, :links]), |
+                      :class => 'control' |
+          %div
+            = link_to 'Редактировать', |
+                      edit_polymorphic_path([:admin, @category, article]), |
+                      :class => 'control' |
+            -          
+            = link_to 'Удалить', |
+                      polymorphic_path([:admin, @category, article]), |
+                      :class => 'control', |
+                      :confirm => 'Действительно удалить?', :method => :delete |
+                      
+= will_paginate @articles, :previous_label => "←", :next_label => "→", :per_page => 30
+          
+            

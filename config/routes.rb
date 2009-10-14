@@ -4,24 +4,28 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => "main", :action => "main"    
     
     admin.resources :layout_items, :except => [:show, :edit, :new]
-    
     admin.resources :quotes, :except => [:show], :collection => { :new => [:get, :post] } 
     
     links_route_params = {:except => [:show, :edit], :member => { :make_canonical => :post }, :collection => { :new => [:get, :post] }}
     
-    admin.resources :links, :except => [:show, :edit], :member => { :make_canonical => :post } 
+    admin.resources :links, links_route_params
     
-    admin.resources :articles, :has_many => [:revisions, :images], :collection => { :new => [:get, :post] } do |a|
-      a.resources :links, links_route_params
-    end
-    admin.resources :revisions, :except => :edit 
-    
-    admin.resources :categories, :has_many => [:articles], :except => [:show], :collection => { :new => [:get, :post] } do |c|
+    admin.resources :categories, :except => [:show], :collection => { :new => [:get, :post] } do |c|
       c.resources :links, links_route_params
+      c.resources :articles, :has_many => [:images], :collection => { :new => [:get, :post] } do |a2|
+        a2.resources :links, links_route_params
+        a2.resources :revisions, :except => :edit 
+      end
     end
-    admin.resources :images, :has_many => [:articles], 
-                    :member => { :thumb => :get }, :collection => { :new => [:get, :post] } 
     
+    admin.resources :articles, :has_many => [:images], :collection => { :new => [:get, :post] } do |a|
+      a.resources :links, links_route_params
+      a.resources :revisions, :except => :edit 
+    end
+    
+    admin.resources :images, :has_many => [:articles], 
+                         :member => { :thumb => :get }, :collection => { :new => [:get, :post] } 
+        
     admin.logout '/logout', :controller => 'sessions', :action => 'destroy'
     admin.login '/login', :controller => 'sessions', :action => 'new'
     admin.register '/register', :controller => 'users', :action => 'create'
