@@ -5,4 +5,8 @@
     = f.error_message_on :title
     = f.text_field :title 
   .field
+    = f.label :archived 
+    = f.error_message_on :archived
+    = f.check_box :archived
+  .field
     = f.submit "Сохранить" 

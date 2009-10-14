@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20091011204131) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "canonical_link_id"
+    t.boolean  "archived",          :default => false
     t.string   "cat_type"
   end
 

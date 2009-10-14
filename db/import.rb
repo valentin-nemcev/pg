@@ -77,7 +77,8 @@ cb = User.find_by_email('bot@polit-gramota.ru')
 Category.destroy_all
 DBConn.connection.select_all('SELECT * FROM categories').each do |c|
   # pp c
-  cat = Category.create(:cat_type=>c['type'], :title=>c['title'])
+  
+  cat = Category.create(:cat_type=>c['type'], :title=>c['title'], :archived => %w{top archived news}.include?(c['type']))
   cat_link = cat.links.create(:text => c['link'], :editor => cb) 
   
   p cat.save
@@ -88,7 +89,7 @@ Image.destroy_all
    
 deleted_revs = Revision.destroy_all
 puts "Deleted #{deleted_revs.size} earlier converted revisions"
-DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id LIMIT 10').each do |a|
+DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id').each do |a|
   lead, lead_images = html2textile(a['lead'])
   text, text_images = html2textile(a['text'])
   
@@ -111,7 +112,7 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
     :lead => lead,
     :editor => cb
   )
-  art.category = Link.find_by_text(a['category_link']).linked
+  art.category = Link.find_by_text(a['category_link']).linked rescue p(a)
    
   if not art.save
     p art
