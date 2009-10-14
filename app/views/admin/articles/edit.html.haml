@@ -21,10 +21,14 @@
     = f.label "Изображения"
     .images
       .images-toolbar
-        .button{:onclick=>"refresh_images(#{@article.new_record?})"}
-          Обновить
-        = link_to_remote "Загрузить", :class => 'button', :url => new_admin_image_path(:article_id => @article), :method => :get
-        = link_to_remote "Добавить", :class => 'button', :url => admin_images_path, :method => :get
+        = link_to_remote "Загрузить", |
+                         :url => new_admin_image_path(:article_id => @article), |
+                         :method => :get, |
+                         :html => {:class => 'button'} |
+        -
+        = link_to_remote "Добавить", |
+                         :url => admin_images_path, :method => :get, |
+                         :html => {:class => 'button'} |
       .images-list
         - for image in (@article.images || [])
           = render :partial => "admin/images/image.haml", :locals => {:image => image}

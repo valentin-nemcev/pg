@@ -125,7 +125,8 @@ TextileEditor.Methods = {
 
       if(button.display == "")
 			{
-				var title = document.createTextNode(button.title);
+				var title = document.createElement('span');
+	      title.innerHTML = button.title
 	      theButton.appendChild(title);
 				theButton.setAttribute('class', 'standard-wihout-icon');
 			}
