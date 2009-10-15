@@ -21,7 +21,7 @@ class Admin::ImagesController < AdminController
     end
       
     if (request.xhr?)
-      render :action => "index_for_adding.js"
+      render :action => "index_for_adding.js", :layout => false
     else
       render :action => "index"
     end
@@ -31,7 +31,7 @@ class Admin::ImagesController < AdminController
     return create if request.post?
     @image = Image.new
     if (request.xhr?)
-       render :action => "upload.js"
+       render :action => "upload.js", :layout => false
      else
        render :action => "edit" 
      end

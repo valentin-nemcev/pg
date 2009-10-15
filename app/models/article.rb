@@ -52,7 +52,12 @@ class Article < ActiveRecord::Base
   
   def validate_revision
     return true if article_not_changed?
-    rev = self.current_revision = Revision.new(RevisionColumns.inject(Hash.new){|h, attr_name| h[attr_name]=self.send(attr_name); h })
+    rev = self.current_revision = Revision.new(
+      RevisionColumns.inject(Hash.new) do |h, attr_name|
+        h[attr_name]=self.send(attr_name) 
+        h 
+      end
+    )
     if rev.invalid?
       rev.errors.each { |attr_name, msg| self.errors.add attr_name, msg }
       return false
@@ -63,8 +68,12 @@ class Article < ActiveRecord::Base
   
   def article_not_changed?
     return false if self.current_revision.nil?
-    (RevisionColumns - %w{text_html lead_html}).all? do |attr_name|
-      self.send(attr_name) == self.current_revision.send(attr_name)
+    logger.info { '________!' } 
+    (RevisionColumns - %w{text_html lead_html image_ids}).all? do |attr_name|
+      logger.info { attr_name } 
+      res = (self.send(attr_name) == self.current_revision.send(attr_name))
+      logger.info { res.inspect }
+      res 
     end
   end
     

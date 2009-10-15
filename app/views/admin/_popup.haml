@@ -1,7 +1,8 @@
 .dialog
-  .header
-    Добавить изображение 
-    %a.control{:href=>"#", :onclick=>"$.unblockUI();return false;"}
-      Закрыть
-  .contents
+  %table.header
+    %td.title Добавить изображение 
+    %td.controls
+      %a.control{:href=>"#", :onclick=>"$.unblockUI();return false;"}
+        Закрыть
+  .content
     = yield 

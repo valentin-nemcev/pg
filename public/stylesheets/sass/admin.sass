@@ -133,9 +133,23 @@ a.control
   :font-style italic
   
   
-form.full 
+form 
   :margin #{!margin2} 0
   :padding-left 4px
+  table.container
+    :width 100%
+    :height 100%
+    td.submit
+      :padding 0px
+      :padding-right 8px
+      :height 100%
+      input[type="submit"], button
+        :display block
+        :height 100%
+    td.content
+      :width 100%
+      :padding 0
+  
   table
     :width auto
     td
@@ -163,8 +177,11 @@ form.full
       :font-size #{!size4}
     input 
       :border 1px solid #999
+    input.big
       :font-size #{!size3}
     input[type="checkbox"]
+      :width auto
+    input[type="file"]
       :width auto
     input[type="submit"]
       :padding 2px 12px
@@ -219,6 +236,24 @@ form.inline
     .item
       :padding 2px
       :display inline-block
+
+
+.blockMsg 
+  :width  40%
+  :top    30%
+  :left   30%
+  :border 1px solid #999
+  :background-color #fff
+  .header
+    td
+      :padding 1px 8px
+      :vertical-align middle
+    .title
+      :font-weight bold
+    .controls
+      :text-align right
+  .content
+    :padding 8px
 
 
       

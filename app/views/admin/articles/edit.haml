@@ -1,49 +1,53 @@
 - url = @article.new_record? ? new_polymorphic_path([:admin, @article]) : polymorphic_path([:admin, @article]) 
 - form_for [:admin, @article], :url => url, :html => {:class => 'full'} do |f| 
-  .field
-    = f.label :title 
-    = error_message_on @article, :title 
-    = f.text_field :title 
-  .field
-    = f.label :subtitle
-    = f.text_field :subtitle 
-  %table
-    %td.field
-      = f.label :category
-      = collection_select(:article, :category_id, Category.all, :id, :title, { :include_blank => true })
-    %td.field
-      = f.label :publication_date
-      = f.date_select :publication_date
-    %td.field.checkbox
-      = f.label :publicated
-      = f.check_box :publicated
-  .field 
-    = f.label :lead 
-    .textile-editor  
-      = textile_editor :article, :lead, :rows => 8  
-  .field
-    = f.label "Изображения"
-    .images
-      .images-toolbar
-        = link_to_remote "Загрузить", |
-                         :url => new_admin_image_path(:article_id => @article), |
-                         :method => :get, |
-                         :html => {:class => 'button'} |
-        -
-        = link_to_remote "Добавить", |
-                         :url => admin_images_path, :method => :get, |
-                         :html => {:class => 'button'} |
-      .images-list
-        - for image in (@article.images || [])
-          = render :partial => "admin/images/image.haml", :locals => {:image => image}
-  .field
-    = f.label :text
-    .textile-editor
-      = textile_editor :article, :text 
-  .field
-    = f.submit "Сохранить"
+  %table.container
+    %td.submit
+      %button С о х р а н и т ь
+    %td.content
+      .field
+        = f.label :title 
+        = error_message_on @article, :title 
+        = f.text_field :title , :class => 'big'
+      .field
+        = f.label :subtitle
+        = f.text_field :subtitle, :class => 'big' 
+      %table
+        %td.field
+          = f.label :category
+          = collection_select(:article, :category_id, Category.all, :id, :title, { :include_blank => true })
+        %td.field
+          = f.label :publication_date
+          = f.date_select :publication_date
+        %td.field.checkbox
+          = f.label :publicated
+          = f.check_box :publicated
+      .field 
+        = f.label :lead 
+        .textile-editor  
+          = textile_editor :article, :lead, :rows => 8  
+      .field
+        = f.label "Изображения"
+        .images
+          .images-toolbar
+            = link_to_remote "Загрузить", |
+                             :url => new_admin_image_path(:article_id => @article), |
+                             :method => :get, |
+                             :html => {:class => 'button'} |
+            -
+            =# link_to_remote "Добавить", |
+                             :url => admin_images_path, :method => :get, |
+                             :html => {:class => 'button'} |
+          .images-list
+            - for image in (@article.images || [])
+              = render :partial => "admin/images/image.haml", :locals => {:image => image}
+      .field
+        = f.label :text
+        .textile-editor
+          = textile_editor :article, :text 
+      .field
+    
   
-  = textile_editor_initialize 
+      = textile_editor_initialize 
   
 :javascript
     $('textarea').focus(function(){$('textarea').removeAttr('focused'); $(this).attr('focused', 'focused') })
