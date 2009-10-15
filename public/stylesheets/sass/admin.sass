@@ -136,6 +136,10 @@ a.control
 form.full 
   :margin #{!margin2} 0
   :padding-left 4px
+  table
+    :width auto
+    td
+      :padding-right 16px
   .field 
     :margin #{!margin3} 0
     :font-size #{!size4}
@@ -143,6 +147,8 @@ form.full
       :color red
     label
       :display block
+    &.checkbox label
+      / :display inline
       
     input, textarea 
       :width 100% 
@@ -158,6 +164,8 @@ form.full
     input 
       :border 1px solid #999
       :font-size #{!size3}
+    input[type="checkbox"]
+      :width auto
     input[type="submit"]
       :padding 2px 12px
       :width auto

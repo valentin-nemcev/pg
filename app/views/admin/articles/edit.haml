@@ -7,12 +7,16 @@
   .field
     = f.label :subtitle
     = f.text_field :subtitle 
-  .field
-    = f.label :category
-    = collection_select(:article, :category_id, Category.all, :id, :title, { :include_blank => true })
-  .field
-    = f.label :publication_date
-    = f.date_select :publication_date
+  %table
+    %td.field
+      = f.label :category
+      = collection_select(:article, :category_id, Category.all, :id, :title, { :include_blank => true })
+    %td.field
+      = f.label :publication_date
+      = f.date_select :publication_date
+    %td.field.checkbox
+      = f.label :publicated
+      = f.check_box :publicated
   .field 
     = f.label :lead 
     .textile-editor  
