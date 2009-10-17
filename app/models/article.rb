@@ -5,7 +5,7 @@ class Article < ActiveRecord::Base
   after_save :update_revision
   RevisionColumns = Revision.column_names + %w{image_ids} - %w{id article_id created_at updated_at}
   
-  belongs_to :category
+  belongs_to :category, :counter_cache => true
   
   has_many :links, :as => :linked, :dependent => :delete_all 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
@@ -28,6 +28,7 @@ class Article < ActiveRecord::Base
   protected
   
   def after_find
+    # return true
     return true if self.current_revision.nil? 
     RevisionColumns.each do |attr_name| 
       self.send "#{attr_name}=", self.current_revision[attr_name]

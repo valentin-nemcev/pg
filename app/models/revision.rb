@@ -1,5 +1,5 @@
 class Revision < ActiveRecord::Base
-  belongs_to :article
+  belongs_to :article, :counter_cache => true
   belongs_to :editor, :class_name => 'User', :foreign_key => 'editor_id'
   has_and_belongs_to_many :images
   

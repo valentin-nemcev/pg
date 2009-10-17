@@ -21,11 +21,11 @@
             = article.publication_date
         %td.controls
           %div
-            = link_to "Правки (#{article.revisions.count})",                      |
+            = link_to "Правки (#{article.revisions.size})",                      |
                       polymorphic_path([:admin, @category, article, :revisions]), |
                       :class => 'control'                                         |
             -          
-            = link_to "Ссылки (#{article.links.count})", |
+            = link_to "Ссылки (#{article.links.size})", |
                       polymorphic_path([:admin, @category, article, :links]), |
                       :class => 'control' |
           %div
