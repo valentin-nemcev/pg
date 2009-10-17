@@ -3,18 +3,19 @@ ru:
         models:
             article: Статья
             category: Рубрика
-            imgaes: Изображения
         attributes:
             article:
-                category_id: Рубрика
+                category: Рубрика
                 title: Заголовок
                 subtitle: Подзаголовок
                 link: Ссылка
+                publication_date: Дата публикации
+                publicated: Опубликовано
                 lead: Лид 
                 text: Текст 
             category:
                 title: Заголовок
-                link: Ссылка
+                archived: В архиве
             image:
                 title: Заголовок
                 link: Ссылка
@@ -27,10 +28,12 @@ ru:
                 record_invalid: record_invalid
     breadcrumbs: 
         articles: Статьи
+        categories: Рубрики
         admin: Управление
         edit: Правка
         revisions: Правки
         links: Ссылки
         images: Изображения
         new: Добавить
+        
         

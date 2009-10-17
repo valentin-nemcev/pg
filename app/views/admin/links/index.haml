@@ -6,12 +6,18 @@
     
   - for link in @links
     .item
-      %table
-        %td.header
-          .title(class="#{'canonical' if link.canonical?}")
-            = link.text
-        %td.controls
-          %div
-            - unless link.canonical?
-              = link_to 'Сделать основной', polymorphic_path([:admin, @parent, link], :action => :make_canonical), :method => :post, :class => 'control' 
-            = link_to 'Удалить', polymorphic_path([:admin, @parent, link]), :class => 'control',  :confirm => 'Действительно удалить?', :method => :delete             
+      .header
+        .title(class="#{'canonical' if link.canonical?}")
+          = link.text
+      .controls
+        - unless link.canonical?
+          = link_to 'Сделать основной', |
+                    polymorphic_path([:admin, @parent, link], |
+                    :action => :make_canonical), |
+                    :method => :post, :class => 'control' |
+        -
+        = link_to 'Удалить', |
+                  polymorphic_path([:admin, @parent, link]), |
+                  :class => 'control',  |
+                  :confirm => 'Действительно удалить?', |
+                  :method => :delete |             
