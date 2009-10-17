@@ -3,8 +3,28 @@
     %a.control{:href=>"#{new_admin_category_path}"} Добавить
   - if @categories.empty?
     .empty.item Рубрик нет
-    
-  = render :partial => 'list', :locals => {:categories => @categories}
-  %h3 Архив
-  = render :partial => 'list', :locals => {:categories => @categories_archived}
-    
+  - for category in @categories
+    .item
+      .header
+        .title
+          = link_to((category.title + " (#{category.articles.size})"), |
+                    admin_category_articles_path(category)) |
+        .type
+          = category.cat_type
+          = "В архиве" if category.archived?
+      .controls
+        %div
+          = link_to "Ссылки (#{category.links.size})", admin_category_links_path(category), :class => 'control'
+          = link_to 'Редактировать', edit_admin_category_path(category), :class => 'control' 
+          = link_to 'Удалить', |
+                    admin_category_path(category), |
+                    :class => 'control',  |
+                    :confirm => 'Действительно удалить?', |
+                    :method => :delete  |
+          -           
+          = link_to 'Удалить со статьями', |
+                    admin_category_path(category, :with_articles => true), :class => 'control', |
+                    :confirm => 'Действительно удалить рубрику вместе со стаьями?', |
+                    :method => :delete |
+  
+  

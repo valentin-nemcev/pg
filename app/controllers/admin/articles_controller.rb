@@ -5,7 +5,13 @@ class Admin::ArticlesController < AdminController
   def index
     @category = parent_object
     conditions = @category ? {:category_id => @category} : {}
-    @articles = Article.paginate(:conditions => conditions, :include => [:current_revision, :category], :page => params[:page], :per_page => 30)
+    @articles = Article.paginate \
+      :conditions => conditions, 
+      :include => [:current_revision, :category], 
+      :order => 'publication_date DESC',
+      :page => params[:page], 
+      :per_page => 30
+                  
     render :action => "index"
   end
 

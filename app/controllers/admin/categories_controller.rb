@@ -1,8 +1,8 @@
 class Admin::CategoriesController < AdminController
 
   def index
-    @categories = Category.find(:all, :conditions => {:archived => false})
-    @categories_archived = Category.find(:all, :conditions => {:archived => true})
+    @categories = Category.all :order => 'archived ASC'
+      
     render :action => "index"
   end
 

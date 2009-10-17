@@ -27,6 +27,7 @@ html
 
 !margin2 = 0.25em
 !margin3 = 0.5em   
+!margin4 = 1em 
 body
   :margin auto
   :max-width  1260px
@@ -111,24 +112,30 @@ a.control
 .list
   :padding-left 4px
   .item
-    :margin #{!margin2} 0
-    :padding 2px
-    :border 1px solid #fff
+    :margin #{!margin4} 0
+    :padding 0 4px
+    :border-left 2px solid #fff
+    div
+      :margin 4px 0
     &:hover
-      :border 1px solid #ccc
+      :border-left 2px solid #999
+      .controls
+        :visibility visible
     &.new
       :font-weight bold
     &.new:hover
-      :border 1px solid #fff
-    td.header
-    td.controls
-      :width 50%
-      :text-align right
+      :border-left 2px solid #fff
+    .controls
+      / :visibility hidden
+    .links a
+      :padding-right 8px
     td.thumb
       :padding-right 4px
       :width 70px
     .title
       :font-weight bold
+    .title, .subtitle
+      :margin 0
 #links.list .title.canonical 
   :font-style italic
   

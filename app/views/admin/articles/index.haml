@@ -8,35 +8,32 @@
   
   - for article in @articles 
     .item
-      %table
-        %td.header
-          .title
-            = link_to article.title, |
-                      edit_polymorphic_path([:admin, @category, article]) |
-          .subtitle 
-            = article.subtitle
-          .category 
-            = article.category.title unless article.category.nil?
-          .date
-            = article.publication_date
-        %td.controls
-          %div
-            = link_to "Правки (#{article.revisions.size})",                      |
-                      polymorphic_path([:admin, @category, article, :revisions]), |
-                      :class => 'control'                                         |
-            -          
-            = link_to "Ссылки (#{article.links.size})", |
-                      polymorphic_path([:admin, @category, article, :links]), |
-                      :class => 'control' |
-          %div
-            = link_to 'Редактировать', |
-                      edit_polymorphic_path([:admin, @category, article]), |
-                      :class => 'control' |
-            -          
-            = link_to 'Удалить', |
-                      polymorphic_path([:admin, @category, article]), |
-                      :class => 'control', |
-                      :confirm => 'Действительно удалить?', :method => :delete |
+      .header
+        .title
+          = link_to article.title, |
+                    edit_polymorphic_path([:admin, @category, article]) |
+        .subtitle 
+          = article.subtitle
+        .date
+          = Russian::localize(article.publication_date, :format => :long)
+        .links
+          - if @category.nil? and not article.category.nil?
+            = link_to article.category.title, admin_category_articles_path(article.category) 
+          = link_to "Правки (#{article.revisions.size})",                      |
+                    polymorphic_path([:admin, @category, article, :revisions]) |
+          -          
+          = link_to "Ссылки (#{article.links.size})", |
+                    polymorphic_path([:admin, @category, article, :links]) |
+      -# .controls
+        %div
+          = link_to 'Редактировать', |
+                    edit_polymorphic_path([:admin, @category, article]), |
+                    :class => 'control' |
+          -          
+          = link_to 'Удалить', |
+                    polymorphic_path([:admin, @category, article]), |
+                    :class => 'control', |
+                    :confirm => 'Действительно удалить?', :method => :delete |
                       
 = will_paginate @articles, :previous_label => "←", :next_label => "→", :per_page => 30
           
