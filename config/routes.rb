@@ -3,7 +3,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root :controller => "main", :action => "main"    
     
-    admin.resources :layout_items, :except => [:show, :edit, :new]
+    admin.resources :layout_items, 
+      :except => [:show, :edit, :new],
+      :member => [:move_side]
+      
     admin.resources :quotes, :except => [:show], :collection => { :new => [:get, :post] } 
     
     links_route_params = {:except => [:show, :edit], :member => { :make_canonical => :post }, :collection => { :new => [:get, :post] }}

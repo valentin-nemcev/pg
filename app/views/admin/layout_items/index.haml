@@ -8,13 +8,21 @@
       = link_to 'Удалить', admin_layout_item_path(item), :class => 'control', :method => :delete    
       
       
-%table
-  - LayoutItem.grid('main').each do |row|
+%table.layout_grid
+  - LayoutItem.grid('main').each_with_index do |row, top|
     %tr
-      - row.each do |cell|
+      - row.each_with_index do |cell, left|
         - if cell.kind_of? LayoutItem
-          %td(style="border: 1px solid #ccc; width: #{100/5*cell.width}%" rowspan="#{cell.height}" colspan="#{cell.width}")
-            = cell.content.title unless cell.content.nil? 
-        - else
-          %td(style="border: 1px solid #ccc; width: #{100/5}%")
-            empty
+          - content_tag 'td', td_size(cell, 5) do
+            = render :partial => 'layout_item', :locals => {:item => cell}
+        - elsif not cell.nil?
+          %td(width="#{100/5}%")
+            = render :partial => 'layout_item', |
+              :locals => { |
+                :item => LayoutItem.new( |
+                  :place => 'main', |
+                  :left => left, |
+                  :top => top |
+                  )} |  
+    
+      

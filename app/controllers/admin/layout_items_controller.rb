@@ -4,7 +4,15 @@ class Admin::LayoutItemsController < AdminController
     @layout_items = LayoutItem.find(:all)
     render :action => "index"
   end
-
+  
+  def move_side
+    item = LayoutItem.find(params[:id])
+    item.move_side(params[:direction].to_sym, params[:side].to_sym)
+    item.save
+    redirect_to admin_layout_items_url
+  end
+  
+  
   def create
     @layout_item = LayoutItem.new(params[:layout_item])
 
