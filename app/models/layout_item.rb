@@ -1,6 +1,10 @@
 class LayoutItem < ActiveRecord::Base
 
-  belongs_to :content, :polymorphic => true
+  has_many :content, :class_name => 'LayoutItemsToContent', :order => 'position ASC', :dependent => :destroy
+  accepts_nested_attributes_for :content, :reject_if => proc { |attrs| attrs['article_id'].blank? }
+   
+  has_many :articles, :through => :content
+  # belongs_to :content, :polymorphic => true
 
   Places = %w{main sidebar}
   ColumnCount = {'main' => 5, 'sidebar' => 2}

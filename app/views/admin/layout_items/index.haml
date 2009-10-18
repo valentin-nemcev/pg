@@ -1,8 +1,8 @@
 .list
-  .new.item
+  -# .new.item
     = render :partial => 'layout_item', :locals => {:item => @layout_item}
   
-  - for item in @layout_items
+  -# for item in @layout_items
     .item
       = render :partial => 'layout_item', :locals => {:item => item}
       = link_to 'Удалить', admin_layout_item_path(item), :class => 'control', :method => :delete    

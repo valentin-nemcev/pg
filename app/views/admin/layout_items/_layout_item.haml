@@ -1,39 +1,43 @@
-%table
+%table.layout_item
   %tr
-    %td(colspan="3")
+    %td.top(colspan="3")
       - unless item.new_record?
         = move_side_link(item, :side=>:top, :direction => :dec)
         = move_side_link(item, :side=>:top, :direction => :inc) 
   %tr
-    %td
+    %td.left
       - unless item.new_record?
         = move_side_link(item, :side=>:left, :direction => :dec) 
         %br
         = move_side_link(item, :side=>:left, :direction => :inc)
-    %td
+    %td.center(title="#{h item.inspect}") 
       - form_for [:admin, item], :html => {:class => 'inline'} do |f|
         .field
-          = f.label :article
-          = f.collection_select(:content_id, @articles||=Article.all(:order => 'publication_date DESC'), :id, :title, { :include_blank => true })
-          = f.hidden_field :content_type, :value=>'Article'
-        .field
-          = f.label 'size'
-          = f.text_field :left , :class => 'short'
-          = f.text_field :top, :class => 'short' 
-          = f.text_field :width, :class => 'short'
-          = f.text_field :height, :class => 'short' 
+          - item.content.build
+          - item.content.each_with_index do |content,i|
+            - fields_for "layout_item[content_attributes][#{i}]", content do |c|
+              = c.hidden_field :id
+              = c.collection_select(:article_id, @articles||=Article.all(:order => 'publication_date DESC'), :id, :title, { :include_blank => true })
+              %span(title="#{h content.inspect}") *
+              - unless item.new_record? or content.new_record?
+                = link_to 'Удалить', admin_layout_item_content_path(item, content), :method => :delete
+                - unless item.content.first == content
+                  = link_to 'Вверх', move_admin_layout_item_content_path(item, content, :direction => :up), :method => :post
+                - unless item.content[-2] == content
+                  = link_to 'Вниз', move_admin_layout_item_content_path(item, content, :direction => :down), :method => :post
+              %br
+              %br
         .field
           = f.submit "Сохранить" 
-    
         - unless item.new_record?
           = link_to 'Удалить', admin_layout_item_path(item), :class => 'control', :method => :delete
-    %td
+    %td.right
       - unless item.new_record?
         = move_side_link(item, :side=>:right, :direction => :inc) 
         %br
         = move_side_link(item, :side=>:right, :direction => :dec) 
   %tr
-    %td(colspan="3")
+    %td.bottom(colspan="3")
       - unless item.new_record?
         = move_side_link(item, :side=>:bottom, :direction => :inc)
         = move_side_link(item, :side=>:bottom, :direction => :dec) 

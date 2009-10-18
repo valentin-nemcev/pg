@@ -5,7 +5,10 @@ ActionController::Routing::Routes.draw do |map|
     
     admin.resources :layout_items, 
       :except => [:show, :edit, :new],
-      :member => [:move_side]
+      :member => [:move_side] do |layout_item|
+        layout_item.resources :content, 
+          :controller => 'layout_items_to_content',  :only => :destroy, :member => {:move => :post} 
+    end
       
     admin.resources :quotes, :except => [:show], :collection => { :new => [:get, :post] } 
     

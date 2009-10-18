@@ -11,7 +11,8 @@ class Article < ActiveRecord::Base
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
   after_save :make_link
   
-  has_many :layout_items, :as => :content, :dependent => :destroy  
+  # has_many :layout_items, :as => :content, :dependent => :destroy  
+  has_many :layout_items, :through => :layout_items_to_content
   
   @@per_page = 10
   
@@ -28,15 +29,21 @@ class Article < ActiveRecord::Base
   
   class << self
       def find(*args)
-        if args.first == :all 
-          self.with_scope(:find => {:include => [:current_revision]}) {super} 
-        else 
-          super 
-        end.each do |article|
-          return true if article.current_revision.nil? 
+        opts = args.extract_options!
+        args << opts
+        iterator = lambda do |article|
           RevisionColumns.each do |attr_name| 
             article.send "#{attr_name}=", article.current_revision[attr_name]
-          end
+          end unless article.current_revision.nil? 
+          article
+        end
+        
+        if args.first == :all 
+          if not opts[:select]
+            self.with_scope(:find => {:include => :current_revision}){super(*args).each(&iterator)} 
+          else super(*args) end
+        else 
+          iterator.call(super(*args)) 
         end
       end
       

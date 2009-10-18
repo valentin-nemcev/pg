@@ -21,4 +21,5 @@ module Admin::LayoutItemsHelper
     
     link_to(get_side_arrow(side), move_side_admin_layout_item_path(item, side)) if item.can_move_side?(side[:direction], side[:side])
   end
+  
 end

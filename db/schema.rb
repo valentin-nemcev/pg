@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091015100836) do
+ActiveRecord::Schema.define(:version => 20091018171323) do
 
   create_table "articles", :force => true do |t|
     t.datetime "publication_date"
@@ -55,8 +55,12 @@ ActiveRecord::Schema.define(:version => 20091015100836) do
     t.integer  "left"
     t.integer  "height"
     t.integer  "width"
-    t.string   "content_type"
-    t.integer  "content_id"
+  end
+
+  create_table "layout_items_to_content", :force => true do |t|
+    t.integer "layout_item_id"
+    t.integer "article_id"
+    t.integer "position",       :null => false
   end
 
   create_table "links", :force => true do |t|
