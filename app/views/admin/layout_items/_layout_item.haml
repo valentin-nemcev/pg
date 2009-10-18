@@ -14,7 +14,7 @@
       - form_for [:admin, item], :html => {:class => 'inline'} do |f|
         .field
           = f.label :article
-          = f.collection_select(:content_id, [], :id, :title, { :include_blank => true })
+          = f.collection_select(:content_id, @articles||=Article.all(:order => 'publication_date DESC'), :id, :title, { :include_blank => true })
           = f.hidden_field :content_type, :value=>'Article'
         .field
           = f.label 'size'

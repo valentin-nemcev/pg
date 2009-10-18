@@ -7,7 +7,7 @@ class Admin::ArticlesController < AdminController
     conditions = @category ? {:category_id => @category} : {}
     @articles = Article.paginate \
       :conditions => conditions, 
-      :include => [:current_revision, :category], 
+      :include => [:category], 
       :order => 'publication_date DESC',
       :page => params[:page], 
       :per_page => 30

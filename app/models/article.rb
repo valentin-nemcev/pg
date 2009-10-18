@@ -25,15 +25,30 @@ class Article < ActiveRecord::Base
     return self.current_revision.images until self.current_revision.nil?
   end
   
+  
+  class << self
+      def find(*args)
+        if args.first == :all 
+          self.with_scope(:find => {:include => [:current_revision]}) {super} 
+        else 
+          super 
+        end.each do |article|
+          return true if article.current_revision.nil? 
+          RevisionColumns.each do |attr_name| 
+            article.send "#{attr_name}=", article.current_revision[attr_name]
+          end
+        end
+      end
+      
+    end
+  
   protected
   
-  def after_find
-    # return true
-    return true if self.current_revision.nil? 
-    RevisionColumns.each do |attr_name| 
-      self.send "#{attr_name}=", self.current_revision[attr_name]
-    end
-  end
+  # def after_find
+  #     # return true
+  #     
+  #     
+  #   end
   
   def make_link
     link = Link.new(:text => Link.make_link_text(self.title), :linked => self, :editor => self.editor)
