@@ -10,9 +10,9 @@ class LayoutItemsToContent < ActiveRecord::Base
   def move(direction)
     other = case direction
     when :down
-      LayoutItemsToContent.first(:conditions => ['position > ?', self.position], :order => 'position ASC')
+      LayoutItemsToContent.first(:conditions => ['position > ? AND layout_item_id = ?', self.position, self.layout_item_id], :order => 'position ASC')
     when :up
-      LayoutItemsToContent.first(:conditions => ['position < ?', self.position], :order => 'position DESC')
+      LayoutItemsToContent.first(:conditions => ['position < ? AND layout_item_id = ?', self.position, self.layout_item_id], :order => 'position DESC')
     end
     return if other.nil?
     self.position, other.position = other.position, self.position

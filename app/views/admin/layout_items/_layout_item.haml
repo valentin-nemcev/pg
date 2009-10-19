@@ -19,11 +19,11 @@
             = link_to 'Удалить', admin_layout_item_content_path(item, content), :method => :delete
             - unless item.content.first == content
               = link_to 'Вверх', move_admin_layout_item_content_path(item, content, :direction => :up), :method => :post
-            - unless item.content[-2] == content
+            - unless item.content.last == content
               = link_to 'Вниз', move_admin_layout_item_content_path(item, content, :direction => :down), :method => :post
       
       .content
-        - form_for [:admin, item], :html => {:id => "content-form-#{item.top}-#{item.left}"} do |f|
+        - form_for [:admin, item], :html => {:id => "content-form-#{item.top}-#{item.left}"}, :style => 'display: none' do |f|
           - fields_for "layout_item[content_attributes][0]", item.content.build do |c|
             = c.hidden_field :id
             = c.collection_select(:article_id, @articles||=Article.all(:order => 'publication_date DESC'), |

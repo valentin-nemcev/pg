@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     
     admin.resources :links, links_route_params
     
-    admin.resources :categories, :except => [:show], :collection => { :new => [:get, :post] } do |c|
+    admin.resources :categories, :except => [:show], :member => [:move], :collection => { :new => [:get, :post] } do |c|
       c.resources :links, links_route_params
       c.resources :articles, :has_many => [:images], :collection => { :new => [:get, :post] } do |a2|
         a2.resources :links, links_route_params

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091018171323) do
+ActiveRecord::Schema.define(:version => 20091019190659) do
 
   create_table "articles", :force => true do |t|
     t.datetime "publication_date"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20091018171323) do
     t.string   "cat_type"
     t.integer  "articles_count",    :default => 0
     t.integer  "links_count",       :default => 0
+    t.integer  "position",          :default => 0,     :null => false
   end
 
   create_table "images", :force => true do |t|

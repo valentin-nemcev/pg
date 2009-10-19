@@ -4,7 +4,7 @@
   - if @categories.empty?
     .empty.item Рубрик нет
   - for category in @categories
-    .item
+    .item(title="#{category.inspect}")
       .header
         .title
           = link_to((category.title + " (#{category.articles.size})"), |
@@ -15,6 +15,9 @@
       .controls
         %div
           = link_to "Ссылки (#{category.links.size})", admin_category_links_path(category), :class => 'control'
+          = link_to 'Вверх', move_admin_category_path(category, :direction => :up), :method => :post
+          = link_to 'Вниз', move_admin_category_path(category, :direction => :down), :method => :post
+         
           = link_to 'Редактировать', edit_admin_category_path(category), :class => 'control' 
           = link_to 'Удалить', |
                     admin_category_path(category), |

@@ -1,7 +1,7 @@
 class Admin::CategoriesController < AdminController
 
   def index
-    @categories = Category.all :order => 'archived ASC'
+    @categories = Category.all :order => 'archived ASC, position ASC'
       
     render :action => "index"
   end
@@ -9,7 +9,7 @@ class Admin::CategoriesController < AdminController
   def new
     return create if request.post?
     @category = Category.new
-    render :action => "form.haml" #Заменить на что-нибудь более логичное
+    render :action => "form.haml" 
   end
 
   def edit
@@ -37,6 +37,11 @@ class Admin::CategoriesController < AdminController
     else
       render :action => "form.haml" 
     end
+  end
+
+  def move
+    Category.find(params[:id]).move(params[:direction].to_sym)
+    redirect_to admin_categories_url
   end
 
   def destroy
