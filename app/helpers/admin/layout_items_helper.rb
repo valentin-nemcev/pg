@@ -19,7 +19,7 @@ module Admin::LayoutItemsHelper
   
   def move_side_link(item, side)
     
-    link_to(get_side_arrow(side), move_side_admin_layout_item_path(item, side)) if item.can_move_side?(side[:direction], side[:side])
+    link_to(get_side_arrow(side), move_side_admin_layout_item_path(item, side), :class => 'button') if item.can_move_side?(side[:direction], side[:side])
   end
   
 end

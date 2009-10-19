@@ -11,26 +11,43 @@
         %br
         = move_side_link(item, :side=>:left, :direction => :inc)
     %td.center(title="#{h item.inspect}") 
-      - form_for [:admin, item], :html => {:class => 'inline'} do |f|
-        .field
-          - item.content.build
-          - item.content.each_with_index do |content,i|
-            - fields_for "layout_item[content_attributes][#{i}]", content do |c|
-              = c.hidden_field :id
-              = c.collection_select(:article_id, @articles||=Article.all(:order => 'publication_date DESC'), :id, :title, { :include_blank => true })
-              %span(title="#{h content.inspect}") *
-              - unless item.new_record? or content.new_record?
-                = link_to 'Удалить', admin_layout_item_content_path(item, content), :method => :delete
-                - unless item.content.first == content
-                  = link_to 'Вверх', move_admin_layout_item_content_path(item, content, :direction => :up), :method => :post
-                - unless item.content[-2] == content
-                  = link_to 'Вниз', move_admin_layout_item_content_path(item, content, :direction => :down), :method => :post
-              %br
-              %br
-        .field
-          = f.submit "Сохранить" 
-        - unless item.new_record?
-          = link_to 'Удалить', admin_layout_item_path(item), :class => 'control', :method => :delete
+      - item.content.each_with_index do |content,i|
+        .content
+          .title(title="#{h content.inspect}")
+            = content.article.title
+          .controls
+            = link_to 'Удалить', admin_layout_item_content_path(item, content), :method => :delete
+            - unless item.content.first == content
+              = link_to 'Вверх', move_admin_layout_item_content_path(item, content, :direction => :up), :method => :post
+            - unless item.content[-2] == content
+              = link_to 'Вниз', move_admin_layout_item_content_path(item, content, :direction => :down), :method => :post
+      
+      .content
+        - form_for [:admin, item], :html => {:id => "content-form-#{item.top}-#{item.left}"} do |f|
+          - fields_for "layout_item[content_attributes][0]", item.content.build do |c|
+            = c.hidden_field :id
+            = c.collection_select(:article_id, @articles||=Article.all(:order => 'publication_date DESC'), |
+                                  :id, :title, { :include_blank => true }) |
+          -
+          = f.hidden_field :top
+          = f.hidden_field :left
+          = f.hidden_field :width
+          = f.hidden_field :height
+          .field
+            = f.submit "Добавить" 
+      - unless item.new_record?
+        = link_to 'Удалить все', admin_layout_item_path(item), :class => 'control', :method => :delete
+      :javascript
+          show_link = $('<a href="#" class="js">Добавить</a>').click(function(){
+            $(this).hide()
+            $('#content-form-#{item.top}-#{item.left}').show()
+          })
+          $('#content-form-#{item.top}-#{item.left}').find('input[type="submit"]').remove()
+          $('#content-form-#{item.top}-#{item.left}').hide().after(show_link)
+            .find('select').change(function(){
+              $('#content-form-#{item.top}-#{item.left}').submit()
+            })
+        
     %td.right
       - unless item.new_record?
         = move_side_link(item, :side=>:right, :direction => :inc) 
