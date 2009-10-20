@@ -81,7 +81,7 @@ end
 puts "Convert bot: #{cb.name}"
 
 puts "Deleting categories..."
-= Category.destroy_all
+Category.destroy_all
 # puts "Deleted #{deleted_cats.size} earlier converted revisions"
 puts "Importing categories..."
 DBConn.connection.select_all('SELECT * FROM categories').each do |c|
@@ -114,6 +114,7 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
     # pp img
   end
   
+  a['date'] = Time.parse('2009-01-01').to_i.to_s if a['category_link'] == 'about'
   art = Article.new(
     :title => a['title'],
     :subtitle => a['subtitle'],
