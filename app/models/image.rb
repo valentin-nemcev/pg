@@ -3,9 +3,13 @@ require 'RMagick'
 class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
   IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'public/img')
-  ThumbSize = 160
-  Types = ['face', 'banner', 'photo']
-  
+  ThumbSize = 100
+  ImageTypes = ['face', 'banner', 'photo']
+ 
+=begin
+  TODO Добавить enum
+=end
+ 
   has_and_belongs_to_many :revisions
   
   validates_presence_of :title 
@@ -15,7 +19,7 @@ class Image < ActiveRecord::Base
   attr_accessor :image_file, :image_path
   attr_protected :filename, :link
   
-  before_save :save_image_file, :make_link
+  before_save :save_image_file, :make_link, :validate_type
   before_destroy :delete_image_file
   
   def thumb_data
@@ -26,7 +30,16 @@ class Image < ActiveRecord::Base
     return read_image
   end
   
+  def print_size
+    img = read_image
+    "#{img.columns}x#{img.rows}"
+  end
+  
   protected  
+    
+    def validate_type
+      self.img_type = ImageTypes[0] until ImageTypes.include? self.img_type
+    end
     
     def read_image
       Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
@@ -60,6 +73,11 @@ class Image < ActiveRecord::Base
         original_name = @image_file.nil? ? image_path : @image_file.original_filename
         errors.add(:image_file, "Неверный формат изображения (#{original_name})")
         return false;
+      end
+      if(img.columns <= 200 and img.rows <= 200)
+        self.img_type = 'face'
+      else
+        self.img_type = 'photo'
       end
       # filename = "#{Time.now.to_i}#{rand(1000)}.jpg"
       filename =  Link.make_link_text(self.title)+'.jpg'

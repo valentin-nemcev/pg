@@ -14,7 +14,7 @@
       %table
         %td.field
           = f.label :category
-          = collection_select(:article, :category_id, Category.all, :id, :title, { :include_blank => true })
+          = collection_select(:article, :category_id, Category.all, :id, :title)
         %td.field
           = f.label :publication_date
           = f.date_select :publication_date

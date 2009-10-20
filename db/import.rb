@@ -73,22 +73,32 @@ def html2textile(text)
   return [text, images]
 end
 cb = User.find_by_email('bot@polit-gramota.ru') 
+if not cb.kind_of? User
+  puts 'Convert bot not found'
+  exit
+end
+ 
+puts "Convert bot: #{cb.name}"
 
-Category.destroy_all
+puts "Deleting categories..."
+= Category.destroy_all
+# puts "Deleted #{deleted_cats.size} earlier converted revisions"
+puts "Importing categories..."
 DBConn.connection.select_all('SELECT * FROM categories').each do |c|
   # pp c
   
   cat = Category.create(:cat_type=>c['type'], :title=>c['title'], :archived => %w{top archived news}.include?(c['type']))
   cat_link = cat.links.create(:text => c['link'], :editor => cb) 
-  
-  p cat.save
+  cat.save
 end
 
+nil_cat = Category.create(:title=>'(Без рубрики)', :archived => 1)
+puts "Deleting images..."
 Image.destroy_all
-
-   
-deleted_revs = Revision.destroy_all
-puts "Deleted #{deleted_revs.size} earlier converted revisions"
+puts "Deleting articles..."
+Revision.destroy_all
+puts "Importing articles..."
+# puts "Deleted #{deleted_revs.size} earlier converted revisions"
 DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id').each do |a|
   lead, lead_images = html2textile(a['lead'])
   text, text_images = html2textile(a['text'])
@@ -112,7 +122,8 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
     :lead => lead,
     :editor => cb
   )
-  art.category = Link.find_by_text(a['category_link']).linked rescue p(a)
+  
+  art.category = Link.find_by_text(a['category_link']).linked rescue nil_cat
    
   if not art.save
     p art

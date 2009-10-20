@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(:version => 20091019190659) do
     t.integer  "left"
     t.integer  "height"
     t.integer  "width"
+    t.string   "content_type"
+    t.integer  "content_id"
   end
 
   create_table "layout_items_to_content", :force => true do |t|
