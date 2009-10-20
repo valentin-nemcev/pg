@@ -22,6 +22,10 @@ class Revision < ActiveRecord::Base
     
     @@extracted_images = []
     
+    def self.text_type= (text_type)
+     @@text_type = text_type
+    end
+    
     def self.extracted_images
      @@extracted_images
     end
@@ -31,10 +35,16 @@ class Revision < ActiveRecord::Base
     end
 
     def image(opts)
-     return '' unless image = Image.find_by_link(opts[:src])
-     @@extracted_images << image
-     opts[:src] = "/images/#{opts[:src]}"
-     "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"
+      return '' unless image = Image.find_by_link(opts[:src])
+      @@extracted_images << image
+      opts[:src] = "/images/#{opts[:src]}"
+      opts[:class] = if @@text_type == :lead and image.img_type == 'image'
+        image.img_type = 'banner'
+      else
+        image.img_type
+      end
+      image.save(false)
+      "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"
     end
     
     # def image(opts)
@@ -48,7 +58,8 @@ class Revision < ActiveRecord::Base
   
   module ::RedCloth
     class TextileDoc
-      def parse_text( *rules )
+      def parse_text(text_type, *rules )
+        RedCloth::Formatters::HTMLWithImageParser.text_type = text_type
         apply_rules(rules)
         RedCloth::Formatters::HTMLWithImageParser.reset_extracted_images
         html = to(RedCloth::Formatters::HTMLWithImageParser)
@@ -62,8 +73,8 @@ class Revision < ActiveRecord::Base
   protected
     
     def parse_text_fields
-      self.text_html, @text_images = RedCloth.new(self.text).parse_text
-      self.lead_html, @lead_images = RedCloth.new(self.lead).parse_text
+      self.lead_html, @lead_images = RedCloth.new(self.lead).parse_text(:lead)
+      self.text_html, @text_images = RedCloth.new(self.text).parse_text(:text)
       # r.to(RedCloth::Formatters::ImageExtractor)
       logger.info { "!________" }
       true

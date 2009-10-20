@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
   IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'public/img')
   ThumbSize = 100
-  ImageTypes = ['face', 'banner', 'photo']
+  ImageTypes = ['face', 'banner', 'photo', 'image']
  
 =begin
   TODO Добавить enum
@@ -27,7 +27,12 @@ class Image < ActiveRecord::Base
   end
   
   def image_data
-    return read_image
+    if self.img_type == 'banner'
+      img = read_image
+      img.crop(0,0, img.columns, img.columns/4.5)
+    else
+      return read_image
+    end
   end
   
   def print_size
@@ -77,7 +82,7 @@ class Image < ActiveRecord::Base
       if(img.columns <= 200 and img.rows <= 200)
         self.img_type = 'face'
       else
-        self.img_type = 'photo'
+        self.img_type = 'image'
       end
       # filename = "#{Time.now.to_i}#{rand(1000)}.jpg"
       filename =  Link.make_link_text(self.title)+'.jpg'

@@ -1,13 +1,17 @@
-.article_with_lead
-  
+.article  
   .date
     = article.publication_date.strftime('%d.%m.%y');
   - if defined? with_category
     .category
       –
       = article.category.title unless article.category.nil?
-  %h2
+  %h2.title
     = link_to article.title, article_url(article.link)
-  .subtitle
+  %h2.subtitle
     = article.subtitle unless article.subtitle.nil?
-  = article.lead_html
+  .lead
+    = article.lead_html
+  - if full ||= false
+    .text
+      = article.text_html  
+  

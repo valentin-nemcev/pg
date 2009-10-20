@@ -24,9 +24,9 @@ body
   :margin 0 auto
 
 !pg_red = #bf2215
-!small = 12px
-!normal = 14px
-!big = 16px
+!small = 11px
+!normal = 13px
+!big = 15px
 !menu = 13px
 
 =cambria
@@ -146,7 +146,31 @@ html, body, #container
 
 
 .pagination
-  :text-align center
+  :text-align left
+  :font-size #{!big}
+  
+  a
+    :text-decoration none
+    :color #{!pg_red}
+    &:hover, &:focus
+      :color #666
+      :outline none
+    &:before, &:after
+      :color #fff
+  .current
+    :color #000
+    :font-weight bold
+    &:before, &:after
+      :color #{!pg_red}
+      :font-size #{!big+3px}
+      :line-height 0
+      :font-weight normal
+    &:before
+      :content "["
+      :padding-right 1px
+    &:after
+      :content "]" 
+      :padding-left 1px
 
 table#content 
   :width 100%
@@ -158,100 +182,122 @@ table#content
   table.grid
   
 
-h2
-  :font-weight bold
-  :line-height 1.2
-  :font-size #{!big}
-  :color #{!pg_red}
-  a  
-    :text-decoration none
+
     
-.subtitle
-  :color #333 
-  :font-size #{!big}
-  :text-decoration none
-  :font-weight bold
-  :line-height 1.2
-  
-.date, .category
-  :display inline
-  :font-size #{!normal}
-  :font-weight bold
-  :color #C47B66
-.category
-  :font-weight bold
-  :color #666
-  :font-size #{!small}
-h3  
-  :color #222 
-  :font-size #{!big}
 
 
-.article_with_lead 
+
+.article 
   :margin-bottom 16px
-  h2 
-    a:hover 
-      :text-decoration underline
-  p 
+  :font-size #{!normal}
+  :clear both
+  h2
+    :font-weight bold
+    :line-height 1.1
+    :font-size #{!big}
+    :color #{!pg_red}
+    :margin-bottom 0.2em
+    a  
+      :text-decoration none
+      &:hover 
+        :text-decoration underline
+    &.subtitle
+      :color #333 
+
+  .date, .category
+    :display inline
     :font-size #{!normal}
+    :font-weight bold
+    :color #C47B66
+  .category
+    :font-weight bold
+    :color #666
+    :font-size #{!small}
+  
+  h3  
+    :color #222 
+    :font-size #{!big}
+    :font-weight bold
+    :margin-top 1em
+  
+  h4
+    :color #111 
+    :font-size #{!normal}
+    :font-weight bold
+  
+  p + h4
+    :margin-top 1em
+    
+  .text
+    :clear both
+    
+  .text p
+    :margin 0.2em 0
+  .text p + p
+    :margin-top 1em
+  .lead p
+    :margin-bottom 0.2em 
+  
+  p.signature
+    :text-align right
+    :font-weight bold
+    :color #222
+    :clear both
+  
+  .lead p.signature
+    :clear none
+      
+  p.verses 
+    :padding-left 15px
+    :text-align left
+
+
+  p.image_list 
+    :clear both
+    :padding-top 12px
+  
+  p.quote 
+    :text-align right
+    :font-style italic
+  
+  .text p.list 
+    :display list-item
+    :margin 0.2em 0
+    :margin-left 2em
+    :list-style-type disk
+    :clear both
+  
+  img.face
+    :float left
+    :padding-right 4px
+    :width auto
+    :margin 0
     
   img
     :display block
     :width 100%
     :text-align center
-    :margin 2px auto
+    :margin 0.5em auto
+  
+  p.caption
+    :font-style italic
+    :margin 0
+    :text-align center
+
+  p.question
+    :font-weight bold
 
   
+    
 
-p 
-  :font-size #{!normal}
-  :margin-bottom 16px
+  img.left
+    :float left
+    :padding-right 4px
+    :width auto
 
-p.signature
-  :text-align right
-  :font-weight bold
-  :color #222
-  :clear both
-  
-p.verses 
-  :padding-left 15px
-  :text-align left
-
-
-p.image_list 
-  :clear both
-  :padding-top 12px
-  
-p.quote 
-  :text-align right
-  :font-style italic
-
-p.list 
-  :margin-left 25px
-  :text-indent 0
-  :clear both
-
-p img
-  :display block
-  :text-align center
-  :margin 0 auto
-
-p.caption
-  :font-style italic
-  :margin 0
-  :text-align center
-
-p.question
-  :font-weight bold
-
-img.left
-  :float left
-  :padding-right 4px
-  :width auto
-
-img.right
-  :float right
-  :padding-left 4px
-  :width auto
+  img.right
+    :float right
+    :padding-left 4px
+    :width auto
 
 

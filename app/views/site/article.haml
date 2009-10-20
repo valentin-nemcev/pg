@@ -1,7 +1,1 @@
-.full_article
-  %h2
-    = @article.title
-  .subtitle
-    = @article.subtitle unless @article.subtitle.nil?
-  / RedCloth.new(@article.text).to_html 
-  = RedCloth.new(@article.text).to(RedCloth::Formatters::ImageExtractor) 
+= render :partial => 'article', :locals => {:article  => @article, :full => true}

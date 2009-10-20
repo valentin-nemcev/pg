@@ -17,6 +17,7 @@ end
 def html2textile(text)
   require 'htmlentities'
   coder = HTMLEntities.new
+  
   text.gsub!('&shy;', '') # Выкинули мягкие переносы
   text.gsub!('­', '') # Выкинули мягкие переносы
   text.gsub!(/\s+/, ' ')
@@ -27,6 +28,8 @@ def html2textile(text)
     return "" if style=="MsoNormal"
     "p(#{style}). "
   end
+  text.gsub!(/<p>\s*<strong>/,"h4. ")
+  text.gsub!(/<\/strong>\s*<\/p>/,"\n\n")
   text.gsub!(/<p>/,"")
   text.gsub!(/<\/p>/,"\n\n")
   text.gsub!(/<h5>/,"h3. ")
@@ -41,7 +44,7 @@ def html2textile(text)
   text.gsub!(/\s*<\/em>/,"_")
   text.gsub!(/\*\*/,"")
   text.gsub!(/\_\_/,"")
-  
+     
   images = []
   text.gsub!(/<img src="http:\/\/polit-gramota.ru\/images\/([^"]*)"(?: style="float: (\w+);[^"]*")?[^>]*>/) do
     img = $~[1]
