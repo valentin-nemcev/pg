@@ -16,6 +16,15 @@
           = article.subtitle
         .date
           = Russian::localize(article.publication_date, :format => :long)
+          |
+          - if article.publicated and article.publication_date <= Time.now
+            Опубликовано
+          - elsif article.publicated and article.publication_date > Time.now
+            Ожидает публикации
+          - elsif not article.publicated and article.publication_date <= Time.now
+            Не опубликовано
+          - elsif not article.publicated and article.publication_date > Time.now
+            Готовиться к публикации
         .links
           - if @category.nil? and not article.category.nil?
             = link_to article.category.title, admin_category_articles_path(article.category) 

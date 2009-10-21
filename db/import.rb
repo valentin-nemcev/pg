@@ -83,6 +83,14 @@ end
  
 puts "Convert bot: #{cb.name}"
 
+puts "Deleting quotes..."
+Quote.destroy_all
+puts "Importing quotes..."
+ IO.readlines('quotes.txt','').each do |quote_str|
+  q_a =  quote_str.strip.split("\n")
+  pp Quote.create(:text => q_a[0].gsub("<br/>", "\n"), :author => q_a[1])
+end
+
 puts "Deleting categories..."
 Category.destroy_all
 # puts "Deleted #{deleted_cats.size} earlier converted revisions"
@@ -122,6 +130,7 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
     :title => a['title'],
     :subtitle => a['subtitle'],
     :publication_date => Time.at(a['date'].to_i),
+    :publicated => true,
     :text => text,
     :lead => lead,
     :editor => cb

@@ -11,7 +11,7 @@
     = article.subtitle unless article.subtitle.nil?
   .lead
     = article.lead_html
-  - if full ||= false
+  - if defined? full
     .text
       = article.text_html  
   

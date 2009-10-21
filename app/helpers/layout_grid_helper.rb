@@ -10,7 +10,7 @@ module LayoutGridHelper
           rowspan = cell.height
           colspan = cell.width
           td_content = cell.content.inject('') do |html_str,content|
-            html_str += render(:partial => "site/layout_grid/article", :locals => {:content => content.article})
+            html_str += render(:partial => "site/article", :locals => {:article => content.article, :with_category => true})
           end
         else 
             rowspan, colspan = 1, 1

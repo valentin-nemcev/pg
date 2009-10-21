@@ -3,7 +3,7 @@
   .field
     = f.label :text 
     = error_message_on @quote, :text 
-    = f.text_field :text 
+    = f.text_area :text, :rows=>2 
   .field
     = f.label :author
     = f.text_field :author

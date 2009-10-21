@@ -30,8 +30,9 @@ class Image < ActiveRecord::Base
     if self.img_type == 'banner'
       img = read_image
       height = 150
-      img.resize_to_fit!(920, 10000)
-      img.crop(img.rows/2-height/2,0, 710, height)
+      # img.resize_to_fit!(920, 10000)
+      # img.crop(img.rows/2-height/2,0, 710, height)
+      img.crop(0, img.rows/2-height/2, img.columns, height)
     else
       return read_image
     end

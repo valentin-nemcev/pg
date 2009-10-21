@@ -2,7 +2,7 @@ class SiteController < ApplicationController
   layout "site"
   
   def main
-     @articles = Article.paginate(:page => params[:page], :order => 'publication_date DESC' )
+     # @articles = Article.paginate(:page => params[:page], :order => 'publication_date DESC', :conditions => ['publicated = ? AND publication_date <= ?', true, Time.now] )
   end
   
   def category
@@ -14,7 +14,7 @@ class SiteController < ApplicationController
     end
     @articles = Article.paginate(
       :page => params[:page],
-      :conditions => [ 'category_id = ?', category ],
+      :conditions => [ 'category_id = ? AND publicated = ? AND publication_date <= ?', category, true, Time.now ],
       :order => 'publication_date DESC'
        )
   end

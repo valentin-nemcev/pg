@@ -6,12 +6,11 @@
   
   - for quote in @quotes 
     .item
-      %table
-        %td.header
-          .text
-            = link_to quote.text, edit_admin_quote_path(quote)
-          .author 
-            = quote.author
-        %td.controls
-          = link_to 'Удалить', admin_quote_path(quote), :class => 'control', |
+      .header
+        .text
+          = link_to quote.text, edit_admin_quote_path(quote)
+        .author 
+          = quote.author
+      .controls
+        = link_to 'Удалить', admin_quote_path(quote), :class => 'control', |
                           :confirm => 'Действительно удалить?', :method => :delete |
