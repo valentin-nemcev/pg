@@ -38,13 +38,14 @@ class Revision < ActiveRecord::Base
       return '' unless image = Image.find_by_link(opts[:src])
       @@extracted_images << image
       opts[:src] = "/images/#{opts[:src]}"
-      opts[:class] = if @@text_type == :lead and image.img_type == 'image'
+      if @@text_type == :lead and (image.img_type == 'image' or image.img_type == 'banner')
         image.img_type = 'banner'
+        image.save(false)
+        "<div class='banner' style='background-image: url(#{escape_attribute opts[:src]})'>&nbsp</div>"
       else
-        image.img_type
+        opts[:class] = image.img_type
+        "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"
       end
-      image.save(false)
-      "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"
     end
     
     # def image(opts)
@@ -69,14 +70,17 @@ class Revision < ActiveRecord::Base
     end
   end
   
+  def reparse_text_fields
+    self.parse_text_fields
+    # self.save_images
+    self.save
+  end
   
   protected
     
     def parse_text_fields
       self.lead_html, @lead_images = RedCloth.new(self.lead).parse_text(:lead)
       self.text_html, @text_images = RedCloth.new(self.text).parse_text(:text)
-      # r.to(RedCloth::Formatters::ImageExtractor)
-      logger.info { "!________" }
       true
     end
     
