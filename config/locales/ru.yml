@@ -36,6 +36,9 @@ ru:
         images: Изображения
         new: Добавить
         layout_items: Верстка
+    layout_item_places:
+        main: Главная страница
+        sidebar: Сайдбар 
 
 
 

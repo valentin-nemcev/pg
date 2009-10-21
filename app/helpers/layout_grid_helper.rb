@@ -5,11 +5,14 @@ module LayoutGridHelper
     grid.each do |row|
       table_content << '<tr>'
       row.each do |cell|
+        next if cell.nil?
         if cell.kind_of?(LayoutItem) and not cell.content.nil?
           rowspan = cell.height
           colspan = cell.width
-          td_content = render(:partial => "site/layout_grid/#{cell.content_type.downcase}", :locals => {:content => cell.content})
-        else
+          td_content = cell.content.inject('') do |html_str,content|
+            html_str += render(:partial => "site/layout_grid/article", :locals => {:content => content.article})
+          end
+        else 
             rowspan, colspan = 1, 1
             td_content = '&nbsp;'
         end

@@ -7,22 +7,24 @@
       = render :partial => 'layout_item', :locals => {:item => item}
       = link_to 'Удалить', admin_layout_item_path(item), :class => 'control', :method => :delete    
       
-      
-%table.layout_grid
-  - LayoutItem.grid('main').each_with_index do |row, top|
-    %tr
-      - row.each_with_index do |cell, left|
-        - if cell.kind_of? LayoutItem
-          - content_tag 'td', td_size(cell, 5) do
-            = render :partial => 'layout_item', :locals => {:item => cell}
-        - elsif not cell.nil?
-          %td(width="#{100/5}%")
-            = render :partial => 'layout_item', |
-              :locals => { |
-                :item => LayoutItem.new( |
-                  :place => 'main', |
-                  :left => left, |
-                  :top => top |
-                  )} |  
+- LayoutItem::Places.each do |place|      
+  %h3
+    = I18n.t (place, :scope => 'layout_item_places')
+  %table.layout_grid
+    - LayoutItem.grid(place).each_with_index do |row, top|
+      %tr
+        - row.each_with_index do |cell, left|
+          - if cell.kind_of? LayoutItem
+            - content_tag 'td', td_size(cell, LayoutItem::ColumnCount[place]) do
+              = render :partial => 'layout_item', :locals => {:item => cell}
+          - elsif not cell.nil?
+            %td(width="#{100/LayoutItem::ColumnCount[place]}%")
+              = render :partial => 'layout_item', |
+                :locals => { |
+                  :item => LayoutItem.new( |
+                    :place => place, |
+                    :left => left, |
+                    :top => top |
+                    )} |  
     
       
