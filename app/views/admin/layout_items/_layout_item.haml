@@ -27,8 +27,8 @@
         - form_for [:admin, item], :html => {:id => form_selector}, :style => 'display: none' do |f|
           - fields_for "layout_item[content_attributes][0]", item.content.build do |c|
             = c.hidden_field :id
-            = c.collection_select(:article_id, @articles||=Article.all(:order => 'publication_date DESC'), |
-                                  :id, :title, { :include_blank => true }) |
+            =# c.collection_select(:article_id, @articles||=Article.captions, |
+                                  :id, :caption, { :include_blank => true }) |
           -
           = f.hidden_field :place
           = f.hidden_field :top

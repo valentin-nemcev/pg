@@ -28,6 +28,7 @@ class Article < ActiveRecord::Base
   
   
   class << self
+      alias_method :find_without_revisions, :find
       def find(*args)
         opts = args.extract_options!
         args << opts
@@ -40,13 +41,20 @@ class Article < ActiveRecord::Base
         
         if args.first == :all 
           if not opts[:select]
-            self.with_scope(:find => {:include => :current_revision}){super(*args).each(&iterator)} 
-          else super(*args) end
+            self.with_scope(:find => {:include => :current_revision}){find_without_revisions(*args).each(&iterator)} 
+          else find_without_revisions(*args) end
         else 
-          iterator.call(super(*args)) 
+          iterator.call(find_without_revisions(*args)) 
         end
       end
-      
+    
+      def captions
+        # self.all(:order => 'publication_date DESC')
+        self.find_without_revisions(:all,:order => 'publication_date DESC', 
+          :joins => [:current_revision],
+          :select => 'title as caption'
+          )
+      end
     end
   
   protected

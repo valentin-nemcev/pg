@@ -6,7 +6,7 @@ module LayoutGridHelper
       table_content << '<tr>'
       row.each do |cell|
         next if cell.nil?
-        if cell.kind_of?(LayoutItem) and not cell.content.nil?
+        if cell.kind_of?(LayoutItem) and not cell.content.nil? 
           rowspan = cell.height
           colspan = cell.width
           td_content = cell.content.inject('') do |html_str,content|
