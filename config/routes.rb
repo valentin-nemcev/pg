@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
       :except => [:show, :edit, :new],
       :member => [:move_side] do |layout_item|
         layout_item.resources :content, 
-          :controller => 'layout_items_to_content',  :only => :destroy, :member => {:move => :post} 
+          :controller => 'layout_items_to_content',  :except => [:show, :edit,:update], :member => {:move => :post} 
     end
       
     admin.resources :quotes, :except => [:show], :collection => { :new => [:get, :post] } 

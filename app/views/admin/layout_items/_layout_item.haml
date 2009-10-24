@@ -1,15 +1,13 @@
 %table.layout_item
   %tr
     %td.top(colspan="3")
-      - unless item.new_record?
-        = move_side_link(item, :side=>:top, :direction => :dec)
-        = move_side_link(item, :side=>:top, :direction => :inc) 
+      = move_side_link(item, :side=>:top, :direction => :dec)
+      = move_side_link(item, :side=>:top, :direction => :inc) 
   %tr
     %td.left
-      - unless item.new_record?
-        = move_side_link(item, :side=>:left, :direction => :dec) 
-        %br
-        = move_side_link(item, :side=>:left, :direction => :inc)
+      = move_side_link(item, :side=>:left, :direction => :dec) 
+      %br
+      = move_side_link(item, :side=>:left, :direction => :inc)
     %td.center(title="#{h item.inspect}") 
       - item.content.each_with_index do |content,i|
         .content
@@ -18,46 +16,31 @@
           .controls
             = link_to 'Удалить', admin_layout_item_content_path(item, content), :method => :delete
             - unless item.content.first == content
-              = link_to 'Вверх', move_admin_layout_item_content_path(item, content, :direction => :up), :method => :post
+              = link_to 'Вверх', move_admin_layout_item_content_path(item, content, :direction => :up), |
+                                :method => :post |
             - unless item.content.last == content
-              = link_to 'Вниз', move_admin_layout_item_content_path(item, content, :direction => :down), :method => :post
+              = link_to 'Вниз', move_admin_layout_item_content_path(item, content, :direction => :down), |
+                                :method => :post |
       
-      .content
-        - form_selector = "cf-#{item.place}-#{item.top}-#{item.left}"
-        - form_for [:admin, item], :html => {:id => form_selector}, :style => 'display: none' do |f|
-          - fields_for "layout_item[content_attributes][0]", item.content.build do |c|
-            = c.hidden_field :id
-            = c.collection_select(:article_id, @articles||=Article.all(:text_fields => :no), |
-                                  :id, :title, { :include_blank => true }) |
-          -
-          = f.hidden_field :place
-          = f.hidden_field :top
-          = f.hidden_field :left
-          = f.hidden_field :width
-          = f.hidden_field :height
-          .field
-            = f.submit "Добавить" 
-      - unless item.new_record?
-        = link_to 'Удалить все', admin_layout_item_path(item), :class => 'control', :method => :delete
-      - form_selector = '#' + form_selector  
-      :javascript
-          show_link = $('<a href="#" class="js">Добавить</a>').click(function(){
-            $(this).hide()
-            $('#{form_selector}').show()
-          })
-          $('').find('input[type="submit"]').remove()
-          $('#{form_selector}').hide().after(show_link)
-            .find('select').change(function(){
-              $('#{form_selector}').submit()
-            })
+      .content(id="new-content-#{item.id}")
+        = link_to_remote 'Добавить', :url => new_admin_layout_item_content_path(item), :update => "new-content-#{item.id}", :method => :get
+      = link_to 'Удалить все', admin_layout_item_path(item), :class => 'control', :method => :delete
+      -#:javascript
+        / show_link = $('<a href="#" class="js">Добавить</a>').click(function(){
+        /             $(this).hide()
+        /             $('#{form_selector}').show()
+        /           })
+        /           $('').find('input[type="submit"]').remove()
+        /           $('#{form_selector}').hide().after(show_link)
+        /             .find('select').change(function(){
+        /               $('#{form_selector}').submit()
+        /             })
         
     %td.right
-      - unless item.new_record?
-        = move_side_link(item, :side=>:right, :direction => :inc) 
-        %br
-        = move_side_link(item, :side=>:right, :direction => :dec) 
+      = move_side_link(item, :side=>:right, :direction => :inc) 
+      %br
+      = move_side_link(item, :side=>:right, :direction => :dec) 
   %tr
     %td.bottom(colspan="3")
-      - unless item.new_record?
-        = move_side_link(item, :side=>:bottom, :direction => :inc)
-        = move_side_link(item, :side=>:bottom, :direction => :dec) 
+      = move_side_link(item, :side=>:bottom, :direction => :inc)
+      = move_side_link(item, :side=>:bottom, :direction => :dec) 

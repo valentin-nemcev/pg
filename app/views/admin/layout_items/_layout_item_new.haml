@@ -1,0 +1,9 @@
+%table.layout_item
+  %td.empty(title="#{h item.inspect}") 
+    - form_for [:admin, item], :html => {:id => ''}, :style => 'display: none' do |f|
+      = f.hidden_field :place
+      = f.hidden_field :top
+      = f.hidden_field :left
+      = f.hidden_field :width
+      = f.hidden_field :height
+    = link_to_function "Добавить", "$(this).prev().submit()"

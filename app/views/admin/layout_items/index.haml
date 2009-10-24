@@ -16,10 +16,11 @@
         - row.each_with_index do |cell, left|
           - if cell.kind_of? LayoutItem
             - content_tag 'td', td_size(cell, LayoutItem::ColumnCount[place]) do
-              = render :partial => 'layout_item', :locals => {:item => cell}
+              - partial = cell.new_record? ? 'layout_item_new' : 'layout_item'
+              = render :partial => partial, :locals => {:item => cell}
           - elsif not cell.nil?
             %td(width="#{100/LayoutItem::ColumnCount[place]}%")
-              = render :partial => 'layout_item', |
+              = render :partial => 'layout_item_new', |
                 :locals => { |
                   :item => LayoutItem.new( |
                     :place => place, |

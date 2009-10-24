@@ -1,0 +1,5 @@
+helo
+-#form_for [layout_item.content.build] do |c|
+  -#= c.hidden_field :id
+  = c.collection_select(:article_id, @articles||=Article.all(:text_fields => :no), |
+                        :id, :title, { :include_blank => true }) |
