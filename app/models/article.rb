@@ -19,7 +19,7 @@ class Article < ActiveRecord::Base
   
   @@per_page = 10
   
-  attr_accessor :editor 
+  attr_accessor :editor#, *REVISION_COLUMNS
   
   def link
     return self.canonical_link.text until self.canonical_link.nil?
@@ -46,6 +46,17 @@ class Article < ActiveRecord::Base
     alias_method :find_without_revisions, :find
     alias_method :find, :find_with_revisions
     
+  end
+  
+  def initialize(attributes = nil)
+    revision_attributes = REVISION_COLUMNS.inject({}) do |revision_attributes, column|
+      revision_attributes[column] = attributes.delete(column.to_sym) || ''
+      revision_attributes
+    end
+    
+    super
+    
+    @attributes = revision_attributes.merge(@attributes)
   end
   
   protected
