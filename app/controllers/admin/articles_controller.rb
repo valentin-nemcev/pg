@@ -8,6 +8,7 @@ class Admin::ArticlesController < AdminController
     @articles = Article.paginate \
       :conditions => conditions, 
       :include => [:category], 
+      :text_fields => :no,
       :order => 'publication_date DESC',
       :page => params[:page], 
       :per_page => 30
