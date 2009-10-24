@@ -42,7 +42,7 @@ class Category < ActiveRecord::Base
   
   protected
     def set_position
-      if self.position.blank?
+      if self.position.blank? or self.position == 0 
         self.position = Category.maximum(:position, :conditions => {:archived => self.archived})
         self.position ||= 0
         self.position += 1

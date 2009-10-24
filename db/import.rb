@@ -88,17 +88,21 @@ Quote.destroy_all
 puts "Importing quotes..."
  IO.readlines('quotes.txt','').each do |quote_str|
   q_a =  quote_str.strip.split("\n")
-  pp Quote.create(:text => q_a[0].gsub("<br/>", "\n"), :author => q_a[1])
+  Quote.create(:text => q_a[0].gsub("<br/>", "\n"), :author => q_a[1])
 end
 
 puts "Deleting categories..."
 Category.destroy_all
 # puts "Deleted #{deleted_cats.size} earlier converted revisions"
 puts "Importing categories..."
+pos = 1
 DBConn.connection.select_all('SELECT * FROM categories').each do |c|
   # pp c
-  
-  cat = Category.create(:cat_type=>c['type'], :title=>c['title'], :archived => %w{top archived news}.include?(c['type']))
+  pos += 1
+  cat = Category.create(
+    :title=>c['title'], 
+    :archived => %w{top archived news}.include?(c['type'])
+  )
   cat_link = cat.links.create(:text => c['link'], :editor => cb) 
   cat.save
 end
