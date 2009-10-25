@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
   has_many :articles
   
-  has_many :links, :as => :linked, :dependent => :delete_all 
+  has_many :links, :dependent => :delete_all 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id'
   after_save :make_link
   
@@ -50,7 +50,7 @@ class Category < ActiveRecord::Base
     end
     
     def make_link
-       link = Link.new(:text => Link.make_link_text(self.title), :linked => self)
+       link = Link.new(:text => Link.make_link_text(self.title), :category => self)
        if link.save
          self.canonical_link = link
          self.save(false)

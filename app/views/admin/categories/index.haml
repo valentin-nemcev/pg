@@ -10,7 +10,6 @@
           = link_to((category.title + " (#{category.articles.size})"), |
                     admin_category_articles_path(category)) |
         .type
-          = category.cat_type
           = "В архиве" if category.archived?
       .controls
         %div

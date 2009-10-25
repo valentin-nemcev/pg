@@ -3,14 +3,14 @@ class Article < ActiveRecord::Base
   belongs_to :current_revision, :foreign_key => 'current_revision_id', :class_name => 'Revision'
   validate :validate_revision
   after_save :update_revision
-  REVISION_COLUMNS = Revision.column_names - %w{id article_id created_at updated_at}
+  REVISION_COLUMNS = Revision.column_names - %w{id article_id editor_id created_at updated_at}
   TEXT_COLUMN_OPTIONS = {:no => %w{text lead text_html lead_html}}
   TEXT_COLUMN_OPTIONS.default = []
   CALCULATIONS_OPTIONS << :text_fields
   
   belongs_to :category, :counter_cache => true
   
-  has_many :links, :as => :linked, :dependent => :delete_all 
+  has_many :links, :dependent => :delete_all 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
   after_save :make_link
   
@@ -67,7 +67,7 @@ class Article < ActiveRecord::Base
   protected
   
     def make_link
-      link = Link.new(:text => Link.make_link_text(self.title), :linked => self, :editor => self.editor)
+      link = Link.new(:text => Link.make_link_text(self.title), :article => self, :editor => self.editor)
       if link.save
         self.canonical_link = link
         self.save(false)
@@ -77,9 +77,11 @@ class Article < ActiveRecord::Base
   
     def update_revision
       return true if self.current_revision.nil?
+      old_id = self.current_revision.article_id
       self.current_revision.article_id = self.id
       self.current_revision.editor_id = editor.id unless editor.nil?
       self.current_revision.save(false) 
+      self.class.increment_counter(:revisions_count, self.id) unless old_id==self.current_revision.article_id
     end
   
     def validate_revision
@@ -100,7 +102,7 @@ class Article < ActiveRecord::Base
   
     def article_not_changed?
       return false if self.current_revision.nil?
-      (REVISION_COLUMNS - %w{text_html lead_html image_ids}).all? do |attr_name|
+      (REVISION_COLUMNS - %w{text_html lead_html}).all? do |attr_name|
         logger.info { attr_name } 
         res = (self.send(attr_name) == self.current_revision.send(attr_name))
         logger.info { res.inspect }

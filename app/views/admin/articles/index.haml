@@ -11,7 +11,8 @@
       .header
         .title
           = link_to article.title, |
-                    edit_polymorphic_path([:admin, @category, article]) |
+                    edit_polymorphic_path([:admin, @category, article]), |
+                    :title => h(article.inspect) |
         .subtitle 
           = article.subtitle
         .date

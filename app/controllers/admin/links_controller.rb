@@ -44,6 +44,6 @@ class Admin::LinksController < AdminController
   
   protected
     def get_link
-      Link.find(:first, :conditions => {:id => params[:id], :linked_type => parent_type.to_s.classify, :linked_id => parent_id(parent_type)})
+      Link.find(:first, :conditions => {:id => params[:id], :"#{parent_type.to_s}_id" => parent_id(parent_type)})
     end
 end

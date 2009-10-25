@@ -140,7 +140,7 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
     :editor => cb
   )
   
-  art.category = Link.find_by_text(a['category_link']).linked rescue nil_cat
+  art.category = Link.find_by_text(a['category_link']).category rescue nil_cat
    
   if not art.save
     p art

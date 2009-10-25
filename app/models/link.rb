@@ -1,5 +1,6 @@
 class Link < ActiveRecord::Base
-  belongs_to :linked, :polymorphic => true, :counter_cache => true
+  belongs_to :article, :counter_cache => true
+  belongs_to :category, :counter_cache => true
   belongs_to :editor, :class_name => 'User', :foreign_key => 'editor_id'
   
   validates_uniqueness_of :text
@@ -11,6 +12,9 @@ class Link < ActiveRecord::Base
     Russian.translit(text).parameterize
   end
   
+  def linked
+    self.article || self.category
+  end
   
   def canonical?
     self.linked.canonical_link == self

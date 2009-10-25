@@ -56,8 +56,8 @@ class CreateDatabase < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
       t.string   "text"
-      t.integer  "linked_id"
-      t.string   "linked_type"
+      t.integer  "category_id"
+      t.integer  "article_id"
       t.integer  "editor_id"
     end
 
