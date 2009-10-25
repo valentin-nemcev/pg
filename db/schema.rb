@@ -14,23 +14,29 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
   create_table "articles", :force => true do |t|
     t.integer  "current_revision_id"
     t.integer  "canonical_link_id"
-    t.integer  "category_id"
+    t.integer  "category_id",                            :null => false
     t.datetime "publication_date"
     t.boolean  "publicated",          :default => false
     t.integer  "revisions_count",     :default => 0
     t.integer  "links_count",         :default => 0
   end
 
+  add_index "articles", ["canonical_link_id"], :name => "articles_canonical_link_id_fk"
+  add_index "articles", ["category_id"], :name => "articles_category_id_fk"
+  add_index "articles", ["current_revision_id"], :name => "articles_current_revision_id_fk"
+
   create_table "categories", :force => true do |t|
     t.integer  "canonical_link_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title"
+    t.string   "title",                                :null => false
     t.boolean  "archived",          :default => false
     t.integer  "position",          :default => 0,     :null => false
     t.integer  "articles_count",    :default => 0
     t.integer  "links_count",       :default => 0
   end
+
+  add_index "categories", ["canonical_link_id"], :name => "categories_canonical_link_id_fk"
 
   create_table "images", :force => true do |t|
     t.datetime "created_at"
@@ -41,10 +47,15 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
     t.string   "img_type"
   end
 
+  add_index "images", ["filename"], :name => "index_images_on_filename", :unique => true
+
   create_table "images_revisions", :id => false, :force => true do |t|
-    t.integer "image_id"
+    t.integer "image_id",    :null => false
     t.integer "revision_id"
   end
+
+  add_index "images_revisions", ["image_id", "revision_id"], :name => "index_images_revisions_on_image_id_and_revision_id", :unique => true
+  add_index "images_revisions", ["revision_id"], :name => "images_revisions_revision_id_fk"
 
   create_table "layout_cells", :force => true do |t|
     t.datetime "created_at"
@@ -62,14 +73,20 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
     t.integer "position",       :null => false
   end
 
+  add_index "layout_items", ["article_id"], :name => "layout_items_article_id_fk"
+  add_index "layout_items", ["layout_cell_id"], :name => "layout_items_layout_cell_id_fk"
+
   create_table "links", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "text"
+    t.string   "text",        :null => false
     t.integer  "category_id"
     t.integer  "article_id"
-    t.integer  "editor_id"
   end
+
+  add_index "links", ["article_id"], :name => "links_article_id_fk"
+  add_index "links", ["category_id"], :name => "links_category_id_fk"
+  add_index "links", ["text"], :name => "index_links_on_text", :unique => true
 
   create_table "quotes", :force => true do |t|
     t.datetime "created_at"
@@ -81,8 +98,8 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
   create_table "revisions", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "article_id"
-    t.integer  "editor_id"
+    t.integer  "article_id", :null => false
+    t.integer  "editor_id",  :null => false
     t.string   "title"
     t.string   "subtitle"
     t.text     "text"
@@ -91,17 +108,40 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
     t.text     "lead_html"
   end
 
+  add_index "revisions", ["article_id"], :name => "revisions_article_id_fk"
+  add_index "revisions", ["editor_id"], :name => "revisions_editor_id_fk"
+
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name",                      :limit => 100, :default => ""
-    t.string   "position"
-    t.string   "email",                     :limit => 100
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
-    t.string   "remember_token",            :limit => 40
+    t.string   "duties"
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "salt"
+    t.string   "remember_token"
     t.datetime "remember_token_expires_at"
     t.string   "role"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+
+  add_foreign_key "articles", "categories", :name => "articles_category_id_fk"
+  add_foreign_key "articles", "links", :name => "articles_canonical_link_id_fk", :column => "canonical_link_id", :dependent => :nullify
+  add_foreign_key "articles", "revisions", :name => "articles_current_revision_id_fk", :column => "current_revision_id", :dependent => :nullify
+
+  add_foreign_key "categories", "links", :name => "categories_canonical_link_id_fk", :column => "canonical_link_id", :dependent => :nullify
+
+  add_foreign_key "images_revisions", "images", :name => "images_revisions_image_id_fk", :dependent => :delete
+  add_foreign_key "images_revisions", "revisions", :name => "images_revisions_revision_id_fk", :dependent => :nullify
+
+  add_foreign_key "layout_items", "articles", :name => "layout_items_article_id_fk", :dependent => :delete
+  add_foreign_key "layout_items", "layout_cells", :name => "layout_items_layout_cell_id_fk", :dependent => :delete
+
+  add_foreign_key "links", "articles", :name => "links_article_id_fk"
+  add_foreign_key "links", "categories", :name => "links_category_id_fk"
+
+  add_foreign_key "revisions", "articles", :name => "revisions_article_id_fk"
+  add_foreign_key "revisions", "users", :name => "revisions_editor_id_fk", :column => "editor_id"
 
 end

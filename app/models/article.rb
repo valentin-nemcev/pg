@@ -76,24 +76,27 @@ class Article < ActiveRecord::Base
     end
   
     def update_revision
-      return true if self.current_revision.nil?
-      old_id = self.current_revision.article_id
-      self.current_revision.article_id = self.id
-      self.current_revision.editor_id = editor.id unless editor.nil?
-      self.current_revision.save(false) 
-      self.class.increment_counter(:revisions_count, self.id) unless old_id==self.current_revision.article_id
+      return true if  @revision.nil?
+      
+      @revision.article_id = self.id
+      @revision.save(false)
+      self.current_revision = @revision
+      @revision = nil
+      self.save(false)
     end
   
     def validate_revision
+      self.revisions_count = 1 if self.new_record? # HACK
       return true if article_not_changed?
-      rev = self.current_revision = Revision.new(
+      @revision = Revision.new(
         REVISION_COLUMNS.inject(Hash.new) do |h, attr_name|
           h[attr_name]=self.send(attr_name) if self.respond_to? attr_name
-          h 
+          h
         end
       )
-      if rev.invalid?
-        rev.errors.each { |attr_name, msg| self.errors.add attr_name, msg }
+      @revision.editor_id = self.editor.id
+      if @revision.invalid?
+        @revision.errors.each { |attr_name, msg| self.errors.add attr_name, msg }
         return false
       else
         return true

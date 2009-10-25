@@ -85,8 +85,11 @@ class Revision < ActiveRecord::Base
     end
     
     def save_images
+      new_images = (@text_images | @lead_images)
+      # images_to_delete = self.images - new_images
+      #       images_to_delete.each(&:destroy)
       self.images.clear
-      (@text_images + @lead_images).each {|img| self.images << img }
+      new_images.each {|img| self.images << img }
     end
     
     def delete_article_without_revisions

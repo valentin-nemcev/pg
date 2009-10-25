@@ -83,6 +83,10 @@ end
  
 puts "Convert bot: #{cb.name}"
 
+puts "Deleting articles..."
+Revision.delete_all
+Article.delete_all
+
 puts "Deleting quotes..."
 Quote.destroy_all
 puts "Importing quotes..."
@@ -110,8 +114,7 @@ end
 nil_cat = Category.create(:title=>'(Без рубрики)', :archived => 1)
 puts "Deleting images..."
 Image.destroy_all
-puts "Deleting articles..."
-Revision.destroy_all
+
 puts "Importing articles..."
 # puts "Deleted #{deleted_revs.size} earlier converted revisions"
 DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id').each do |a|
