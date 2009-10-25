@@ -1,4 +1,4 @@
-module Admin::LayoutItemsHelper
+module Admin::LayoutCellsHelper
   def td_size(cell, columns_count)
     {
       :width => (100/5*cell.width).to_s+'%', 
@@ -17,9 +17,9 @@ module Admin::LayoutItemsHelper
     arrows[[side[:side], side[:direction]]]
   end
   
-  def move_side_link(item, side)
+  def move_side_link(cell, side)
     
-    link_to(get_side_arrow(side), move_side_admin_layout_item_path(item, side), :class => 'button') if item.can_move_side?(side[:direction], side[:side])
+    # link_to(get_side_arrow(side), move_side_admin_layout_cell_path(cell, side), :class => 'button') if cell.can_move_side?(side[:direction], side[:side])
   end
   
 end

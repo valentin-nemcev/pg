@@ -1,25 +1,30 @@
 class CreateDatabase < ActiveRecord::Migration
   def self.up
+  
     create_table "articles", :force => true do |t|
-      t.datetime "publication_date"
       t.integer  "current_revision_id"
       t.integer  "canonical_link_id"
       t.integer  "category_id"
+      t.datetime "publication_date"
+      t.boolean  "publicated",          :default => false
+      t.integer  "revisions_count",     :default => 0
+      t.integer  "links_count",         :default => 0
     end
 
     create_table "categories", :force => true do |t|
+      t.integer  "canonical_link_id"
       t.datetime "created_at"
       t.datetime "updated_at"
       t.string   "title"
-      t.integer  "canonical_link_id"
-      t.boolean  "archived", :default => false
-      t.string   "cat_type"
+      t.boolean  "archived",          :default => false
+      t.integer  "position",          :default => 0,     :null => false
+      t.integer  "articles_count",    :default => 0
+      t.integer  "links_count",       :default => 0
     end
 
     create_table "images", :force => true do |t|
       t.datetime "created_at"
       t.datetime "updated_at"
-      t.integer  "article_id"
       t.string   "title"
       t.string   "link"
       t.string   "filename",   :null => false
@@ -31,7 +36,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.integer "revision_id"
     end
 
-    create_table "layout_items", :force => true do |t|
+    create_table "layout_cells", :force => true do |t|
       t.datetime "created_at"
       t.datetime "updated_at"
       t.string   "place"
@@ -39,8 +44,12 @@ class CreateDatabase < ActiveRecord::Migration
       t.integer  "left"
       t.integer  "height"
       t.integer  "width"
-      t.string   "content_type"
-      t.integer  "content_id"
+    end
+
+    create_table "layout_items", :force => true do |t|
+      t.integer "layout_cell_id"
+      t.integer "article_id"
+      t.integer "position",       :null => false
     end
 
     create_table "links", :force => true do |t|
@@ -84,9 +93,9 @@ class CreateDatabase < ActiveRecord::Migration
       t.datetime "remember_token_expires_at"
       t.string   "role"
     end
-
-    add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-    
+  
+  
+  
     User.create(:role=>'admin', 
     :email=>'zlob.o.zlob@gmail.com', 
     :name=>'Валентин Немцев', 
@@ -98,6 +107,7 @@ class CreateDatabase < ActiveRecord::Migration
     :name=>'Скрипт импорта', 
     :position=>'Робот', 
     :password=>'politPass', :password_confirmation=>'politPass')
+  
   end
 
   def self.down

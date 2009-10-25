@@ -9,34 +9,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091019190659) do
+ActiveRecord::Schema.define(:version => 20091024222713) do
 
   create_table "articles", :force => true do |t|
-    t.datetime "publication_date"
     t.integer  "current_revision_id"
     t.integer  "canonical_link_id"
     t.integer  "category_id"
+    t.datetime "publication_date"
     t.boolean  "publicated",          :default => false
     t.integer  "revisions_count",     :default => 0
     t.integer  "links_count",         :default => 0
   end
 
   create_table "categories", :force => true do |t|
+    t.integer  "canonical_link_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
-    t.integer  "canonical_link_id"
     t.boolean  "archived",          :default => false
-    t.string   "cat_type"
+    t.integer  "position",          :default => 0,     :null => false
     t.integer  "articles_count",    :default => 0
     t.integer  "links_count",       :default => 0
-    t.integer  "position",          :default => 0,     :null => false
   end
 
   create_table "images", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "article_id"
     t.string   "title"
     t.string   "link"
     t.string   "filename",   :null => false
@@ -48,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20091019190659) do
     t.integer "revision_id"
   end
 
-  create_table "layout_items", :force => true do |t|
+  create_table "layout_cells", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "place"
@@ -56,12 +54,10 @@ ActiveRecord::Schema.define(:version => 20091019190659) do
     t.integer  "left"
     t.integer  "height"
     t.integer  "width"
-    t.string   "content_type"
-    t.integer  "content_id"
   end
 
-  create_table "layout_items_to_content", :force => true do |t|
-    t.integer "layout_item_id"
+  create_table "layout_items", :force => true do |t|
+    t.integer "layout_cell_id"
     t.integer "article_id"
     t.integer "position",       :null => false
   end
@@ -107,7 +103,5 @@ ActiveRecord::Schema.define(:version => 20091019190659) do
     t.datetime "remember_token_expires_at"
     t.string   "role"
   end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

@@ -14,8 +14,7 @@ class Article < ActiveRecord::Base
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
   after_save :make_link
   
-  # has_many :layout_items, :as => :content, :dependent => :destroy  
-  has_many :layout_items, :through => :layout_items_to_content
+  has_many :layout_cells, :through => :layout_items
   
   @@per_page = 10
   
@@ -49,8 +48,14 @@ class Article < ActiveRecord::Base
   end
   
   def initialize(attributes = nil)
+    
+    attributes.stringify_keys! unless attributes.nil?
     revision_attributes = REVISION_COLUMNS.inject({}) do |revision_attributes, column|
-      revision_attributes[column] = attributes.delete(column.to_sym) || ''
+      revision_attributes[column] = if attributes.nil? || attributes[column].nil?
+        '' 
+      else
+         attributes.delete(column)
+      end
       revision_attributes
     end
     

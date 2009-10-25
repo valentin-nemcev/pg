@@ -1,43 +1,24 @@
 class Admin::LayoutItemsController < AdminController
-  def index
-    @layout_item = LayoutItem.new
-    @layout_items = LayoutItem.find(:all)
-    render :action => "index"
+  def move
+    LayoutItem.find(params[:id]).move(params[:direction].to_sym)
+    redirect_to admin_layout_cells_url
   end
   
-  def move_side
-    item = LayoutItem.find(params[:id])
-    item.move_side(params[:direction].to_sym, params[:side].to_sym)
-    item.save
-    redirect_to admin_layout_items_url
+  def new
+    layout_cell = LayoutCell.find(params[:layout_cell_id])
+    render :partial => "form", :locals => {:layout_cell => layout_cell}
   end
-  
-  
+
   def create
-    @layout_item = LayoutItem.new(params[:layout_item])
-
-    if @layout_item.save
-      redirect_to admin_layout_items_url
-    else
-      @layout_items = LayoutItem.find(:all)
-      render :action => "index"
-    end
-  end
-
-  def update
-    @layout_item = LayoutItem.find(params[:id])
-
-    if @layout_item.update_attributes(params[:layout_item])
-      redirect_to admin_layout_items_url
-    else
-      @layout_items = LayoutItem.find(:all)
-      render :action => "index"
-    end
+    layout_cell = LayoutCell.find(params[:layout_cell_id])
+    layout_cell.layout_items.create(params[:layout_item])
+    redirect_to admin_layout_cells_url
+    
   end
 
   def destroy
     LayoutItem.find(params[:id]).destroy
-    redirect_to admin_layout_items_url
+    redirect_to admin_layout_cells_url
   end
 
 end

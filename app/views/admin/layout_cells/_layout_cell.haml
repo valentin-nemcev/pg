@@ -1,0 +1,36 @@
+%table.layout_cell
+  %tr
+    %td.top(colspan="3")
+      = move_side_link(cell, :side=>:top, :direction => :dec)
+      = move_side_link(cell, :side=>:top, :direction => :inc) 
+  %tr
+    %td.left
+      = move_side_link(cell, :side=>:left, :direction => :dec) 
+      %br
+      = move_side_link(cell, :side=>:left, :direction => :inc)
+    %td.center(title="#{h cell.inspect}") 
+      - cell.layout_items.each_with_index do |item,i|
+        .item
+          .title(title="#{h item.inspect}")
+            = item.article.title unless item.article.nil?
+          .controls
+            = link_to 'Удалить', polymorphic_path([:admin, cell, item]), :method => :delete
+            - unless cell.layout_items.first == item
+              = link_to 'Вверх', polymorphic_path([:admin, cell, item], :action => :move, :direction => :up), |
+                                :method => :post |
+            - unless cell.layout_items.last == item
+              = link_to 'Вниз', polymorphic_path([:admin, cell, item], :action => :move, |
+                                                  :direction => :down), |
+                                :method => :post |
+      
+      .item(id="new-item-#{cell.id}")
+        = link_to_remote 'Добавить', :url => new_polymorphic_path([:admin, cell, LayoutItem.new]), :update => "new-item-#{cell.id}", :method => :get
+      = link_to 'Удалить все', admin_layout_cell_path(cell), :class => 'control', :method => :delete
+    %td.right
+      = move_side_link(cell, :side=>:right, :direction => :inc) 
+      %br
+      = move_side_link(cell, :side=>:right, :direction => :dec) 
+  %tr
+    %td.bottom(colspan="3")
+      = move_side_link(cell, :side=>:bottom, :direction => :inc)
+      = move_side_link(cell, :side=>:bottom, :direction => :dec) 

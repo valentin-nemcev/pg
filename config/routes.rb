@@ -3,11 +3,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root :controller => "main", :action => "main"    
     
-    admin.resources :layout_items, 
+    admin.resources :layout_cells, 
       :except => [:show, :edit, :new],
-      :member => [:move_side] do |layout_item|
-        layout_item.resources :content, 
-          :controller => 'layout_items_to_content',  :except => [:show, :edit,:update], :member => {:move => :post} 
+      :member => [:move_side] do |layout_cell|
+        layout_cell.resources :layout_items, :except => [:show, :edit,:update], :member => {:move => :post} 
     end
       
     admin.resources :quotes, :except => [:show], :collection => { :new => [:get, :post] } 

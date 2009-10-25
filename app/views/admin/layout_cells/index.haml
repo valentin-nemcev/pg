@@ -1,0 +1,22 @@
+      
+- LayoutCell::PLACES.each do |place|      
+  %h3
+    = I18n.t (place, :scope => 'layout_cell_places')
+  %table.layout_grid
+    - LayoutCell.grid(place).each_with_index do |row, top|
+      %tr
+        - row.each_with_index do |cell, left|
+          - if cell.kind_of? LayoutCell
+            - content_tag 'td', td_size(cell, LayoutCell::COLUMN_COUNT[place]) do
+              = render :partial => 'layout_cell', :locals => {:cell => cell}
+          - elsif not cell.nil?
+            %td(width="#{100/LayoutCell::COLUMN_COUNT[place]}%")
+              = render :partial => 'layout_cell_new', |
+                :locals => { |
+                  :cell => LayoutCell.new( |
+                    :place => place, |
+                    :left => left, |
+                    :top => top |
+                    )} |  
+    
+      
