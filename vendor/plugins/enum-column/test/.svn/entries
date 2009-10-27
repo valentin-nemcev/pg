@@ -1,0 +1,64 @@
+8
+
+dir
+19
+svn://rubyforge.org/var/svn/enum-column/plugins/enum-column/test
+svn://rubyforge.org/var/svn/enum-column
+
+
+
+2007-10-20T05:51:03.053693Z
+15
+wsobel
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+daed6d57-6b21-0410-a8f4-a6969d1d4b01
+
+unit
+dir
+
+test_helper.rb
+file
+
+
+
+
+2009-01-16T21:56:56.000000Z
+f8c9021f02f33e4f5e063fd4dc36890a
+2006-11-05T09:14:05.160827Z
+1
+wsobel
+
+config
+dir
+
+db
+dir
+
+fixtures
+dir
+
+enum_mysql_test.rb
+file
+
+
+
+
+2009-01-16T21:56:56.000000Z
+8ff721eb401d3c6f5912945f3b8dfdf2
+2007-10-20T05:51:03.053693Z
+15
+wsobel
+

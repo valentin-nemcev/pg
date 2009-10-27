@@ -106,18 +106,18 @@ class CreateDatabase < ActiveRecord::Migration
       t.string   "salt"
       t.string   "remember_token"
       t.datetime "remember_token_expires_at"
-      t.string   "role"
+      t.enum     "role", :limit => [:admin, :editor, :bot], :default => :editor
     end
     add_foreign_key(:revisions, :users, :column => "editor_id")
     add_index(:users, :email, :unique => true)
   
-    User.create(:role=>'admin', 
+    User.create(:role=>:admin, 
     :email=>'zlob.o.zlob@gmail.com', 
     :name=>'Валентин Немцев', 
     :duties=>'Разработчик', 
     :password=>'politPass', :password_confirmation=>'politPass')
     
-    User.create(:role=>'bot', 
+    User.create(:role=>:bot, 
     :email=>'bot@polit-gramota.ru', 
     :name=>'Скрипт импорта', 
     :duties=>'Робот', 

@@ -1,0 +1,31 @@
+- url = @user.new_record? ? new_polymorphic_path([:admin, @user]) : polymorphic_path([:admin, @user]) 
+- form_for [:admin, @user], :url => url, :html => {:class => 'full'} do |f|
+  .field
+    = f.label :name 
+    = f.error_message_on :name
+    = f.text_field :name 
+  .field
+    = f.label :duties 
+    = f.error_message_on :duties
+    = f.text_field :duties
+  .field
+    = f.label :email 
+    = f.error_message_on :email
+    = f.text_field :email
+  .field
+    =f.label :role
+    =f.enum_select :role
+  
+  
+  .field
+    = f.label :password 
+    = f.error_message_on :password
+    = f.text_field :password
+  .field
+    = f.label :password_confirmation 
+    = f.error_message_on :password_confirmation
+    = f.text_field :password_confirmation
+
+  .field
+    = f.submit "Сохранить" 
+

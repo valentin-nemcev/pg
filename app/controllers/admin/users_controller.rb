@@ -4,31 +4,32 @@ class Admin::UsersController < AdminController
     @users = User.all
   end
   def new
-    @usr = User.new
-    render :action => "edit"
+    @user = User.new
+    render :action => "form"
   end
   
   def edit
-    @usr = User.find(params[:id])
+    @user = User.find(params[:id])
+    render :action => "form"
   end
   
   def update
-    @usr = User.find(params[:id])
+    @user = User.find(params[:id])
 
-    if @usr.update_attributes(params[:user])
+    if @user.update_attributes(params[:user])
       flash[:notice] = 'User was successfully updated.'
       redirect_to admin_users_path
     else
-      render :action => "edit"
+      render :action => "form"
     end
 
   end 
   
   def create
     logout_keeping_session!
-    @usr = User.new(params[:user])
-    success = @usr && @usr.save
-    if success && @usr.errors.empty?
+    @user = User.new(params[:user])
+    success = @user && @user.save
+    if success && @user.errors.empty?
             # Protects against session fixation attacks, causes request forgery
       # protection if visitor resubmits an earlier form using back
       # button. Uncomment if you understand the tradeoffs.
@@ -38,7 +39,7 @@ class Admin::UsersController < AdminController
      # flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
     else
       #flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
-      render :action => 'edit'
+      render :action => 'form'
     end
   end
   

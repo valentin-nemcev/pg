@@ -114,14 +114,14 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                      :limit => 100, :default => ""
+    t.string   "name",                      :limit => 100,                     :default => ""
     t.string   "duties"
     t.string   "email"
     t.string   "crypted_password"
     t.string   "salt"
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
-    t.string   "role"
+    t.enum     "role",                      :limit => [:admin, :editor, :bot], :default => :editor
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
   add_foreign_key "categories", "links", :name => "categories_canonical_link_id_fk", :column => "canonical_link_id", :dependent => :nullify
 
   add_foreign_key "images_revisions", "images", :name => "images_revisions_image_id_fk", :dependent => :delete
-  add_foreign_key "images_revisions", "revisions", :name => "images_revisions_revision_id_fk", :dependent => :nullify
+  add_foreign_key "images_revisions", "revisions", :name => "images_revisions_revision_id_fk", :dependent => :delete
 
   add_foreign_key "layout_items", "articles", :name => "layout_items_article_id_fk", :dependent => :delete
   add_foreign_key "layout_items", "layout_cells", :name => "layout_items_layout_cell_id_fk", :dependent => :delete

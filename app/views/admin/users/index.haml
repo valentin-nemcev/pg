@@ -1,0 +1,17 @@
+#users.list
+  - if current_user.is_admin?
+    .new.item
+      %a.control{:href=>"#{new_admin_user_path}"} Добавить
+  - if @users.empty?
+    .empty.item Пользователей нет
+  - for user in @users
+    .item(title="#{user.inspect}")
+      .header
+        .title
+          = link_to_if((user==current_user), user.name, edit_admin_user_path(user))
+        .duties
+          = user.duties
+        
+        
+
+
