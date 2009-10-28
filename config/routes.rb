@@ -29,7 +29,8 @@ ActionController::Routing::Routes.draw do |map|
     end
     
     admin.resources :images, :has_many => [:articles], 
-                         :member => { :thumb => :get }, :collection => { :new => [:get, :post] } 
+                         :member => { :thumb => :get, :full => :get, :for_edit => :get, :crop_form => :get},
+                         :collection => { :new => [:get, :post] } 
         
     admin.logout '/logout', :controller => 'sessions', :action => 'destroy'
     admin.login '/login', :controller => 'sessions', :action => 'new'

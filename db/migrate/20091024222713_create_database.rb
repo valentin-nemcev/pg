@@ -55,9 +55,12 @@ class CreateDatabase < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
       t.string   "title"
-      t.string   "link"
       t.string   "filename",   :null => false
-      t.string   "img_type"
+      t.enum   "layout_type", :limit => [:face, :banner, :photo, :image], :default => :image
+      t.integer  "crop_top",   :null => false,    :default => 0
+      t.integer  "crop_left",   :null => false,    :default => 0
+      t.integer  "crop_bottom",   :null => false,    :default => 0
+      t.integer  "crop_right",   :null => false,    :default => 0
     end
     add_index(:images, :filename, :unique => true)
     

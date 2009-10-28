@@ -1,7 +1,11 @@
-.item
+.item(id="img_#{image.id}")
   = image_tag thumb_admin_image_path(image)
   .title
     = image.title 
   .type
-    = image.img_type
-  = link_to_function("Вставить", "TextileEditor.insertText({canvas:$('textarea[focused]').get(0)}, '!'+'#{image.link}'+'!');" ) 
+    = image.filename
+    = image.layout_type
+  = link_to_remote "Обрезать", |
+                     :url => crop_form_admin_image_path(image), |
+                     :method => :get |
+  = link_to_function("Вставить", "TextileEditor.insertText({canvas:$('textarea[focused]').get(0)}, '!'+'#{image.filename}'+'!');" ) 

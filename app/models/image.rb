@@ -4,12 +4,9 @@ class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
   IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'public/img')
   ThumbSize = 100
-  ImageTypes = ['face', 'banner', 'photo', 'image']
  
-=begin
-  TODO Добавить enum
-=end
- 
+  ASPECT_RATIOS = {:face => 1, :photo => 3.0/2}
+  
   has_and_belongs_to_many :revisions
   
   validates_presence_of :title 
@@ -17,17 +14,26 @@ class Image < ActiveRecord::Base
   validates_uniqueness_of :title
   
   attr_accessor :image_file, :image_path
-  attr_protected :filename, :link
+  attr_protected :filename
   
-  before_save :save_image_file, :make_link, :validate_type
+  before_save :save_image_file
+  validates_columns :layout_type
   before_destroy :delete_image_file
   
   def thumb_data
     return read_image.resize_to_fit(ThumbSize, ThumbSize)
   end
   
+  def for_edit_data
+    return read_image.resize_to_fit(600, 400)
+  end
+  
+  def full_data
+    return read_image
+  end
+  
   def image_data
-    if self.img_type == 'banner'
+    if self.layout_type == :banner
       img = read_image
       height = 150
       # img.resize_to_fit!(920, 10000)
@@ -38,6 +44,15 @@ class Image < ActiveRecord::Base
     end
   end
   
+  
+  def true_width
+    read_image.columns
+  end
+  
+  def true_height
+    read_image.rows
+  end
+  
   def print_size
     img = read_image
     "#{img.columns}x#{img.rows}"
@@ -45,20 +60,13 @@ class Image < ActiveRecord::Base
   
   protected  
     
-    def validate_type
-      self.img_type = ImageTypes[0] until ImageTypes.include? self.img_type
-    end
     
     def read_image
-      Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
-    rescue Magick::ImageMagickError, Magick::FatalImageMagickError
-      return false;
-    end
+      @image_data ||= Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
+    # rescue Magick::ImageMagickError, Magick::FatalImageMagickError
+    #       return false;
+         end
     
-    def make_link
-      self.link = Link.make_link_text(self.title)      
-    end
-  
     def save_image_file
       if not @image_path.nil?
         image_path = @image_path
@@ -74,6 +82,13 @@ class Image < ActiveRecord::Base
         image_path = @image_file.path
       end
       
+      def generate_filename(name, counter, extension)
+        if counter > 1
+          "#{name}_#{counter}.#{extension}"
+        else
+          "#{name}.#{extension}"
+        end
+      end
       
       begin
         img = Magick::Image.read(image_path).first
@@ -83,17 +98,25 @@ class Image < ActiveRecord::Base
         return false;
       end
       if(img.columns <= 200 and img.rows <= 200)
-        self.img_type = 'face'
+        self.layout_type = :face
       else
-        self.img_type = 'image'
+        self.layout_type = :image
       end
-      # filename = "#{Time.now.to_i}#{rand(1000)}.jpg"
-      filename =  Link.make_link_text(self.title)+'.jpg'
-      img.write File.join(IMAGE_STORAGE_PATH, filename)
-      write_attribute(:filename, filename)
-      # logger.debug 'test!' if ACCEPTED_FORMATS.include? img.format 
-      # logger.debug  img.format
-      # File.mv @image_file.path, File.join(RAILS_ROOT, 'storage', @image_file.original_filename) 
+
+      base = Link.make_link_text(self.title)
+      count = 1
+      ext = 'jpg'
+      fn = generate_filename(base, count, ext)
+      while self.class.find_by_filename(fn)
+        count += 1
+        fn = generate_filename(base, count, ext)
+      end
+
+      img.write File.join(IMAGE_STORAGE_PATH, fn)
+      write_attribute(:filename, fn)
+      
+      write_attribute(:crop_bottom, img.rows)
+      write_attribute(:crop_right, img.columns)
     end
   
     def delete_image_file

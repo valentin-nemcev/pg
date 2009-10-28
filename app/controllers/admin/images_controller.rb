@@ -5,11 +5,19 @@ class Admin::ImagesController < AdminController
     send_data @image.image_data.to_blob, :disposition => 'inline'
   end
   
+  def full
+    @image = Image.find(params[:id])
+    send_data @image.full_data.to_blob, :disposition => 'inline'
+  end
+  
+  def for_edit
+    @image = Image.find(params[:id])
+    send_data @image.for_edit_data.to_blob, :disposition => 'inline'
+  end
+  
   def thumb
     @image = Image.find(params[:id])
     send_data @image.thumb_data.to_blob, 
-      :type => @image.thumb_data.mime_type, 
-      :filename => @image.link+@image.thumb_data.format, 
       :disposition => 'inline'
   end
   
@@ -41,13 +49,22 @@ class Admin::ImagesController < AdminController
     @image = Image.find(params[:id])
     render :action => "edit"
   end
-
+  
+  def crop_form
+    @image = Image.find(params[:id])
+    if request.xhr?
+      render :action => "crop.js", :layout => false
+    else
+      render :action => "crop"
+    end
+  end
+  
   def create
     @image = Image.new(params[:image])
     if @image.save
       if (params[:xhr])
         response.headers['Content-type'] = 'text/html; charset=utf-8' # Что бы ответ не оборачивался в <pre> в iframe-е
-        render :action => "upload_ok.js", :layout => 'textarea'
+        render :action => "refresh_image.js", :layout => 'textarea'
       else
         flash[:notice] = 'Изображение сохранено'
         redirect_to admin_images_url
@@ -66,11 +83,15 @@ class Admin::ImagesController < AdminController
     @image = Image.find(params[:id])
 
     if @image.update_attributes(params[:image])
-      flash[:notice] = 'Изображение сохранено'
-      redirect_to admin_images_url
+      if request.xhr?
+        render :action => "refresh_image.js", :layout => false
+      else
+        flash[:notice] = 'Изображение сохранено'
+        redirect_to admin_images_url
+      end
     else
-      if (params[:xhr])
-         render :partial => "edit"
+      if request.xhr?
+         render :action => "refresh_image.js", :layout => false
        else
          render :action => "edit" 
        end

@@ -42,9 +42,12 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
-    t.string   "link"
-    t.string   "filename",   :null => false
-    t.string   "img_type"
+    t.string   "filename",                                                                    :null => false
+    t.enum     "layout_type", :limit => [:face, :banner, :photo, :image], :default => :image
+    t.integer  "crop_top",                                                :default => 0,      :null => false
+    t.integer  "crop_left",                                               :default => 0,      :null => false
+    t.integer  "crop_bottom",                                             :default => 0,      :null => false
+    t.integer  "crop_right",                                              :default => 0,      :null => false
   end
 
   add_index "images", ["filename"], :name => "index_images_on_filename", :unique => true
