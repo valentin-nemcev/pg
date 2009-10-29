@@ -2,8 +2,10 @@ require 'ftools'
 require 'RMagick'
 class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
-  IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'public/img')
-  ThumbSize = 100
+  IMAGE_STORAGE_PATH = File.join(RAILS_ROOT, 'storage/images')
+  IMAGE_PUBLIC_PATH = File.join(RAILS_ROOT, 'public/img')
+  
+  THUMB_SIZE = 100
  
   ASPECT_RATIOS = {:face => 1, :photo => 3.0/2}
   
@@ -16,34 +18,28 @@ class Image < ActiveRecord::Base
   attr_accessor :image_file, :image_path
   attr_protected :filename
   
-  before_save :save_image_file
+  before_save :save_original, :save_derivatives
   validates_columns :layout_type
   before_destroy :delete_image_file
   
-  def thumb_data
-    return read_image.resize_to_fit(ThumbSize, ThumbSize)
-  end
   
-  def for_edit_data
-    return read_image.resize_to_fit(600, 400)
-  end
-  
-  def full_data
-    return read_image
-  end
-  
-  def image_data
-    if self.layout_type == :banner
-      img = read_image
-      height = 150
-      # img.resize_to_fit!(920, 10000)
-      # img.crop(img.rows/2-height/2,0, 710, height)
-      img.crop(0, img.rows/2-height/2, img.columns, height)
-    else
-      return read_image
+  def self.resave_all
+    self.find_each(:batch_size => 100) do |img|
+      img.save_derivatives
     end
   end
   
+  def thumb_link
+    '/img/thumbs/'+filename
+  end
+
+  def preview_link
+    '/img/previews/'+filename
+  end
+  
+  def link
+    '/img/'+filename
+  end
   
   def true_width
     read_image.columns
@@ -53,21 +49,46 @@ class Image < ActiveRecord::Base
     read_image.rows
   end
   
+  def crop_width
+    crop_right - crop_left
+  end  
+  
+  def crop_height
+    crop_bottom - crop_top
+  end
+  
   def print_size
     img = read_image
     "#{img.columns}x#{img.rows}"
   end
   
-  protected  
+  def save_derivatives
+    img = read_image
+    crop_rect = [crop_left, crop_top, crop_width, crop_height]
+    img.crop(*crop_rect).write(File.join(IMAGE_PUBLIC_PATH, self.filename))
     
+    img.crop(*crop_rect).resize_to_fit(THUMB_SIZE,THUMB_SIZE).write(File.join(IMAGE_PUBLIC_PATH, 'thumbs', self.filename))
+    img.resize_to_fit(600, 400).write(File.join(IMAGE_PUBLIC_PATH, 'previews', self.filename))
+  end
+  
+  protected  
     
     def read_image
       @image_data ||= Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
-    # rescue Magick::ImageMagickError, Magick::FatalImageMagickError
-    #       return false;
-         end
+    rescue Magick::ImageMagickError, Magick::FatalImageMagickError
+      return false;
+    end
     
-    def save_image_file
+    def generate_filename(name, counter, extension)
+      if counter > 1
+        "#{name}_#{counter}.#{extension}"
+      else
+        "#{name}.#{extension}"
+      end
+    end
+    
+    
+    def save_original
       if not @image_path.nil?
         image_path = @image_path
       else
@@ -82,22 +103,16 @@ class Image < ActiveRecord::Base
         image_path = @image_file.path
       end
       
-      def generate_filename(name, counter, extension)
-        if counter > 1
-          "#{name}_#{counter}.#{extension}"
-        else
-          "#{name}.#{extension}"
-        end
-      end
+      
       
       begin
-        img = Magick::Image.read(image_path).first
+        @image_data = Magick::Image.read(image_path).first
       rescue Magick::ImageMagickError, Magick::FatalImageMagickError
         original_name = @image_file.nil? ? image_path : @image_file.original_filename
         errors.add(:image_file, "Неверный формат изображения (#{original_name})")
         return false;
       end
-      if(img.columns <= 200 and img.rows <= 200)
+      if(@image_data.columns <= 200 and @image_data.rows <= 200)
         self.layout_type = :face
       else
         self.layout_type = :image
@@ -112,11 +127,11 @@ class Image < ActiveRecord::Base
         fn = generate_filename(base, count, ext)
       end
 
-      img.write File.join(IMAGE_STORAGE_PATH, fn)
+      @image_data.write File.join(IMAGE_STORAGE_PATH, fn)
       write_attribute(:filename, fn)
       
-      write_attribute(:crop_bottom, img.rows)
-      write_attribute(:crop_right, img.columns)
+      write_attribute(:crop_bottom, @image_data.rows)
+      write_attribute(:crop_right, @image_data.columns)
     end
   
     def delete_image_file

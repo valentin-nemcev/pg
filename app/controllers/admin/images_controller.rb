@@ -1,26 +1,5 @@
 class Admin::ImagesController < AdminController
   
-  def show
-    @image = Image.find(params[:id])
-    send_data @image.image_data.to_blob, :disposition => 'inline'
-  end
-  
-  def full
-    @image = Image.find(params[:id])
-    send_data @image.full_data.to_blob, :disposition => 'inline'
-  end
-  
-  def for_edit
-    @image = Image.find(params[:id])
-    send_data @image.for_edit_data.to_blob, :disposition => 'inline'
-  end
-  
-  def thumb
-    @image = Image.find(params[:id])
-    send_data @image.thumb_data.to_blob, 
-      :disposition => 'inline'
-  end
-  
   def index
     if params[:article_id] 
       @images = Article.find(params[:article_id]).images 

@@ -37,7 +37,7 @@ class Revision < ActiveRecord::Base
     def image(opts)
       return '' unless image = Image.find_by_filename(opts[:src])
       @@extracted_images << image
-      opts[:src] = "/images/#{opts[:src]}"
+      opts[:src] = image.link
       if @@text_type == :lead and (image.layout_type == :image or image.layout_type == :banner)
         image.layout_type = :banner
         image.save(false)
