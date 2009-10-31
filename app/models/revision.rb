@@ -1,7 +1,7 @@
 class Revision < ActiveRecord::Base
   belongs_to :article, :counter_cache => true
   belongs_to :editor, :class_name => 'User', :foreign_key => 'editor_id'
-  has_and_belongs_to_many :images
+  has_and_belongs_to_many :images, :order => 'updated_at DESC'
   
   validates_presence_of :title #, :link
   validates_length_of :title, :in => 3..250
@@ -76,13 +76,19 @@ class Revision < ActiveRecord::Base
     self.save
   end
   
+  def parsed_images
+    (@text_images | @lead_images)
+  end
+  
+  def parse_text_fields
+    self.lead_html, @lead_images = RedCloth.new(self.lead).parse_text(:lead)
+    self.text_html, @text_images = RedCloth.new(self.text).parse_text(:text)
+    true
+  end
+  
   protected
     
-    def parse_text_fields
-      self.lead_html, @lead_images = RedCloth.new(self.lead).parse_text(:lead)
-      self.text_html, @text_images = RedCloth.new(self.text).parse_text(:text)
-      true
-    end
+    
     
     def save_images
       new_images = (@text_images | @lead_images)

@@ -20,13 +20,19 @@ class Image < ActiveRecord::Base
   
   before_save :save_original, :save_derivatives
   validates_columns :layout_type
-  before_destroy :delete_image_file
+  before_destroy :delete_image_files
   
   
   def self.resave_all
     self.find_each(:batch_size => 100) do |img|
       img.save_derivatives
     end
+  end
+  
+  def self.destroy_images_without_revisions
+    images = Image.all(:joins => 'LEFT JOIN images_revisions ON images_revisions.image_id = images.id', 
+                        :conditions => 'images_revisions.image_id is null')
+    images.each(&:destroy)
   end
   
   def thumb_link
@@ -72,6 +78,17 @@ class Image < ActiveRecord::Base
   end
   
   protected  
+    
+    def delete_image_files
+      filepaths = []
+      filepaths <<  File.join(IMAGE_PUBLIC_PATH, self.filename)
+      filepaths <<  File.join(IMAGE_PUBLIC_PATH, 'thumbs', self.filename)
+      filepaths <<  File.join(IMAGE_PUBLIC_PATH, 'previews', self.filename)
+      filepaths <<  File.join(IMAGE_STORAGE_PATH, self.filename)
+      filepaths.each do |filepath|
+        if File.exists?(filepath) then File.delete(filepath) end
+      end
+    end
     
     def read_image
       @image_data ||= Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
@@ -134,8 +151,4 @@ class Image < ActiveRecord::Base
       write_attribute(:crop_right, @image_data.columns)
     end
   
-    def delete_image_file
-      filepath = File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))
-      if File.exists?(filepath) then File.delete(filepath) end
-    end
 end

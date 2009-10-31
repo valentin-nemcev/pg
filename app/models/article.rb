@@ -2,13 +2,14 @@ class Article < ActiveRecord::Base
   has_many :revisions, :dependent => :destroy
   belongs_to :current_revision, :foreign_key => 'current_revision_id', :class_name => 'Revision'
   validate :validate_revision
-  after_save :update_revision
+  after_save :update_revision, :destroy_orphaned_images
   REVISION_COLUMNS = Revision.column_names - %w{id article_id editor_id created_at updated_at}
   TEXT_COLUMN_OPTIONS = {:no => %w{text lead text_html lead_html}}
   TEXT_COLUMN_OPTIONS.default = []
   CALCULATIONS_OPTIONS << :text_fields
   
   belongs_to :category, :counter_cache => true
+  validates_presence_of :category
   
   has_many :links, :dependent => :delete_all 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
@@ -25,7 +26,11 @@ class Article < ActiveRecord::Base
   end
   
   def images
-    return self.current_revision.images until self.current_revision.nil?
+    if not @revision.nil?
+      @revision.parsed_images
+    elsif not self.current_revision.nil?
+      self.current_revision.images
+    end
   end
   
   class << self
@@ -95,6 +100,7 @@ class Article < ActiveRecord::Base
         end
       )
       @revision.editor_id = self.editor.id
+      @revision.parse_text_fields
       if @revision.invalid?
         @revision.errors.each { |attr_name, msg| self.errors.add attr_name, msg }
         return false
@@ -111,6 +117,10 @@ class Article < ActiveRecord::Base
         logger.info { res.inspect }
         res 
       end
+    end
+    
+    def destroy_orphaned_images
+      Image.destroy_images_without_revisions
     end
     
 end

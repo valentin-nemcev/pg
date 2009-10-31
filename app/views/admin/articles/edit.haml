@@ -6,7 +6,7 @@
     %td.content
       .field
         = f.label :title 
-        = error_message_on @article, :title 
+        = f.error_message_on :title 
         = f.text_field :title , :class => 'big'
       .field
         = f.label :subtitle
@@ -50,4 +50,5 @@
       = textile_editor_initialize 
   
 :javascript
+    $('textarea').attr('focused', 'focused');
     $('textarea').focus(function(){$('textarea').removeAttr('focused'); $(this).attr('focused', 'focused') })
