@@ -36,10 +36,14 @@ ru:
         images: Изображения
         new: Добавить
         layout_cells: Верстка
+        users: Редакторы
     layout_cell_places:
         main: Главная страница
         sidebar: Сайдбар 
-
+        
+    user_roles:
+        bot: Робот
+        admin: Администратор
 
 
         

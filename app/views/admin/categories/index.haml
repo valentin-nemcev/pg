@@ -18,15 +18,16 @@
           = link_to 'Вниз', move_admin_category_path(category, :direction => :down), :method => :post
          
           = link_to 'Редактировать', edit_admin_category_path(category), :class => 'control' 
-          = link_to 'Удалить', |
-                    admin_category_path(category), |
-                    :class => 'control',  |
-                    :confirm => 'Действительно удалить?', |
-                    :method => :delete  |
-          -           
-          = link_to 'Удалить со статьями', |
-                    admin_category_path(category, :with_articles => true), :class => 'control', |
-                    :confirm => 'Действительно удалить рубрику вместе со стаьями?', |
-                    :method => :delete |
+          - if current_user.is_admin?
+            = link_to 'Удалить', |
+                      admin_category_path(category), |
+                      :class => 'control',  |
+                      :confirm => 'Действительно удалить?', |
+                      :method => :delete  |
+            -           
+            = link_to 'Удалить со статьями', |
+                      admin_category_path(category, :with_articles => true), :class => 'control', |
+                      :confirm => 'Действительно удалить рубрику вместе со стаьями?', |
+                      :method => :delete |
   
   

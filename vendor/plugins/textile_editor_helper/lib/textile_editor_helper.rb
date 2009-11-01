@@ -10,7 +10,7 @@ module TextileEditorHelper
   
   def textile_editor_support
     output = []
-    output << stylesheet_link_tag('textile-editor') 
+    #output << stylesheet_link_tag('textile-editor') 
     output << javascript_include_tag('textile-editor')
     output.join("\n")
   end

@@ -34,16 +34,16 @@
           -          
           = link_to "Ссылки (#{article.links.size})", |
                     polymorphic_path([:admin, @category, article, :links]) |
-      -# .controls
+      .controls
         %div
-          = link_to 'Редактировать', |
+          -#= link_to 'Редактировать', |
                     edit_polymorphic_path([:admin, @category, article]), |
                     :class => 'control' |
-          -          
-          = link_to 'Удалить', |
-                    polymorphic_path([:admin, @category, article]), |
-                    :class => 'control', |
-                    :confirm => 'Действительно удалить?', :method => :delete |
+          - if current_user.is_admin?         
+            = link_to 'Удалить', |
+                      polymorphic_path([:admin, @category, article]), |
+                      :class => 'control', |
+                      :confirm => 'Действительно удалить?', :method => :delete |
                       
 = will_paginate @articles, :previous_label => "←", :next_label => "→", :per_page => 30
           
