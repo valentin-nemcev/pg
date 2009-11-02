@@ -21,10 +21,17 @@ class SiteController < ApplicationController
   
   def article
     link = Link.find_by_text(params[:article_link])
-    if link.nil? or link.linked.nil? 
+    @article = link.article
+    
+    if @article.nil?  
       render :text => "404 Not Found", :status => 404 
     else
-      @article = link.linked
+      category_link = Link.find_by_text(params[:category_link])
+      if category_link.nil? or category_link.category.nil?
+        redirect_to  article_path(@article.category.link, @article.link)
+      else
+        render :action => 'article'
+      end
     end
   end
   

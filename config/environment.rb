@@ -10,9 +10,18 @@ ENV['RAILS_ENV'] ||= 'production'
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+new_logger = Logger.new(File.join(RAILS_ROOT, "log", "new_logger_#{RAILS_ENV}.log"), 'daily')
+new_logger.formatter = Logger::Formatter.new
 
 
 Rails::Initializer.run do |config|
+  
+  
+  config.active_record.logger = new_logger
+  config.action_controller.logger = new_logger
+  
+  
+  
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.

@@ -123,7 +123,7 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
   
   (lead_images.to_a | text_images.to_a).each do |i|
     
-    img = Image.find_or_create_by_title(:title => i.gsub('.jpg',''), :image_path => "#{RAILS_ROOT}/images/#{i}" )
+    img = Image.find_or_create_by_title(:title => i.gsub('.jpg',''), :image_path => "/Users/valentine/Downloads/images/#{i}" )
     
     if not img.save
       p img

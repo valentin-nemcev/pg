@@ -1,7 +1,7 @@
       
 - LayoutCell::PLACES.each do |place|      
   %h3
-    = I18n.t (place, :scope => 'layout_cell_places')
+    = I18n.t(place, :scope => 'layout_cell_places')
   %table.layout_grid
     - LayoutCell.grid(place).each_with_index do |row, top|
       %tr

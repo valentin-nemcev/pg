@@ -6,7 +6,7 @@
       –
       = article.category.title unless article.category.nil?
   %h2.title
-    = link_to article.title, article_url(article.link)
+    = link_to article.title, article_url(article.category.link, article.link)
   %h2.subtitle
     = article.subtitle unless article.subtitle.nil?
   .lead
