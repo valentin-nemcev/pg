@@ -19,7 +19,7 @@ module Admin::LayoutCellsHelper
   
   def move_side_link(cell, side)
     
-    # link_to(get_side_arrow(side), move_side_admin_layout_cell_path(cell, side), :class => 'button') if cell.can_move_side?(side[:direction], side[:side])
+     link_to(get_side_arrow(side), move_side_admin_layout_cell_path(cell, side), :class => 'button') if cell.can_move_side?(side[:direction], side[:side])
   end
   
 end
