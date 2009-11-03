@@ -19,12 +19,17 @@
               .author
                 = quote.author unless quote.nil?
         #top-navigation-inline
-          - for category in Category.find(:all, :conditions => {:archived => false}) #, :conditions=>{:cat_type=>'normal'})
+          - for category in Category.find(:all, :conditions => {:archived => false})
             - if not current_page? category_url(category.link)
               = link_to category.title, category_url(category.link)
             - else
               %span.current< 
                 = category.title
+          - if not current_page? archive_url
+            = link_to "Архив", archive_url
+          - else
+            %span.current< 
+              = "Архив"                
         %table#content
           - case params[:action] 
             - when 'main'

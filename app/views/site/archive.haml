@@ -1,0 +1,5 @@
+%h2.archive-title Архив
+- for category in @categories
+  %h3.category-title
+    = link_to category.title,  category_url(category.link)
+      

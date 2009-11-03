@@ -43,12 +43,12 @@ a
   
   #quote
     :font-size #{!small}
-    +cambria
+    // +cambria
     :text-align right
     .author
       :font-style italic
 
-/ Sticky footer
+// Sticky footer
 !footer_height = 100px
 html, body, #container 
   :height 100%
@@ -63,7 +63,6 @@ html, body, #container
   
 #footer  
   :background-color #fff
-  / :margin-top 15px
   #footer-border
     :border-bottom 1px solid #ccc
     :width 100%
@@ -192,9 +191,22 @@ table.grid
     :padding-left 1em
 
 
-    
+h2.archive-title
+  :font-size #{!big*1.5}
 
-
+h3.category-title
+  :font-weight bold
+  :line-height 1.1
+  :font-size #{!big}
+  :color #{!pg_red}
+  :margin-bottom 0.2em
+  :margin-left 1em
+  a  
+    :text-decoration none
+    &:hover 
+      :text-decoration underline
+  &.subtitle
+    :color #333
 
 .article 
   :margin-bottom 16px
@@ -303,9 +315,6 @@ table.grid
     :font-weight bold
 
   .banner
-    / :-moz-background-clip:border;
-    / :-moz-background-inline-policy:continuous;
-    / :-moz-background-origin:padding;
     :background-attachment scroll
     :background-color transparent
     :background-position center center

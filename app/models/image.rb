@@ -108,6 +108,7 @@ class Image < ActiveRecord::Base
     def save_original
       if not @image_path.nil?
         image_path = @image_path
+        @image_path = nil
       else
         if @image_file.nil? or not @image_file.kind_of?(Tempfile)
           if self.new_record?

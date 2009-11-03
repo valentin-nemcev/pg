@@ -17,9 +17,9 @@ new_logger.formatter = Logger::Formatter.new
 Rails::Initializer.run do |config|
   
   
-  config.active_record.logger = new_logger
-  config.action_controller.logger = new_logger
-  
+  # config.active_record.logger = new_logger
+  #   config.action_controller.logger = new_logger
+  #   
   
   
   # Settings in config/environments/* take precedence over those specified here.

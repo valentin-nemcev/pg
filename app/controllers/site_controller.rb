@@ -19,6 +19,10 @@ class SiteController < ApplicationController
        )
   end
   
+  def archive
+    @categories = Category.all(:conditions => {:archived => true})
+  end
+  
   def article
     link = Link.find_by_text(params[:article_link])
     @article = link.article

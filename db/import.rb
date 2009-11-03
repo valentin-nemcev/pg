@@ -50,7 +50,7 @@ def html2textile(text)
     img = $~[1]
     images << img
     style = $~[2].nil? ? "" : "(#{$~[2]})"
-    "!#{style}#{Link.make_link_text(img.gsub('.jpg',''))}!"
+    "!#{style}#{Link.make_link_text(img.gsub('.jpg',''))}.jpg!"
   end
   
   
@@ -117,7 +117,7 @@ Image.destroy_all
 
 puts "Importing articles..."
 # puts "Deleted #{deleted_revs.size} earlier converted revisions"
-DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id').each do |a|
+DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id ').each do |a|
   lead, lead_images = html2textile(a['lead'])
   text, text_images = html2textile(a['text'])
   
@@ -129,7 +129,6 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
       p img
       img.errors.each{|attr,msg| puts "#{attr} - #{msg}" }
     end
-    # pp img
   end
   
   a['date'] = Time.parse('2009-01-01').to_i.to_s if a['category_link'] == 'about'
@@ -153,5 +152,5 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
   art.links.create(:text => a['link'], :editor => cb) 
   
     #   
-  # p art
+  p art
 end
