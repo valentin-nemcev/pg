@@ -122,7 +122,8 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
   text, text_images = html2textile(a['text'])
   
   (lead_images.to_a | text_images.to_a).each do |i|
-    
+    p 'set image path!'
+    exit()
     img = Image.find_or_create_by_title(:title => i.gsub('.jpg',''), :image_path => "/Users/valentine/Downloads/images/#{i}" )
     
     if not img.save

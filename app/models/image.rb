@@ -92,7 +92,7 @@ class Image < ActiveRecord::Base
     
     def read_image
       @image_data ||= Magick::Image.read(File.join(IMAGE_STORAGE_PATH, read_attribute(:filename))).first
-    rescue Magick::ImageMagickError, Magick::FatalImageMagickError
+    rescue Magick::ImageMagickError #, Magick::FatalImageMagickError
       return false;
     end
     
@@ -125,7 +125,7 @@ class Image < ActiveRecord::Base
       
       begin
         @image_data = Magick::Image.read(image_path).first
-      rescue Magick::ImageMagickError, Magick::FatalImageMagickError
+      rescue Magick::ImageMagickError # , Magick::FatalImageMagickError
         original_name = @image_file.nil? ? image_path : @image_file.original_filename
         errors.add(:image_file, "Неверный формат изображения (#{original_name})")
         return false;
