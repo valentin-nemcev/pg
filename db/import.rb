@@ -129,6 +129,7 @@ DBConn.connection.select_all('SELECT articles.*, categories.link as category_lin
       p img
       img.errors.each{|attr,msg| puts "#{attr} - #{msg}" }
     end
+    p img
   end
   
   a['date'] = Time.parse('2009-01-01').to_i.to_s if a['category_link'] == 'about'
