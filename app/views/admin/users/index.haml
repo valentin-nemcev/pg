@@ -12,7 +12,10 @@
         .duties
           = user.duties 
           = ('| ' + user.role.to_s) if current_user.is_admin?
-        
-        
-
-
+      .controls
+        - if current_user.is_admin?
+          = link_to 'Удалить', |
+                    admin_user_path(user), |
+                    :class => 'control',  |
+                    :confirm => 'Действительно удалить?', |
+                    :method => :delete  |

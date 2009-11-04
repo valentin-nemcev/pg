@@ -191,6 +191,7 @@ form
       input[type="submit"], button
         :display block
         :height 100%
+        :width 40px
     td.content
       :width 100%
       :padding 0
@@ -209,7 +210,7 @@ form
     &.checkbox label
       // :display inline
       
-    input, textarea 
+    input[type="text"], input[type="password"]  , textarea 
       :width 100% 
       :padding 2px
       :background-color #fff
@@ -220,7 +221,7 @@ form
       :border 1px solid #fff
       :font-family inherit
       :font-size #{!size4}
-    input 
+    input[type="text"], input[type="password"] 
       :border 1px solid #999
     input.big
       :font-size #{!size3}
@@ -229,17 +230,18 @@ form
     input[type="file"]
       :width auto
     input[type="submit"]
-      :padding 2px 12px
-      :width auto
+      :width 100%
+      :height 40px
       :font-size #{!size3}
-      &:hover  
-        :color #fff
-        :background-color #666
+      //
+        &:hover  
+          :color #fff
+          :background-color #666
 
-      &:active  
-        :color #000
-        :background-color #f8f8f8
-        :border 1px inset #999
+        &:active  
+          :color #000
+          :background-color #f8f8f8
+          :border 1px inset #999
   
   
 form.inline

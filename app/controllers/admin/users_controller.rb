@@ -4,6 +4,7 @@ class Admin::UsersController < AdminController
     @users = User.all
   end
   def new
+    return create if request.post?
     @user = User.new
     render :action => "form"
   end
@@ -26,7 +27,7 @@ class Admin::UsersController < AdminController
   end 
   
   def create
-    logout_keeping_session!
+    # logout_keeping_session!
     @user = User.new(params[:user])
     success = @user && @user.save
     if success && @user.errors.empty?

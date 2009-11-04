@@ -26,11 +26,12 @@
         |
         = link_to_unless_current 'Рубрики', admin_categories_path
         |
-        = link_to_unless_current 'Редакторы', admin_users_path if current_user.is_admin?
-        |
-        = link_to_unless_current 'Изображения', admin_images_path if current_user.is_admin?
-        |
         = link_to_unless_current 'Цитаты', admin_quotes_path
+        - if current_user.is_admin?
+          |
+          = link_to_unless_current 'Редакторы', admin_users_path 
+          |
+          = link_to_unless_current 'Изображения', admin_images_path if current_user.is_admin?
 
     %table#navigation
       %td.title

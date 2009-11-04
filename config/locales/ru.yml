@@ -23,6 +23,13 @@ ru:
             quote:
                 text: Текст
                 author: Автор
+            user:
+              name: Имя
+              duties: Обязанности
+              email:  E-mail
+              role: Права
+              password: Пароль
+              password_confirmation: Подтверждение пароля
         errors:
             messages:
                 record_invalid: record_invalid

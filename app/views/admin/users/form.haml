@@ -13,18 +13,19 @@
     = f.error_message_on :email
     = f.text_field :email
   .field
-    =f.label :role
-    =f.enum_select :role
+    = f.label :role
+    = f.error_message_on :role
+    = f.enum_select :role
   
   
   .field
     = f.label :password 
     = f.error_message_on :password
-    = f.text_field :password
+    = f.password_field :password
   .field
     = f.label :password_confirmation 
     = f.error_message_on :password_confirmation
-    = f.text_field :password_confirmation
+    = f.password_field :password_confirmation
 
   .field
     = f.submit "Сохранить" 

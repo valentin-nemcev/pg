@@ -10,6 +10,7 @@ module LayoutGridHelper
           rowspan = cell.height
           colspan = cell.width
           td_content = cell.layout_items.inject('') do |html_str,content|
+            next unless content.article.publicated
             html_str += render(
                       :partial => "site/article", 
                       :locals => {:article => content.article, :with_category => true}
