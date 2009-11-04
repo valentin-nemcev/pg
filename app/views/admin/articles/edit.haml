@@ -2,7 +2,8 @@
 - form_for [:admin, @article], :url => url, :html => {:class => 'full'} do |f| 
   %table.container
     %td.submit
-      %button С о х р а н и т ь
+      %button 
+        = vertical_text("Сохранить")
     %td.content
       .field
         = f.label :title 

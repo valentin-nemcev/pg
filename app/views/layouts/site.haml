@@ -19,7 +19,7 @@
               .author
                 = quote.author unless quote.nil?
         #top-navigation-inline
-          - for category in Category.find(:all, :conditions => {:archived => false})
+          - for category in Category.top_menu
             - if not current_page? category_url(category.link)
               = link_to category.title, category_url(category.link)
             - else

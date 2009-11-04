@@ -229,7 +229,7 @@ TextileEditor.Methods = {
     TODO Отделить insertText от insertTag, не забыть про правильное сохранение положения курсора после вставки 
   */
   insertTag: function(button, tagStart, tagEnd) {
-    console.log(button);
+    //console.log(button);
     var myField = button.canvas;
     myField.focus();
 
