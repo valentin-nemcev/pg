@@ -5,6 +5,7 @@
 /public/.htaccess
 /storage/*
 /tmp/
-/public/stylesheets/*.css
+/public/stylesheets/admin.css
+/public/stylesheets/site.css
 /public/img/
 /images/
