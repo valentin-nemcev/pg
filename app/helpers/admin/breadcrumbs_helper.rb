@@ -14,7 +14,9 @@ module Admin::BreadcrumbsHelper
   			  if klass.ancestors.include? ActiveRecord::Base
   			    title = klass.find(elm).title
   			    name = '«' + truncate(title, :length => 25) + '»' 
-  			    
+  			    is_record = true
+  			  else
+  			    is_record = false
   		    end
   		  rescue NameError, ActiveRecord::RecordNotFound
   		  end   
@@ -24,7 +26,7 @@ module Admin::BreadcrumbsHelper
       
       css_class = (i==0) ? 'link first' : 'link'      
       if i < (elements.length - 1)
-				breadcrumbs << "<td class=\"#{css_class}\"><a href='#{sofar}' title='#{title}'>#{name}</a></td>"
+				breadcrumbs << "<td class=\"#{css_class}\"><a href='#{is_record ? '#' : sofar}' title='#{title}'>#{name}</a></td>"
 			else
         breadcrumbs << '<td class="current">'+name+'</td>'
 			end
