@@ -191,9 +191,18 @@ table#content
     :width 40%
     :padding-left 2em
     
-table.grid
-  td + td
-    :padding-left 1em
+table.grid-debug
+  :border-collapse separate
+  :border 1px solid red
+  :margin-bottom 2px
+  td
+    :border 1px solid gray
+    :padding 2px
+
+.grid-container
+  :margin 0 -0.5em
+  .article
+    padding: 0 0.5em
 
 
 h2.archive-title
