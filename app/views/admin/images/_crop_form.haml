@@ -6,6 +6,9 @@
     = f.label :layout_type
     = f.enum_select :layout_type
   .field
+    = 'Ширина: <span id="img_width"/>px '
+    = 'Высота: <span id="img_height"/>px'
+  
     = f.hidden_field :crop_left 
     = f.hidden_field :crop_top
     = f.hidden_field :crop_right
@@ -27,7 +30,6 @@
           aspectRatio: #{Image::ASPECT_RATIOS[@image.layout_type].to_i}
         }
 
-        console.log([(#{@image.crop_left}*scalex),(#{@image.crop_top}*scaley), (#{@image.crop_right}*scalex), (#{@image.crop_bottom}*scaley)])
 
         ratios = #{Image::ASPECT_RATIOS.to_json}
 
@@ -62,6 +64,8 @@
       $('#image_crop_top').val(c.y);
       $('#image_crop_right').val(c.x2);
       $('#image_crop_bottom').val(c.y2);
+      $('#img_width').text(c.w);
+      $('#img_height').text(c.h);
     };
     
     
