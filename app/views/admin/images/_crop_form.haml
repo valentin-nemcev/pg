@@ -15,22 +15,29 @@
     = f.submit "Сохранить"
 
   :javascript
+      $("#crop_form").ajaxForm({dataType: 'script' });
+      $('#image_to_crop').load(function(){
+        scalex = $('#image_to_crop').attr('width')/#{@image.true_width};
+        scaley = $('#image_to_crop').attr('height')/#{@image.true_height};
+        jcrop_opts = {
+          onChange: showCoords,
+          onSelect: showCoords,
+          setSelect:[(#{@image.crop_left}*scalex),(#{@image.crop_top}*scaley), (#{@image.crop_right}*scalex), (#{@image.crop_bottom}*scaley)],
+          trueSize: [#{@image.true_width}, #{@image.true_height}],
+          aspectRatio: #{Image::ASPECT_RATIOS[@image.layout_type].to_i}
+        }
+
+        console.log([(#{@image.crop_left}*scalex),(#{@image.crop_top}*scaley), (#{@image.crop_right}*scalex), (#{@image.crop_bottom}*scaley)])
+
+        ratios = #{Image::ASPECT_RATIOS.to_json}
+
+
+        jcrop(jcrop_opts);
+      
+      });
+      
    
-    $("#crop_form").ajaxForm({dataType: 'script' });
-    scalex = $('#image_to_crop').attr('width')/#{@image.true_width};
-    scaley = $('#image_to_crop').attr('height')/#{@image.true_height};
-    jcrop_opts = {
-      onChange: showCoords,
-      onSelect: showCoords,
-      setSelect:[(#{@image.crop_left}*scalex),(#{@image.crop_top}*scaley), (#{@image.crop_right}*scalex), (#{@image.crop_bottom}*scaley)],
-      trueSize: [#{@image.true_width}, #{@image.true_height}],
-      aspectRatio: #{Image::ASPECT_RATIOS[@image.layout_type].to_i}
-    }
     
-    ratios = #{Image::ASPECT_RATIOS.to_json}
-    
-    
-    jcrop(jcrop_opts);
     
     $('#image_layout_type').change(function(){
       jcrop_opts.aspectRatio = ratios[this.value];
