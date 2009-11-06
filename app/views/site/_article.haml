@@ -9,9 +9,10 @@
     = link_to article.title, article_url(article.category.link, article.link)
   %h2.subtitle
     = article.subtitle unless article.subtitle.nil?
-  .lead
-    = article.lead_html
   - if defined? full
     .text
       = article.text_html  
+  - else
+    .lead
+      = article.lead_html
   
