@@ -111,12 +111,14 @@ class Article < ActiveRecord::Base
   
     def article_not_changed?
       return false if self.current_revision.nil?
-      (REVISION_COLUMNS - %w{text_html lead_html}).all? do |attr_name|
+      attrs_not_changed = (REVISION_COLUMNS - %w{text_html lead_html}).all? do |attr_name|
         logger.info { attr_name } 
         res = (self.send(attr_name) == self.current_revision.send(attr_name))
         logger.info { res.inspect }
         res 
       end
+      images_not_changed = self.current_revision.images.all? {|img| img.updated_at > self.current_revision.updated_at } 
+      attrs_not_changed and images_not_changed
     end
     
     def destroy_orphaned_images

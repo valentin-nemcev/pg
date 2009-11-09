@@ -38,13 +38,12 @@ class Revision < ActiveRecord::Base
       return '' unless image = Image.find_by_filename(opts[:src])
       @@extracted_images << image
       opts[:src] = image.link
-      if @@text_type == :lead and (image.layout_type == :image or image.layout_type == :banner)
-        image.layout_type = :banner
-        image.save(false)
+      if image.layout_type == :banner
         "<div class='banner' style='background-image: url(#{escape_attribute opts[:src]})'>&nbsp</div>"
       else
         opts[:class] = image.layout_type.to_s
-        "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"
+        opts[:title] = image.title
+        "<img src=\"#{escape_attribute opts[:src]}\" #{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"
       end
     end
     

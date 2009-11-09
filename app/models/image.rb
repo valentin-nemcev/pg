@@ -6,7 +6,8 @@ class Image < ActiveRecord::Base
   IMAGE_PUBLIC_PATH = File.join(RAILS_ROOT, 'public/img')
   
   THUMB_SIZE = 100
- 
+  FACE_SIZE = 200
+  BANNER_HEIGHT = 150
   ASPECT_RATIOS = {:face => 1, :photo => 3.0/2}
   
   has_and_belongs_to_many :revisions
@@ -70,8 +71,13 @@ class Image < ActiveRecord::Base
   
   def save_derivatives
     img = read_image
+    
     crop_rect = [crop_left, crop_top, crop_width, crop_height]
-    img.crop(*crop_rect).write(File.join(IMAGE_PUBLIC_PATH, self.filename))
+    cropped = img.crop(*crop_rect)
+    
+    cropped.resize_to_fit!(FACE_SIZE, FACE_SIZE) if self.layout_type == :face
+    cropped.resize_to_fit!(cropped.columns, BANNER_HEIGHT) if self.layout_type == :banner
+    cropped.write(File.join(IMAGE_PUBLIC_PATH, self.filename))
     
     img.crop(*crop_rect).resize_to_fit(THUMB_SIZE,THUMB_SIZE).write(File.join(IMAGE_PUBLIC_PATH, 'thumbs', self.filename))
     img.resize_to_fit(600, 400).write(File.join(IMAGE_PUBLIC_PATH, 'previews', self.filename))

@@ -27,10 +27,10 @@
           onSelect: showCoords,
           setSelect:[(#{@image.crop_left}*scalex),(#{@image.crop_top}*scaley), (#{@image.crop_right}*scalex), (#{@image.crop_bottom}*scaley)],
           trueSize: [#{@image.true_width}, #{@image.true_height}],
-          aspectRatio: #{Image::ASPECT_RATIOS[@image.layout_type].to_i}
+          aspectRatio: #{Image::ASPECT_RATIOS[@image.layout_type].to_f}
         }
 
-
+        console.log(#{Image::ASPECT_RATIOS[@image.layout_type].to_f});
         ratios = #{Image::ASPECT_RATIOS.to_json}
 
 
