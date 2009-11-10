@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091024222713) do
+ActiveRecord::Schema.define(:version => 20091110184154) do
 
   create_table "articles", :force => true do |t|
     t.integer  "current_revision_id"
@@ -31,11 +31,12 @@ ActiveRecord::Schema.define(:version => 20091024222713) do
     t.datetime "updated_at"
     t.string   "title",                                :null => false
     t.boolean  "archived",          :default => false
-    t.integer  "position",          :default => 0,     :null => false
+    t.integer  "position",          :default => 0
     t.integer  "articles_count",    :default => 0
     t.integer  "links_count",       :default => 0
   end
 
+  add_index "categories", ["archived", "position"], :name => "index_categories_on_archived_and_position", :unique => true
   add_index "categories", ["canonical_link_id"], :name => "categories_canonical_link_id_fk"
 
   create_table "images", :force => true do |t|

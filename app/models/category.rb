@@ -23,9 +23,11 @@ class Category < ActiveRecord::Base
       Category.first(:conditions => ['position < ? AND archived = ?', self.position, self.archived], :order => 'position DESC')
     end
     return if other.nil?
-    self.position, other.position = other.position, self.position
-    self.save
-    other.save
+    other_position = other.position
+    self_position = self.position
+    other.update_attribute(:position, nil)
+    self.update_attribute(:position, other_position)
+    other.update_attribute(:position, self_position)
   end
   
   def link
@@ -44,7 +46,8 @@ class Category < ActiveRecord::Base
   
   protected
     def set_position
-      if self.position.blank? or self.position == 0 
+      # position_not_unique = self.class.all(:conditions => {:archived => self.archived, :position => self.position})
+      if self.position.blank? or self.position == 0 or self.archived_changed?
         self.position = Category.maximum(:position, :conditions => {:archived => self.archived})
         self.position ||= 0
         self.position += 1
