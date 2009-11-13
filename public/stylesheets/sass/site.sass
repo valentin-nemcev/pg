@@ -269,20 +269,25 @@ h3.category-title
     :color #111 
     :font-size #{!normal}
     :font-weight bold
+    
+  ul
+    :margin-left 1em
   
   p + h4
     :margin-top 1em
     
   .text
     :clear both
-    
-  .text p
-    :margin 0.2em 0
-  .text p + p
-    :margin-top 1em
+    p
+      :margin 0.2em 0
+    p + p, ul + p 
+      :margin-top 1em
   .lead p
     :margin-bottom 0.2em 
   
+  p + p.caption, p.question + p
+    :margin-top -0.2em
+        
   p.signature
     :text-align right
     :font-weight bold
@@ -305,6 +310,10 @@ h3.category-title
     :text-align right
     :font-style italic
   
+  p.caption
+    :text-align center
+    :font-style italic
+  
   .text p.list 
     :display list-item
     :margin 0.2em 0
@@ -315,7 +324,7 @@ h3.category-title
   img.face
     :float left
     :padding-right 4px
-    :width 150px
+    :width 100px
     :margin 0
     
   img.image
@@ -330,11 +339,6 @@ h3.category-title
     :text-align center
     :margin 0.5em 0
   
-  p.caption
-    :font-style italic
-    :margin 0
-    :text-align center
-
   p.question
     :font-weight bold
 

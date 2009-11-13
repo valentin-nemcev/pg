@@ -5,7 +5,7 @@ teButtons.push(new TextileEditorButton('ed_emphasis',		'',        '_',   '_',  '
 // teButtons.push(new TextileEditorButton('ed_underline',		'',     '+',   '+',  'u', '<span style="text-decoration:underline">П</span>','s'));
 teButtons.push(new TextileEditorButton('ed_strike', 	    '', '-',   '-',  's', '<span style="text-decoration:line-through">П</span>','s'));
 // teButtons.push(new TextileEditorButton('ed_ol',				'list_numbers.png',  ' # ', '\n', ',', 'Numbered List'));
-// teButtons.push(new TextileEditorButton('ed_ul',				'list_bullets.png',  ' * ', '\n', '.', 'Bulleted List'));
+teButtons.push(new TextileEditorButton('ed_ul',				'',  ' * ', '\n', '.', 'Список'));
 // teButtons.push(new TextileEditorButton('ed_p',       'paragraph.png',     'p',   '\n', 'p', 'Paragraph'));
 // teButtons.push(new TextileEditorButton('ed_h1',				'h1.png',            'h1',  '\n', '1', 'Header 1'));
 // teButtons.push(new TextileEditorButton('ed_h2',				'h2.png',            'h2',  '\n', '2', 'Header 2'));
@@ -19,6 +19,7 @@ teButtons.push(new TextileEditorButton('ed_h4',				'',            'h4',  '\n', '
 // teButtons.push(new TextileEditorButton('ed_justifyr',		'right.png',         '>',   '\n', 'r', 'Right Justify'));
 // teButtons.push(new TextileEditorButton('ed_justify', 		'justify.png',       '<>',  '\n', 'j', 'Justify'));
 teButtons.push(new TextileEditorButton('ed_signature',   		'',    'p(signature)',  '\n', 'q', 'Подпись'));
-
+teButtons.push(new TextileEditorButton('ed_signature',   		'',    'p(question)',  '\n', 'q', 'Вопрос'));
+teButtons.push(new TextileEditorButton('ed_signature',   		'',    'p(caption)',  '\n', 'q', 'Подпись под фото'));
 // teButtons.push(new TextileEditorButton('ed_code','code','@','@','c','Code'));
 
