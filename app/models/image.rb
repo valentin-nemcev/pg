@@ -151,7 +151,7 @@ class Image < ActiveRecord::Base
         fn = generate_filename(base, count, ext)
       end
 
-      @image_data.write File.join(IMAGE_STORAGE_PATH, fn)
+      @image_data.resize_to_fit(2000, 2000).write File.join(IMAGE_STORAGE_PATH, fn)
       write_attribute(:filename, fn)
       
       write_attribute(:crop_bottom, @image_data.rows)
