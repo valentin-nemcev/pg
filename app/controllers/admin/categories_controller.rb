@@ -1,7 +1,7 @@
 class Admin::CategoriesController < AdminController
 
   def index
-    @categories = Category.all :order => 'archived ASC, position ASC'
+    @categories = Category.all :order => 'archived ASC, hidden ASC, position ASC'
       
     render :action => "index"
   end

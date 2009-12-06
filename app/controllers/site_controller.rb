@@ -20,7 +20,7 @@ class SiteController < ApplicationController
   end
   
   def archive
-    @categories = Category.all(:conditions => {:archived => true})
+    @categories = Category.archived
   end
   
   def article

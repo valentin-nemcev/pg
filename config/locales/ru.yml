@@ -16,6 +16,7 @@ ru:
             category:
                 title: Заголовок
                 archived: В архиве
+                hidden: Скрыта
             image:
                 title: Заголовок
                 link: Ссылка

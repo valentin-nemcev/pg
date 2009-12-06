@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091110184154) do
+ActiveRecord::Schema.define(:version => 20091206155710) do
 
   create_table "articles", :force => true do |t|
     t.integer  "current_revision_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20091110184154) do
     t.integer  "position",          :default => 0
     t.integer  "articles_count",    :default => 0
     t.integer  "links_count",       :default => 0
+    t.boolean  "hidden",            :default => false
   end
 
   add_index "categories", ["archived", "position"], :name => "index_categories_on_archived_and_position", :unique => true

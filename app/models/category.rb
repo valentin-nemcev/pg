@@ -10,8 +10,8 @@ class Category < ActiveRecord::Base
   validates_length_of :title, :in => 2..100
   validates_uniqueness_of :title
   
-  named_scope :top_menu, :conditions => {:archived => false}, :order => 'position ASC'
-  
+  named_scope :top_menu, :conditions => {:archived => false, :hidden => false}, :order => 'position ASC'
+  named_scope :archived, :conditions => {:archived => true, :hidden => false}, :order => 'position ASC'
 =begin
   TODO Вынести в отдельный модуль или заменить плагином
 =end

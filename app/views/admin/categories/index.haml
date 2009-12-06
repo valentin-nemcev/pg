@@ -11,6 +11,7 @@
                     admin_category_articles_path(category)) |
         .type
           = "В архиве" if category.archived?
+          = "Скрыта" if category.hidden?
       .controls
         %div
           = link_to "Ссылки (#{category.links.size})", admin_category_links_path(category), :class => 'control'
