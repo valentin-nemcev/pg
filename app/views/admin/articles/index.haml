@@ -29,8 +29,7 @@
         .links
           - if @category.nil? and not article.category.nil?
             = link_to article.category.title, admin_category_articles_path(article.category) 
-          = link_to "Правки (#{article.revisions.size})",                      |
-                    polymorphic_path([:admin, @category, article, :revisions]) |
+          = link_to "Правки (#{article.revisions.size})",  polymorphic_path([:admin, @category, article, :revisions]) 
           -          
           = link_to "Ссылки (#{article.links.size})", |
                     polymorphic_path([:admin, @category, article, :links]) |

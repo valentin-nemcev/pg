@@ -11,7 +11,17 @@
     = javascript_tag "$.blockUI.defaults.css = {};"
     = javascript_include_tag "jquery.form.js"
     = javascript_include_tag "jquery.Jcrop.min.js"
+    
+    :javascript
+      / $(document).ajaxStart(function () {
+      /         $('#ajaxBusy').show();
+      /       }).ajaxStop(function (){
+      /         $('#ajaxBusy').hide();
+      /       });
   %body
+    -#ajaxBusy(style="display: ;")
+      %div
+        Загрузка
     %table#page-header
       %td.userbox
         - if logged_in? 

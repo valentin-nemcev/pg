@@ -1,3 +1,4 @@
+#encoding: utf-8
 module Admin::LayoutCellsHelper
   def td_size(cell, columns_count)
     {

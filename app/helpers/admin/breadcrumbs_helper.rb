@@ -1,3 +1,4 @@
+#encoding: utf-8
 module Admin::BreadcrumbsHelper
   def breadcrumbs(url)
     names = {'admin' => 'Управление', 'articles' => t('.article')}
