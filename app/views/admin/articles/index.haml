@@ -16,7 +16,7 @@
         .subtitle 
           = article.subtitle
         .date
-          = I18n.l(article.publication_date, :format => :long)
+          = article.publication_date.to_s(:long) #, :format => :long
           |
           - if article.publicated and article.publication_date <= Time.now
             Опубликовано
