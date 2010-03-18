@@ -16,7 +16,7 @@
         .subtitle 
           = article.subtitle
         .date
-          = Russian::localize(article.publication_date, :format => :long)
+          = I18n.l(article.publication_date, :format => :long)
           |
           - if article.publicated and article.publication_date <= Time.now
             Опубликовано
