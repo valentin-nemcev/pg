@@ -1,3 +1,4 @@
+#encoding: utf-8
 # This controller handles the login/logout function of the site.  
 class Admin::SessionsController < ApplicationController
 
@@ -33,7 +34,8 @@ class Admin::SessionsController < ApplicationController
 protected
   # Track failed login attempts
   def note_failed_signin
-    flash[:error] = "Неверный E-mail и/или пароль"
+    flash[:error] = "Неверный E-mail и/или пароль" # TODO вынести в locale
+    
     logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
   end
 end

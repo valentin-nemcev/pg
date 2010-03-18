@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Admin::QuotesController < AdminController
   def index
     @quotes = Quote.find(:all)

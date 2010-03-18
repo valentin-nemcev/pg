@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Admin::CategoriesController < AdminController
 
   def index
@@ -20,8 +21,8 @@ class Admin::CategoriesController < AdminController
   def create
     @category = Category.new(params[:category])
 
-    if @category.save
-      flash[:notice] = 'Рубрика сохранена'
+    if @category.save 
+      flash[:notice] = 'Рубрика сохранена' # TODO вынести в locale
       redirect_to admin_categories_url
     else
       render :action => "form.haml" 
@@ -32,7 +33,7 @@ class Admin::CategoriesController < AdminController
     @category = Category.find(params[:id])
 
     if @category.update_attributes(params[:category])
-      flash[:notice] = 'Рубрика сохранена'
+      flash[:notice] = 'Рубрика сохранена' # TODO вынести в locale
       redirect_to admin_categories_url
     else
       render :action => "form.haml" 
@@ -51,7 +52,7 @@ class Admin::CategoriesController < AdminController
     else
       @category.destroy
     end
-    flash[:notice] = 'Рубрика удалена'
+    flash[:notice] = 'Рубрика удалена' # TODO вынести в locale
     redirect_to admin_categories_url
   end
 end

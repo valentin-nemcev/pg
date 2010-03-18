@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Admin::LinksController < AdminController
    parent_resources :category, :article
   

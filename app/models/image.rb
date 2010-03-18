@@ -1,4 +1,5 @@
-require 'ftools'
+#encoding: utf-8
+# require 'ftools'
 require 'RMagick'
 class Image < ActiveRecord::Base
   ACCEPTED_FORMATS = ['JPG', 'PNG', 'PSD', 'GIF', 'BMP' ] 
@@ -118,7 +119,7 @@ class Image < ActiveRecord::Base
       else
         if @image_file.nil? or not @image_file.kind_of?(Tempfile)
           if self.new_record?
-            errors.add(:image_file, "Отсутствует файл с изображением")
+            errors.add(:image_file, "Отсутствует файл с изображением") # TODO вынести в locale
             return false
           else
             return true
