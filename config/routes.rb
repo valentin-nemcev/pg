@@ -28,6 +28,8 @@ ActionController::Routing::Routes.draw do |map|
       a.resources :revisions, :except => :edit 
     end
     
+    admin.resources :tags
+    
     admin.resources :images, :has_many => [:articles], 
                          :member => { :crop_form => :get},
                          :collection => { :new => [:get, :post] } 

@@ -9,50 +9,40 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091206155710) do
+ActiveRecord::Schema.define(:version => 20100401121330) do
 
   create_table "articles", :force => true do |t|
     t.integer  "current_revision_id"
     t.integer  "canonical_link_id"
-    t.integer  "category_id",                            :null => false
     t.datetime "publication_date"
     t.boolean  "publicated",          :default => false
     t.integer  "revisions_count",     :default => 0
     t.integer  "links_count",         :default => 0
+    t.integer  "comments_count",      :default => 0
   end
 
   add_index "articles", ["canonical_link_id"], :name => "articles_canonical_link_id_fk"
-  add_index "articles", ["category_id"], :name => "articles_category_id_fk"
   add_index "articles", ["current_revision_id"], :name => "articles_current_revision_id_fk"
 
-  create_table "categories", :force => true do |t|
-    t.integer  "canonical_link_id"
+  create_table "comments", :force => true do |t|
+    t.integer  "article_id",  :null => false
+    t.string   "author"
+    t.boolean  "highlighted"
+    t.text     "body"
+    t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title",                                :null => false
-    t.boolean  "archived",          :default => false
-    t.integer  "position",          :default => 0
-    t.integer  "articles_count",    :default => 0
-    t.integer  "links_count",       :default => 0
-    t.boolean  "hidden",            :default => false
   end
 
-  add_index "categories", ["archived", "position"], :name => "index_categories_on_archived_and_position", :unique => true
-  add_index "categories", ["canonical_link_id"], :name => "categories_canonical_link_id_fk"
+  add_index "comments", ["article_id"], :name => "comments_article_id_fk"
 
   create_table "images", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title"
-    t.string   "filename",                                                                    :null => false
-    t.enum     "layout_type", :limit => [:face, :banner, :photo, :image], :default => :image
-    t.integer  "crop_top",                                                :default => 0,      :null => false
-    t.integer  "crop_left",                                               :default => 0,      :null => false
-    t.integer  "crop_bottom",                                             :default => 0,      :null => false
-    t.integer  "crop_right",                                              :default => 0,      :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
   end
-
-  add_index "images", ["filename"], :name => "index_images_on_filename", :unique => true
 
   create_table "images_revisions", :id => false, :force => true do |t|
     t.integer "image_id",    :null => false
@@ -90,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20091206155710) do
   end
 
   add_index "links", ["article_id"], :name => "links_article_id_fk"
-  add_index "links", ["category_id"], :name => "links_category_id_fk"
   add_index "links", ["text"], :name => "index_links_on_text", :unique => true
 
   create_table "quotes", :force => true do |t|
@@ -116,6 +105,22 @@ ActiveRecord::Schema.define(:version => 20091206155710) do
   add_index "revisions", ["article_id"], :name => "revisions_article_id_fk"
   add_index "revisions", ["editor_id"], :name => "revisions_editor_id_fk"
 
+  create_table "revisions_tags", :id => false, :force => true do |t|
+    t.integer "tag_id",      :null => false
+    t.integer "revision_id"
+  end
+
+  add_index "revisions_tags", ["revision_id"], :name => "revisions_tags_revision_id_fk"
+  add_index "revisions_tags", ["tag_id", "revision_id"], :name => "index_revisions_tags_on_tag_id_and_revision_id", :unique => true
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
+
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -131,11 +136,10 @@ ActiveRecord::Schema.define(:version => 20091206155710) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
-  add_foreign_key "articles", "categories", :name => "articles_category_id_fk"
   add_foreign_key "articles", "links", :name => "articles_canonical_link_id_fk", :column => "canonical_link_id", :dependent => :nullify
   add_foreign_key "articles", "revisions", :name => "articles_current_revision_id_fk", :column => "current_revision_id", :dependent => :nullify
 
-  add_foreign_key "categories", "links", :name => "categories_canonical_link_id_fk", :column => "canonical_link_id", :dependent => :nullify
+  add_foreign_key "comments", "articles", :name => "comments_article_id_fk"
 
   add_foreign_key "images_revisions", "images", :name => "images_revisions_image_id_fk", :dependent => :delete
   add_foreign_key "images_revisions", "revisions", :name => "images_revisions_revision_id_fk", :dependent => :delete
@@ -144,9 +148,11 @@ ActiveRecord::Schema.define(:version => 20091206155710) do
   add_foreign_key "layout_items", "layout_cells", :name => "layout_items_layout_cell_id_fk", :dependent => :delete
 
   add_foreign_key "links", "articles", :name => "links_article_id_fk"
-  add_foreign_key "links", "categories", :name => "links_category_id_fk"
 
   add_foreign_key "revisions", "articles", :name => "revisions_article_id_fk"
   add_foreign_key "revisions", "users", :name => "revisions_editor_id_fk", :column => "editor_id"
+
+  add_foreign_key "revisions_tags", "revisions", :name => "revisions_tags_revision_id_fk", :dependent => :delete
+  add_foreign_key "revisions_tags", "tags", :name => "revisions_tags_tag_id_fk", :dependent => :delete
 
 end

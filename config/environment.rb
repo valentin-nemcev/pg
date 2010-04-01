@@ -43,7 +43,8 @@ Rails::Initializer.run do |config|
   config.gem 'htmlentities'
   config.gem 'will_paginate'
   config.gem 'russian', :varsion => '0.2.5'
-  config.gem 'mysql'
+  config.gem 'inherited_resources', :version => '1.0.3'
+  # config.gem 'mysql'
   # config.gem 'rmagick'
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

@@ -3,6 +3,8 @@ class Revision < ActiveRecord::Base
   belongs_to :editor, :class_name => 'User', :foreign_key => 'editor_id'
   has_and_belongs_to_many :images, :order => 'updated_at DESC'
   
+  has_and_belongs_to_many :tags
+  
   validates_presence_of :title #, :link
   validates_length_of :title, :in => 3..250
   # validates_length_of :link, :in => 2..100
@@ -35,16 +37,13 @@ class Revision < ActiveRecord::Base
     end
 
     def image(opts)
-      return '' unless image = Image.find_by_filename(opts[:src])
+      return '' unless image = Image.find_by_id(opts[:src])
       @@extracted_images << image
-      opts[:src] = image.link
-      if image.layout_type == :banner
-        "<div class='banner' style='background-image: url(#{escape_attribute opts[:src]})'>&nbsp</div>"
-      else
-        opts[:class] = image.layout_type.to_s
-        opts[:title] = image.title
-        "<img src=\"#{escape_attribute opts[:src]}\" #{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"
-      end
+      opts[:src] = image.image.url
+      opts.delete(:align)
+      img = "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"  
+      img = "<a href=\"#{escape_attribute opts[:href]}\">#{img}</a>" if opts[:href]
+      img
     end
     
     # def image(opts)

@@ -5,7 +5,6 @@ class CreateDatabase < ActiveRecord::Migration
     create_table "articles", :force => true do |t|
       t.integer  "current_revision_id"
       t.integer  "canonical_link_id"
-      t.integer  "category_id",         :null => false
       t.datetime "publication_date"
       t.boolean  "publicated",          :default => false
       t.integer  "revisions_count",     :default => 0
@@ -27,18 +26,6 @@ class CreateDatabase < ActiveRecord::Migration
     add_foreign_key(:revisions, :articles)
     add_foreign_key(:articles, :revisions, :column => "current_revision_id", :dependent => :nullify)
     
-    create_table "categories", :force => true do |t|
-      t.integer  "canonical_link_id"
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.string   "title",         :null => false
-      t.boolean  "archived",          :default => false
-      t.integer  "position",          :default => 0,     :null => false
-      t.integer  "articles_count",    :default => 0
-      t.integer  "links_count",       :default => 0
-    end
-    add_foreign_key(:articles, :categories)
-    
     create_table "links", :force => true do |t|
       t.datetime "created_at"
       t.datetime "updated_at"
@@ -47,31 +34,8 @@ class CreateDatabase < ActiveRecord::Migration
       t.integer  "article_id" , :null => true
     end
     add_foreign_key(:articles, :links, :column => "canonical_link_id", :dependent => :nullify)
-    add_foreign_key(:categories, :links, :column => "canonical_link_id", :dependent => :nullify)
     add_foreign_key(:links, :articles)
-    add_foreign_key(:links, :categories)
     add_index(:links, :text, :unique => true)
-    
-    create_table "images", :force => true do |t|
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.string   "title"
-      t.string   "filename",   :null => false
-      t.enum   "layout_type", :limit => [:face, :banner, :photo, :image], :default => :image
-      t.integer  "crop_top",   :null => false,    :default => 0
-      t.integer  "crop_left",   :null => false,    :default => 0
-      t.integer  "crop_bottom",   :null => false,    :default => 0
-      t.integer  "crop_right",   :null => false,    :default => 0
-    end
-    add_index(:images, :filename, :unique => true)
-    
-    create_table "images_revisions", :id => false, :force => true do |t|
-      t.integer "image_id",   :null => false
-      t.integer "revision_id",   :null => true
-    end
-    add_foreign_key(:images_revisions, :images, :dependent => :delete)
-    add_foreign_key(:images_revisions, :revisions, :dependent => :delete)
-    add_index(:images_revisions, [:image_id, :revision_id], :unique => true)
     
     
     create_table "layout_cells", :force => true do |t|

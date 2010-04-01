@@ -8,15 +8,13 @@
     .item
       %table
         %td.thumb
-          = image_tag image.thumb_link, :title =>h(image.inspect)
+          = image_tag image.image.url(:thumb), :title =>h(image.inspect)
         %td.header
           .title
-            = link_to image.title, edit_admin_image_path(image)
+            = link_to image.id, edit_admin_image_path(image)
           .subtitle
             %div
-              = image.layout_type
-              |
-              = image.filename
+              = image.image_file_name
             %div
               - for revision in image.revisions
                 = revision.title

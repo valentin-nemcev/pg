@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
   CALCULATIONS_OPTIONS << :text_fields
   
   belongs_to :category, :counter_cache => true
-  validates_presence_of :category
+  #validates_presence_of :category
   
   has_many :links, :dependent => :delete_all 
   belongs_to :canonical_link, :class_name => 'Link', :foreign_key => 'canonical_link_id' 
@@ -122,7 +122,7 @@ class Article < ActiveRecord::Base
     end
     
     def destroy_orphaned_images
-      Image.destroy_images_without_revisions
+      # Image.destroy_images_without_revisions
     end
     
 end

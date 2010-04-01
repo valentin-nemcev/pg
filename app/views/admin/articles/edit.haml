@@ -14,9 +14,6 @@
         = f.text_field :subtitle, :class => 'big' 
       %table
         %td.field
-          = f.label :category
-          = collection_select(:article, :category_id, Category.all, :id, :title)
-        %td.field
           = f.label :publication_date
           = f.datetime_select :publication_date
         %td.field.checkbox

@@ -1,0 +1,12 @@
+#tags.list
+  .new.item
+    %a.control{:href=>"#{new_admin_tag_path}"} Добавить
+  - if collection.empty?
+    .empty.item Рубрик нет
+  - for resource in collection
+    .item(title="#{h resource.inspect}")
+      .header
+        .title
+          = link_to resource.name, edit_resource_url(resource) 
+      .controls
+        %div

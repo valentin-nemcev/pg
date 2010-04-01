@@ -8,7 +8,7 @@
 
 development:
   adapter: mysql 
-  database: pg_development 
+  database: pg_development_2010 
   encoding: utf8
   host: localhost
 
