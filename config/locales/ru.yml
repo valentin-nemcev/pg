@@ -12,7 +12,7 @@ ru:
                 subtitle: Подзаголовок
                 link: Ссылка
                 publication_date: Дата публикации
-                publicated: Опубликовано
+                is_publicated: Опубликовано
                 lead: Лид 
                 text: Текст 
             category:
