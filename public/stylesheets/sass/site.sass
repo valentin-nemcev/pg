@@ -132,13 +132,12 @@ html, body, #container
   :background #fff
   // :padding-left 142px
   //:margin-top -10px
-  :-moz-box-sizing border-box
   *
     :text-align left
     :font-size #{!menu}
     :font-weight bold
     :vertical-align top
-    :padding 0px 0px
+    :padding 0px 5px
     :display inline-block
   a
     :text-decoration none
@@ -163,22 +162,9 @@ html, body, #container
     &:hover, &:focus
       :color #666
       :outline none
-    &:before, &:after
-      :color #fff
   .current
     :color #000
     :font-weight bold
-    &:before, &:after
-      :color #{!pg_red}
-      :font-size #{!big+3px}
-      :line-height 0
-      :font-weight normal
-    &:before
-      :content "["
-      :padding-right 1px
-    &:after
-      :content "]" 
-      :padding-left 1px
 
 table#content 
   :width 100%

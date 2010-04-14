@@ -47,5 +47,6 @@ ActionController::Routing::Routes.draw do |map|
   map.archive "/archive/", :controller => "site", :action => "archive"  
   map.article "/articles/:article_uri", :controller => "site", :action => "article"
   map.tag "/tags/:tag_uri", :controller => "site", :action => "tag"  
+  map.legacy_uri "*legacy_uri", :controller => "site", :action => "legacy_uri"  
   # map.image '/images/:image_link', :controller => 'site', :action => 'image'
 end

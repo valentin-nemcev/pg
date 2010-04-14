@@ -6,21 +6,28 @@ class SiteController < ApplicationController
   end
   
   def tag
-    @articles = Tag.find_by_uri(params[:tag_uri]).articles.ordered
-  end
-  
-  def archive
-    @categories = Category.archived
+    if tag = Tag.find_by_uri(params[:tag_uri])
+      @articles = tag.articles.publicated.ordered.paginate(:page => params[:page], :per_page => 30)
+    else
+      not_found
+    end
   end
   
   def article
-    @article = Article.first :conditions => {:uri => params[:article_uri]}
+    @article = Article.find_by_uri params[:article_uri]
+    not_found unless @article
   end
   
-  def image
-    @image = Image.find_by_link(params[:image_link])
-    render :text => @image.image_data.to_blob, :content_type => 'image/jpeg', :status => '200'
-    
+  def legacy_uri
+    if @article = Article.find_by_legacy_uri(params[:legacy_uri].join('/')) 
+      redirect_to article_url(@article.uri), :status => :moved_permanently
+    else
+      not_found
+    end
+  end
+
+  def not_found
+    redirect_to '/'
   end
   
 end

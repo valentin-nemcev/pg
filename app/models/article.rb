@@ -26,8 +26,8 @@ class Article < ActiveRecord::Base
     {:joins => :tags, :conditions => {:tags => {:name => tag_str.split(', ').map(&:strip).reject(&:blank?)}}}
   }
   
-  named_scope :for_select, {:select => 'id, title', :limit => 100, :order => "publication_date DESC"}
-  
+  named_scope :for_select, {:select => 'id, title, publication_date', :order => "publication_date DESC"}
+  named_scope :publicated, {:conditions => ["is_publicated and publication_date <= NOW()"]}
   # def self.with_tags(query)
   #     tags = Tag.find_by_tag_string(query)
   #     tags.reduce { |articles, tag| articles |= tag.articles }

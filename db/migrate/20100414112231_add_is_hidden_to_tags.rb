@@ -1,6 +1,6 @@
 class AddIsHiddenToTags < ActiveRecord::Migration
   def self.up
-    add_column :tags, :is_hidden, :boolean, :default => false
+    add_column :tags, :is_hidden, :boolean, :default => true
   end
 
   def self.down
