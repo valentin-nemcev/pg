@@ -2,8 +2,7 @@
 %html
   %head
     %meta{'http-equiv'=>'content-type', :content=>'text/html;charset=UTF-8'}
-    %title
-      Полит-грамота - управление
+    %title= yield :page_head_title
     = stylesheet_link_tag 'admin'
     = stylesheet_link_tag 'jquery.Jcrop.css'
     = javascript_include_tag :defaults 
@@ -11,25 +10,15 @@
     = javascript_tag "$.blockUI.defaults.css = {};"
     = javascript_include_tag "jquery.form.js"
     = javascript_include_tag "jquery.Jcrop.min.js"
-    
-    :javascript
-      / $(document).ajaxStart(function () {
-      /         $('#ajaxBusy').show();
-      /       }).ajaxStop(function (){
-      /         $('#ajaxBusy').hide();
-      /       });
+
   %body
     -#ajaxBusy(style="display: ;")
       %div
         Загрузка
     %table#page-header
-      %td.userbox
-        - if logged_in? 
-          Администратор: #{current_user.name}
-          (#{link_to "Выйти", admin_logout_path, { :title => "Выйти", :class => "to_site" } })
-        - else 
-          Сбой в матрице. Вы не должны видеть эту страницу.
       %td.links
+        %a.title{:href=>"/"} Полит-грамота 
+        |
         = link_to_unless_current 'Верстка', admin_layout_cells_path
         |
         = link_to_unless_current 'Статьи', admin_articles_path
@@ -42,12 +31,14 @@
           = link_to_unless_current 'Редакторы', admin_users_path 
           |
           = link_to_unless_current 'Изображения', admin_images_path if current_user.is_admin?
+      %td.userbox
+        - if logged_in? 
+          Администратор: #{current_user.name}
+          (#{link_to "Выйти", admin_logout_path, { :title => "Выйти", :class => "to_site" } })
+        - else 
+          Сбой в матрице. Вы не должны видеть эту страницу.
 
-    %table#navigation
-      %td.title
-        %a.title{:href=>"/"} Полит-грамота 
-      %td.separator → 
-      = breadcrumbs(request.path)
+    %h1.page-title= yield :page_title
     
     #page-content
-    = yield 
+      = yield 

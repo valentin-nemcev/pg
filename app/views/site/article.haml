@@ -1,1 +1,7 @@
 = render :partial => 'article', :locals => {:article  => @article, :full => true}
+-#.comments
+  - @article.comments.each do |comment|
+    .comment
+      .date= comment.publication_date.strftime('%d.%m.%y');
+      .author= comment.author_name
+      .body= comment.body

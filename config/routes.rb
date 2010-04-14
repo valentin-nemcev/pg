@@ -11,21 +11,21 @@ ActionController::Routing::Routes.draw do |map|
       
     admin.resources :quotes, :except => [:show], :collection => { :new => [:get, :post] } 
     
-    links_route_params = {:except => [:show, :edit], :member => { :make_canonical => :post }, :collection => { :new => [:get, :post] }}
+    # links_route_params = {:except => [:show, :edit], :member => { :make_canonical => :post }, :collection => { :new => [:get, :post] }}
     
-    admin.resources :links, links_route_params
+    # admin.resources :links, links_route_params
     
-    admin.resources :categories, :except => [:show], :member => [:move], :collection => { :new => [:get, :post] } do |c|
-      c.resources :links, links_route_params
-      c.resources :articles, :has_many => [:images], :collection => { :new => [:get, :post] } do |a2|
-        a2.resources :links, links_route_params
-        a2.resources :revisions, :except => :edit 
-      end
-    end
+    # admin.resources :categories, :except => [:show], :member => [:move], :collection => { :new => [:get, :post] } do |c|
+    #   c.resources :links, links_route_params
+    #   c.resources :articles, :has_many => [:images], :collection => { :new => [:get, :post] } do |a2|
+    #     a2.resources :links, links_route_params
+    #     a2.resources :revisions, :except => :edit 
+    #   end
+    # end
     
-    admin.resources :articles, :has_many => [:images], :collection => { :new => [:get, :post] } do |a|
-      a.resources :links, links_route_params
-      a.resources :revisions, :except => :edit 
+    admin.resources :articles, :has_many => [:images] do |a|
+      # a.resources :links, links_route_params
+      # a.resources :revisions, :except => :edit 
     end
     
     admin.resources :tags
@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "site", :action => "main"
   # map.category ":category_link/", :controller => "site", :action =>"category"
   map.archive "/archive/", :controller => "site", :action => "archive"  
-  map.article "/:category_link/:article_link", :controller => "site", :action => "article"
-  map.category "/:category_link", :controller => "site", :action => "category"  
+  map.article "/articles/:article_uri", :controller => "site", :action => "article"
+  map.tag "/tags/:tag_uri", :controller => "site", :action => "tag"  
   # map.image '/images/:image_link', :controller => 'site', :action => 'image'
 end

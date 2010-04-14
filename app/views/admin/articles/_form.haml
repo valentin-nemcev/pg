@@ -1,0 +1,56 @@
+- form_for [:admin, @article], :html => {:class => 'full'} do |f| 
+  %table.container
+    %td.submit
+      %button 
+        = vertical_text("Сохранить")
+    %td.content
+      %table
+        %td.field
+          = f.label :publication_date
+          = f.datetime_select :publication_date
+        %td.field.checkbox
+          = f.label :is_publicated
+          = f.check_box :is_publicated
+      .field
+        = f.label :title 
+        = f.error_message_on :title 
+        = f.text_field :title , :class => 'big'
+      .field
+        = f.label :subtitle
+        = f.text_field :subtitle, :class => 'big' 
+      .field
+        = f.label "Теги"
+        = f.text_field :tag_string
+        =# f.collection_select :tag_ids, Tag.all, :id, :name,  { :selected => @article.tag_ids }, { :multiple => true, :name => 'article[tag_ids][]' }
+      .field
+        = f.label "Изображения"
+        .images
+          .images-list
+            - for image in (@article.images || [])
+              = render :partial => "admin/images/image.haml", :locals => {:image => image}
+      .field 
+        = f.label :lead 
+        .textile-editor  
+          = textile_editor :article, :lead, :rows => 8  
+      .field
+        = f.label :text
+        .textile-editor
+          = textile_editor :article, :text 
+      .field.collapsible
+        = f.label "Legacy text"
+        %pre
+          =h @article.legacy_text
+      .field.collapsible
+        = f.label "Legacy lead"
+        %pre
+          =h @article.legacy_lead
+
+  
+      = textile_editor_initialize 
+  
+:javascript
+    $('textarea').attr('focused', 'focused');
+    $('textarea').focus(function(){$('textarea').removeAttr('focused'); $(this).attr('focused', 'focused') })
+    $label = $('.field.collapsible').children('label')
+    $label.next().hide()
+    $label.click(function() { $(this).next().toggle()} )

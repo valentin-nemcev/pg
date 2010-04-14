@@ -1,11 +1,1 @@
-- url = @image.new_record? ? new_polymorphic_path([:admin, @image]) : polymorphic_path([:admin, @image]) 
-- form_for [:admin, @image], :url => url, :html => {:class => 'full', :multipart => true} do |f|
-  .field
-    = f.label "Правка"
-    = f.collection_select :revision_ids, Revision.all, :id, :title,  { :selected => @image.revision_ids }, { :multiple => true, :name => 'image[revision_ids][]' }
-  .field
-    = f.label :image
-    = error_message_on @image, :image
-    = f.file_field :image
-  .field
-    = f.submit "Сохранить"
+= render 'form'

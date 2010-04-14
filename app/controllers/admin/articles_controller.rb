@@ -1,58 +1,12 @@
 #encoding: utf-8
-class Admin::ArticlesController < AdminController
+class Admin::ArticlesController < Admin::ResourceController
+  has_scope :with_tags
   
-  parent_resources :category
   
-  def index
-    @category = parent_object
-    conditions = @category ? {:category_id => @category} : {}
-    @articles = Article.paginate \
-      :conditions => conditions, 
-      :text_fields => :no,
-      :order => 'publication_date DESC',
-      :page => params[:page], 
-      :per_page => 30
-                  
-    render :action => "index"
-  end
-
-  def new
-    return create if request.post?
-    @article = Article.new
-    render :action => "edit"
-  end
-
-  def edit
-    @article = Article.find(params[:id])
-    render :action => "edit"
-  end
-
-  def create
-    @article = Article.new(params[:article])
-    @article.editor = current_user
-    if @article.save
-      flash[:notice] = 'Статья сохранена'
-      redirect_to admin_articles_path
-    else
-      render :action => "edit"
+  protected
+  
+    def collection
+      @articles ||= end_of_association_chain.ordered.paginate(:page => params[:page])
     end
-  end
   
-  def update
-    @article = Article.find(params[:id])
-    @article.editor = current_user
-    if @article.update_attributes(params[:article])
-      flash[:notice] = 'Статья сохранена'
-      redirect_to admin_articles_path
-    else
-      render :action => "edit"
-    end
-  end
-  
-  def destroy
-    @article = Article.find(params[:id])
-    @article.destroy
-    flash[:notice] = 'Статья удалена'
-    redirect_to admin_articles_path
-  end
 end

@@ -11,7 +11,9 @@
           %tr
             %td#logo(rowspan)
               %a(href="/" title="На главную страницу")
-                %img(src="/images/logo_v3_site.png")
+                %h1.subtitle Молодежный медиа-проект
+                %h1 Полит-грамота
+                
             %td#quote
               - quote = Quote.find_random(DateTime.now.strftime("%Y%m%d"))
               .text
@@ -19,17 +21,12 @@
               .author
                 = quote.author unless quote.nil?
         #top-navigation-inline
-          - for category in Category.top_menu
-            - if not current_page? category_url(category.link)
-              = link_to category.title, category_url(category.link)
+          - for tag in Tag.for_main
+            - if not current_page? tag_url(tag.uri)
+              = link_to tag.name, tag_url(tag.uri)
             - else
               %span.current< 
-                = category.title
-          - if not current_page? archive_url
-            = link_to "Архив", archive_url
-          - else
-            %span.current< 
-              = "Архив"                
+                = tag.name
         %table#content
           - case params[:action] 
             - when 'main'

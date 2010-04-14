@@ -24,8 +24,8 @@
                                 :method => :post |
       
       .item(id="new-item-#{cell.id}")
-        = link_to_remote 'Добавить', :url => new_polymorphic_path([:admin, cell, LayoutItem.new]), :update => "new-item-#{cell.id}", :method => :get
-      = link_to 'Удалить все', admin_layout_cell_path(cell), :class => 'control', :method => :delete
+        = link_to_remote 'Добавить статью', :url => new_polymorphic_path([:admin, cell, LayoutItem.new]), :update => "new-item-#{cell.id}", :method => :get
+      = link_to 'Удалить блок', admin_layout_cell_path(cell), :class => 'control', :method => :delete
     %td.right
       = move_side_link(cell, :side=>:right, :direction => :inc) 
       %br

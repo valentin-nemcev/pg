@@ -3,39 +3,27 @@ class CreateDatabase < ActiveRecord::Migration
   def self.up
   
     create_table "articles", :force => true do |t|
-      t.integer  "current_revision_id"
       t.integer  "canonical_link_id"
       t.datetime "publication_date"
-      t.boolean  "publicated",          :default => false
-      t.integer  "revisions_count",     :default => 0
-      t.integer  "links_count",         :default => 0
-    end
-   
-    create_table "revisions", :force => true do |t|
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.integer  "article_id",         :null => false
-      t.integer  "editor_id",         :null => false
-      t.string   "title"
+      t.boolean  "is_publicated",          :default => false, :null => false
+      t.string   "uri", :null => false
+      t.string   "title", :null => false
       t.string   "subtitle"
       t.text     "text"
       t.text     "lead"
       t.text     "text_html"
       t.text     "lead_html"
+      t.string   "title_html"
+      t.string   "subtitle_html"
+      t.text     "legacy_text"
+      t.text     "legacy_lead"
+      t.string   "legacy_uri"
+      t.integer  "legacy_id"
+      
     end
-    add_foreign_key(:revisions, :articles)
-    add_foreign_key(:articles, :revisions, :column => "current_revision_id", :dependent => :nullify)
-    
-    create_table "links", :force => true do |t|
-      t.datetime "created_at"
-      t.datetime "updated_at"
-      t.string   "text", :null => false, :unique => true
-      t.integer  "category_id", :null => true
-      t.integer  "article_id" , :null => true
-    end
-    add_foreign_key(:articles, :links, :column => "canonical_link_id", :dependent => :nullify)
-    add_foreign_key(:links, :articles)
-    add_index(:links, :text, :unique => true)
+    add_index :articles, :uri, :unique => true
+    add_index :articles, :legacy_uri, :unique => true
+    add_index :articles, :legacy_id, :unique => true
     
     
     create_table "layout_cells", :force => true do |t|
@@ -76,7 +64,6 @@ class CreateDatabase < ActiveRecord::Migration
       t.datetime "remember_token_expires_at"
       t.enum     "role", :limit => [:admin, :editor, :bot], :default => :editor
     end
-    add_foreign_key(:revisions, :users, :column => "editor_id")
     add_index(:users, :email, :unique => true)
   
     User.create(:role=>:admin, 

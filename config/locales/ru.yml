@@ -1,7 +1,9 @@
 ru:
     activerecord:
         models:
-            article: Статья
+            article: 
+              one: Статья
+              many : Статьи
             category: Рубрика
         attributes:
             article:
@@ -20,7 +22,7 @@ ru:
             image:
                 title: Заголовок
                 link: Ссылка
-                image_file: Файл
+                image: Изображение
             quote:
                 text: Текст
                 author: Автор

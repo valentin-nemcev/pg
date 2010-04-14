@@ -1,19 +1,20 @@
 class CreateTags < ActiveRecord::Migration
   def self.up
     create_table :tags do |t|
-      t.string :name
-
+      t.string :name, :null => false
+      t.string :uri, :null => false
       t.timestamps
     end
     add_index(:tags, :name, :unique => true)
+    add_index(:tags, :uri, :unique => true)
     
-    create_table "revisions_tags", :id => false, :force => true do |t|
+    create_table "articles_tags", :id => false, :force => true do |t|
       t.integer "tag_id",   :null => false
-      t.integer "revision_id",   :null => true
+      t.integer "article_id",   :null => true
     end
-    add_foreign_key(:revisions_tags, :tags, :dependent => :delete)
-    add_foreign_key(:revisions_tags, :revisions, :dependent => :delete)
-    add_index(:revisions_tags, [:tag_id, :revision_id], :unique => true)
+    add_foreign_key(:articles_tags, :tags, :dependent => :delete)
+    add_foreign_key(:articles_tags, :articles, :dependent => :delete)
+    add_index(:articles_tags, [:tag_id, :article_id], :unique => true)
   end
 
   def self.down

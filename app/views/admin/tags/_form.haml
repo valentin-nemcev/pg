@@ -4,4 +4,7 @@
     = f.error_message_on :name
     = f.text_field :name 
   .field
+    = f.label 'Скрывать на главной'
+    = f.check_box :is_hidden 
+  .field
     = f.submit "Сохранить" 

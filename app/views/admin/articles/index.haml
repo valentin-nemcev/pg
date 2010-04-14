@@ -1,4 +1,11 @@
+- page_title 'Статьи'
 #articles.list
+  .filters
+    По тегам:
+    - form_tag admin_articles_path, :method => "get" do
+      = text_field_tag :with_tags, params[:with_tags]
+      = submit_tag("Искать", :name => nil)
+
   .new.item
     = link_to 'Добавить', |
               new_polymorphic_path([:admin, @category, Article]), |
@@ -18,21 +25,9 @@
         .date
           = article.publication_date.to_s(:long) #, :format => :long
           |
-          - if article.publicated and article.publication_date <= Time.now
-            Опубликовано
-          - elsif article.publicated and article.publication_date > Time.now
-            Ожидает публикации
-          - elsif not article.publicated and article.publication_date <= Time.now
-            Не опубликовано
-          - elsif not article.publicated and article.publication_date > Time.now
-            Готовиться к публикации
-        .links
-          - if @category.nil? and not article.category.nil?
-            = link_to article.category.title, admin_category_articles_path(article.category) 
-          = link_to "Правки (#{article.revisions.size})",  polymorphic_path([:admin, @category, article, :revisions]) 
-          -          
-          = link_to "Ссылки (#{article.links.size})", |
-                    polymorphic_path([:admin, @category, article, :links]) |
+          = publication_status(article)
+        .tags
+          = article.tag_string
       .controls
         %div
           -#= link_to 'Редактировать', |

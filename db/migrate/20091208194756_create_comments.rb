@@ -2,8 +2,9 @@ class CreateComments < ActiveRecord::Migration
   def self.up
     create_table :comments do |t|
       t.integer  :article_id, :null => false
-      t.string :author
-      t.boolean :highlighted
+      t.datetime :publication_date
+      t.string :author_name
+      t.boolean :is_highlighted
       t.text :body
       t.text :body_html
 

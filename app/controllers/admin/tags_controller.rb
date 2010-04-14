@@ -1,17 +1,7 @@
-class Admin::TagsController < InheritedResources::Base
-  before_filter :login_required
-  layout "admin"
+class Admin::TagsController < Admin::ResourceController
+  protected
   
-  def update
-    update! do |success, failure|
-      success.html { redirect_to collection_url }
+    def collection
+      @images ||= end_of_association_chain.ordered
     end
-  end
-  
-  def create
-    create! do |success, failure|
-      success.html { redirect_to collection_url }
-    end
-  end
-  
 end

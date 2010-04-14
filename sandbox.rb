@@ -1,6 +1,7 @@
-#!/usr/bin/env /Users/valentine/Work/Polit-gramota/pg/script/runner
+#!/usr/bin/env script/runner
 
-(1..10).each do |i|
-  next(5) if i==2
-  puts i
-end
+ p Article.find(639).convert_legacy_fields.save!
+# p Article.find(91).text
+
+# p Russian.translit('Оппозиция: издержки роста или карлик навсегда?').parameterize
+# p 'a' * 120

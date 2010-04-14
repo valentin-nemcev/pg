@@ -19,8 +19,7 @@ html
 body 
   :font-family Arial, Helvetica, sans-serif
   :line-height 1.3
-  :min-width 760px
-  :max-width 1200px
+  :width 960px
   :margin 0 auto
 
 //!pg_red = #bf2215
@@ -41,7 +40,16 @@ a
   
 #header 
   :margin-top 6px
-  
+  #logo
+    h1
+      :font-size 32px
+      :line-height 1
+    h1.subtitle
+      :font-size 14px
+      :color #666
+      :font-weight normal
+      :line-height 1
+      :padding-left 2px
   #quote
     :padding-top 4px
     :font-size #{!small}
@@ -89,7 +97,6 @@ html, body, #container
   :border-top solid 3px #fff
   :background #fff
   :margin 0px -3px 8px 
-  +cambria
   td
     :text-align left
     :font-size #{!menu}
@@ -126,7 +133,6 @@ html, body, #container
   // :padding-left 142px
   //:margin-top -10px
   :-moz-box-sizing border-box
-  +cambria
   *
     :text-align left
     :font-size #{!menu}
@@ -140,23 +146,11 @@ html, body, #container
     &:hover, &:focus
       :color #666
       :outline none
-    &:before, &:after
-      :color #fff
   .current
     :color #000
-    &:before, &:after
-      :color #{!pg_red}
 
-  a, .current
-    &:before, &:after
-      :font-size #{!menu+3px}
-      :line-height 0
-    &:before
-      :content "["
-      :padding-right 1px
-    &:after
-      :content "]" 
-      :padding-left 1px
+
+
 
 
 .pagination
@@ -224,7 +218,8 @@ h3.category-title
     &:hover 
       :text-decoration underline
   &.subtitle
-    :color #333
+    :font-size 12px
+    :color #000
 
 .article 
   :margin-bottom 16px
@@ -245,28 +240,26 @@ h3.category-title
       &:hover 
         :text-decoration underline
     &.subtitle
-      :color #333 
-
-  .date, .category
-    :display inline
+      :font-size 12px
+      :color #000
+  .info
+    div
+      :display inline
+    
     .sidebar &
       :font-size #{!small}
     :font-size #{!normal}
-    :font-weight bold
-    :color #C47B66
-  .category
-    :font-weight bold
-    :color #666
-    :font-size #{!small}
+    .date
+      :font-weight bold
+    &, a
+      :color #C47B66
   
   h3  
-    :color #222 
     :font-size #{!big}
     :font-weight bold
     :margin-top 1em
   
   h4
-    :color #111 
     :font-size #{!normal}
     :font-weight bold
     
@@ -291,7 +284,6 @@ h3.category-title
   p.signature
     :text-align right
     :font-weight bold
-    :color #222
     :clear both
   
   .lead p.signature
@@ -331,11 +323,19 @@ h3.category-title
     :width auto
     :max-width 500px
     
+  .lead 
+    img, img.legacy
+      :width 100%
+    img.left, img.right
+      :width auto
     
     
   img
     :display block
     :width 100%
+    //&.legacy
+      :width auto
+      
     :text-align center
     :margin 0.5em 0
   
@@ -350,10 +350,13 @@ h3.category-title
     :height 150px
     
 
+  img.left, img.right
+    :width auto
+    :margin 0
+  
   img.left
     :float left
     :padding-right 4px
-    :width auto
 
   img.right
     :float right

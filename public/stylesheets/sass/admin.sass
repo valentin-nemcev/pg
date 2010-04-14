@@ -60,24 +60,19 @@ h3
 
 #page-header 
   :margin-bottom 8px
-  :width auto
+  :width 100%
   td
     :padding 2px
   .userbox
-    :padding-right 16px
-  .links
     :text-align right
+  .links
     :margin #{!margin2} 0
     :font-size #{!size4}
 
-#navigation
-  :width auto
-  :font-size #{!size4}
-  td.title
-    :font
-      :size #{!size4}
-      :weight bold
-    :color #666
+    .title
+      :font
+        :weight bold
+      :color #666
     a
       :text-decoration none
     a.title:hover
@@ -85,12 +80,18 @@ h3
       :text-decoration underline !important
     a.title
       :color #D10000
-  td
-    :padding 2px
-  .current
-    :color #222
-    :font-weight bold
-    
+    .current
+      :color #222
+      :font-weight bold
+
+h1.page-title
+  :font-size 20px
+  :margin-bottom 4px
+  
+#page-content
+  .filters
+    form
+      :display inline
 a, a:visited 
   :color inherit
   &:hover
@@ -151,7 +152,7 @@ a.button
       :padding-right 8px
     td.thumb
       :padding-right 4px
-      :width 70px
+      :width 100px
     .title
       :font-weight bold
     .title, .subtitle
@@ -315,7 +316,9 @@ form.inline
   .content
     :padding 8px
 
-
+pre
+  :width 100%
+  :white-space pre-wrap
       
       
       

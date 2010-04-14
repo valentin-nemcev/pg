@@ -75,84 +75,93 @@ def html2textile(text)
   
   return [text, images]
 end
-cb = User.find_by_email('bot@polit-gramota.ru') 
-if not cb.kind_of? User
-  puts 'Convert bot not found'
-  exit
-end
- 
-puts "Convert bot: #{cb.name}"
 
-puts "Deleting articles..."
-Revision.delete_all
-Article.delete_all
+# cb = User.find_by_email('bot@polit-gramota.ru') 
+# if not cb.kind_of? User
+#   puts 'Convert bot not found'
+#   exit
+# end
+#  
+# puts "Convert bot: #{cb.name}"
 
-puts "Deleting quotes..."
-Quote.destroy_all
-puts "Importing quotes..."
- IO.readlines('quotes.txt','').each do |quote_str|
-  q_a =  quote_str.strip.split("\n")
-  Quote.create(:text => q_a[0].gsub("<br/>", "\n"), :author => q_a[1])
-end
+# puts "Deleting articles..."
+# Revision.delete_all
+# Article.delete_all
+# 
+# puts "Deleting quotes..."
+# Quote.destroy_all
+# puts "Importing quotes..."
+#  IO.readlines('quotes.txt','').each do |quote_str|
+#   q_a =  quote_str.strip.split("\n")
+#   Quote.create(:text => q_a[0].gsub("<br/>", "\n"), :author => q_a[1])
+# end
 
-puts "Deleting categories..."
-Category.destroy_all
-# puts "Deleted #{deleted_cats.size} earlier converted revisions"
-puts "Importing categories..."
-pos = 1
-DBConn.connection.select_all('SELECT * FROM categories').each do |c|
-  # pp c
-  pos += 1
-  cat = Category.create(
-    :title=>c['title'], 
-    :archived => %w{top archived news}.include?(c['type'])
-  )
-  cat_link = cat.links.create(:text => c['link'], :editor => cb) 
-  cat.save
-end
+# puts "Deleting categories..."
+# Category.destroy_all
+# # puts "Deleted #{deleted_cats.size} earlier converted revisions"
+# puts "Importing categories..."
+# pos = 1
+# DBConn.connection.select_all('SELECT * FROM categories').each do |c|
+#   # pp c
+#   pos += 1
+#   cat = Category.create(
+#     :title=>c['title'], 
+#     :archived => %w{top archived news}.include?(c['type'])
+#   )
+#   cat_link = cat.links.create(:text => c['link'], :editor => cb) 
+#   cat.save
+# end
 
-nil_cat = Category.create(:title=>'(Без рубрики)', :archived => 1)
-puts "Deleting images..."
-Image.destroy_all
+# nil_cat = Category.create(:title=>'(Без рубрики)', :archived => 1)
+# puts "Deleting images..."
+# Image.destroy_all
 
 puts "Importing articles..."
 # puts "Deleted #{deleted_revs.size} earlier converted revisions"
-DBConn.connection.select_all('SELECT articles.*, categories.link as category_link FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id ').each do |a|
-  lead, lead_images = html2textile(a['lead'])
-  text, text_images = html2textile(a['text'])
+
+coder = HTMLEntities.new
+DBConn.connection.select_all('SELECT articles.*, categories.link as category_link, categories.title as category_title FROM articles LEFT JOIN  categories ON articles.categoryId=categories.id ').each do |a|
+  # lead, lead_images = html2textile(a['lead'])
+  # text, text_images = html2textile(a['text'])
   
-  (lead_images.to_a | text_images.to_a).each do |i|
-    p 'set image path!'
-    exit()
-    img = Image.find_or_create_by_title(:title => i.gsub('.jpg',''), :image_path => "/Users/valentine/Downloads/images/#{i}" )
-    
-    if not img.save
-      p img
-      img.errors.each{|attr,msg| puts "#{attr} - #{msg}" }
-    end
-    p img
-  end
+  # (lead_images.to_a | text_images.to_a).each do |i|
+  #   p 'set image path!'
+  #   exit()
+  #   img = Image.find_or_create_by_title(:title => i.gsub('.jpg',''), :image_path => "/Users/valentine/Downloads/images/#{i}" )
+  #   
+  #   if not img.save
+  #     p img
+  #     img.errors.each{|attr,msg| puts "#{attr} - #{msg}" }
+  #   end
+  #   p img
+  # end
   
-  a['date'] = Time.parse('2009-01-01').to_i.to_s if a['category_link'] == 'about'
-  art = Article.new(
-    :title => a['title'],
-    :subtitle => a['subtitle'],
+  # a['date'] = Time.parse('2009-01-01').to_i.to_s if a['category_link'] == 'about'
+  art = Article.find_or_create_by_legacy_id(a['id'])
+  art.update_attributes(
+    :title => coder.decode(a['title']),
+    :subtitle => coder.decode(a['subtitle']),
     :publication_date => Time.at(a['date'].to_i),
-    :publicated => true,
-    :text => text,
-    :lead => lead,
-    :editor => cb
+    :is_publicated => true,
+    :legacy_text => a['text'],
+    :legacy_lead => a['lead'],
+    :tag_string => a['category_title'],
+    :legacy_uri => "#{a['category_link']}/#{a['link']}"
   )
-  
-  art.category = Link.find_by_text(a['category_link']).category rescue nil_cat
-   
+  art.convert_legacy_fields
   if not art.save
     p art
     art.errors.each{|attr,msg| puts "#{attr} - #{msg}" }  
+    next
   end
   
-  art.links.create(:text => a['link'], :editor => cb) 
+  DBConn.connection.select_all("SELECT * FROM comments WHERE articleId = #{a['id']}").each do |c|
+    art.comments.create(
+      :publication_date => Time.at(c['date'].to_i),
+      :author_name => coder.decode(c['author']),
+      :is_highlighted => c['byPG'],
+      :body => coder.decode(c['text'])
+    )
+  end
   
-    #   
-  p art
 end

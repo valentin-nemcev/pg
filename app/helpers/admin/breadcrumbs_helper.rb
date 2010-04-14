@@ -14,7 +14,7 @@ module Admin::BreadcrumbsHelper
   			  klass=elements[i-1].classify.constantize 
   			  if klass.ancestors.include? ActiveRecord::Base
   			    title = klass.find(elm).title
-  			    name = '«' + truncate(title, :length => 25) + '»' 
+  			    name = '«' + truncate(title, :length => 25) + '»' unless title.nil?
   			    is_record = true
   			  else
   			    is_record = false
