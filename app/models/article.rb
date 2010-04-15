@@ -158,7 +158,8 @@ class Article < ActiveRecord::Base
     
     module RedCloth::Formatters::HTML
       def image(opts)
-        opts[:class] = opts[:class].split(' ').push(opts.delete(:align)).compact.join(' ') unless opts[:class].nil?
+        opts[:class] ||= ''
+        opts[:class] = opts[:class].split(' ').push(opts.delete(:align)).compact.join(' ')
         opts[:alt] = opts[:title]
         img = "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"  
         img = "<a href=\"#{escape_attribute opts[:href]}\">#{img}</a>" if opts[:href]
