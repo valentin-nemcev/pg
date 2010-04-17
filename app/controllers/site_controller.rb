@@ -27,7 +27,7 @@ class SiteController < ApplicationController
   end
 
   def not_found
-    redirect_to '/'
+    render 'not_found', :status  => :not_found
   end
   
 end

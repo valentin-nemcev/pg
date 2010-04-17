@@ -7,7 +7,7 @@
   %h2.title
     = link_to_unless full, article.title_html, article_url(article.uri)
   %h2.subtitle
-    = article.subtitle_html unless article.subtitle_html.nil?
+    = h(article.subtitle_html) unless article.subtitle_html.nil?
   - if full
     .text
       = article.text_html  

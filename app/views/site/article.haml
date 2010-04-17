@@ -1,3 +1,4 @@
+- page_title h(@article.title_html)
 = render :partial => 'article', :locals => {:article  => @article, :full => true}
 -#.comments
   - @article.comments.each do |comment|
