@@ -44,10 +44,10 @@ module LayoutGridHelper
           col_start = col_num + (cell.width rescue 1)
         end
         if is_max_cell  
-          if cell.kind_of? LayoutCell
+          #if cell.kind_of? LayoutCell
             width = 100/sub_row.length*(cell.width rescue 1)
             tr_contents += content_tag('td', render_cell(cell), {:width => "#{width}%"} ) 
-          end
+          #end
           col_num += (cell.width rescue 1)
         else
           col_count += 1
@@ -73,12 +73,12 @@ module LayoutGridHelper
                   )
       end
     else 
-       'empty'
+       '&nbsp;'
     end
   end
   
   def render_grid(place)
-    grid = LayoutCell.grid(place)
+    grid = LayoutCell.grid(place, :without_empty_row => true)
     content_tag('div', render_grid_recur(grid), {:class => "grid-container"})
   end
   

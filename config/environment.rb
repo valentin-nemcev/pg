@@ -47,7 +47,7 @@ Rails::Initializer.run do |config|
   config.gem 'hpricot'
   config.gem 'has_scope'
   config.gem 'utility_scopes'
-  
+  # config.gem 'thinking-sphinx'
   # config.gem 'mysql'
   # config.gem 'rmagick'
   # Only load the plugins named here, in the order given. By default, all plugins 

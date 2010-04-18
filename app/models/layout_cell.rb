@@ -25,7 +25,7 @@ class LayoutCell < ActiveRecord::Base
       hash_2d
     end
 
-    def grid(place)
+    def grid(place, options = {})
       items = self.find_all_by_place(place)
       hash_2d = self.hash_2d(items)
       cols = COLUMN_COUNT[place]
@@ -42,7 +42,9 @@ class LayoutCell < ActiveRecord::Base
         end unless row.nil? # row.each_index
       end
       # logger.info(grid.inspect)
-      grid = grid.compact << ([:empty]*cols)
+      grid.compact!
+      grid = grid << ([:empty]*cols) unless options[:without_empty_row]
+      logger.info(grid.inspect)
       items.each { |itm| itm.set_neighbours(grid)}
       return grid
     end
@@ -52,11 +54,17 @@ class LayoutCell < ActiveRecord::Base
 
   def set_neighbours(grid)
     @neighbours_present = {}
+    
+    # top_row = grid.fetch(self.top-1, [])[self.left...self.right]
+    # @neighbours_present[:top] = !top_row.nil? && top_row.all?{|cell| cell == :empty}
     @neighbours_present[:top] = if self.top > 0
       grid[self.top-1][self.left...self.right].all? {|cell| cell == :empty}
-    else false  end
+    else 
+      false  
+    end
       
-    @neighbours_present[:bottom] = grid.fetch(self.bottom, [])[self.left...self.right].all?{|cell| cell == :empty}
+    bottom_row = grid.fetch(self.bottom, [])[self.left...self.right]
+    @neighbours_present[:bottom] = !bottom_row.nil? && bottom_row.all?{|cell| cell == :empty}
     
     @neighbours_present[:left] = if self.left > 0
       grid[self.top...self.bottom].map{|row| row[self.left-1] }.all?{|cell| cell == :empty}

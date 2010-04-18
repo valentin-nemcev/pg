@@ -26,6 +26,10 @@ class Article < ActiveRecord::Base
     {:joins => :tags, :conditions => {:tags => {:name => tag_str.split(', ').map(&:strip).reject(&:blank?)}}}
   }
   
+  named_scope :with_text, lambda { |str|
+    {:conditions  => {:id => self.search_for_ids(str)}}
+  }
+  
   named_scope :for_select, {:select => 'id, title, publication_date', :order => "publication_date DESC"}
   named_scope :publicated, {:conditions => ["is_publicated and publication_date <= NOW()"]}
   # def self.with_tags(query)
@@ -38,6 +42,15 @@ class Article < ActiveRecord::Base
   # def update_tag_articles_count
   #     Tag.all.each { |c| c.update_count } unless tags.empty?
   #   end
+  
+  define_index do 
+    indexes title
+    indexes subtitle
+    indexes lead
+    indexes text
+    
+    has publication_date
+  end
   
   def tag_string
     self.tags.collect(&:name).join(', ')
