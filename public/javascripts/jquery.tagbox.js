@@ -70,7 +70,7 @@
 
 				$box
 					.click(function(e, text) {
-						console.info('box click');
+            // console.info('box click');
 						// If you click the tagbox, a new tag is created
 						if(e.target == this) {
 							$(this).tagboxNewTagAppend(text, settings).find(settings.tag_class+':last input').focus();
@@ -543,7 +543,7 @@
 			value = this.value,
 			settings = get_settings(e.target);
 		//autocomplete
-		console.log(e)
+		// console.log(e)
 		if ( settings.autocomplete  && value.length && ( force_autocomplete || e.keyCode == 0 || e.keyCode == 8) ) {
 			autocomplete(this,settings);
 		};
