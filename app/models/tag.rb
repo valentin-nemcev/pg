@@ -20,11 +20,20 @@ class Tag < ActiveRecord::Base
   end
   
   
+  
+  
   def update_count
     update_attribute(:articles_count, self.articles.length)
+    self
   end
   
   def self.find_by_tag_string(str)
     self.all :conditions => {:name => str.split(', ').map(&:strip).reject(&:blank?) }
+  end
+  
+  def self.find_or_create_by_tag_string(str)
+    str.split(', ').map(&:strip).reject(&:blank?).map do |tag_name|
+      self.find_or_create_by_name tag_name
+    end
   end
 end

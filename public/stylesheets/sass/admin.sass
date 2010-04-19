@@ -89,9 +89,10 @@ h1.page-title
   :margin-bottom 4px
   
 #page-content
-  .filters
+  .filters, .actions
     form
       :display inline
+    :margin-bottom 0.5em
 a, a:visited 
   :color inherit
   &:hover
@@ -214,6 +215,20 @@ form
     :width auto
     td
       :padding-right 16px
+  
+  .tag_field
+    .tag
+      :float none
+      input[type="text"], input[type="text"]:focus
+        :background none
+        :border none
+        :padding 0
+        :color black
+      label
+        :background-color #F0F0EE
+        .close
+          :color black
+  
   .field 
     :margin #{!margin3} 0
     :font-size #{!size4}
@@ -224,7 +239,7 @@ form
     &.checkbox label
       // :display inline
       
-    input[type="text"], input[type="password"]  , textarea 
+    input[type="text"], input[type="password"]  , textarea
       :width 100% 
       :padding 2px
       :background-color #fff
@@ -235,7 +250,7 @@ form
       :border 1px solid #fff
       :font-family inherit
       :font-size #{!size4}
-    input[type="text"], input[type="password"] 
+    input[type="text"], input[type="password"] , .tag_field
       :border 1px solid #999
     input.big
       :font-size #{!size3}

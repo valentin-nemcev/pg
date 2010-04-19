@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     #   end
     # end
     
-    admin.resources :articles, :has_many => [:images], :collection => {:search => [:get]} do |a|
+    admin.resources :articles, :has_many => [:images], :collection => {:search => [:get], :tag => [:post]} do |a|
       # a.resources :links, links_route_params
       # a.resources :revisions, :except => :edit 
     end

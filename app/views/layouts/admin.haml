@@ -4,13 +4,16 @@
     %meta{'http-equiv'=>'content-type', :content=>'text/html;charset=UTF-8'}
     %title Полит-грамота: управление
     = stylesheet_link_tag 'admin'
-    = stylesheet_link_tag 'jquery.Jcrop.css'
+    = stylesheet_link_tag 'tags'
     = javascript_include_tag :defaults 
-    = javascript_include_tag "jquery.blockUI.js"
-    = javascript_tag "$.blockUI.defaults.css = {};"
-    = javascript_include_tag "jquery.form.js"
-    = javascript_include_tag "jquery.Jcrop.min.js"
-
+    = javascript_include_tag "jquery.tagbox.js"
+    :javascript
+      $(function(){
+        var tags = ['ffff','#{Tag.all.map(&:name).join("','")}']; 
+        $('.tag_field').attr( 'name', function(attr, old_name) { return this.name+'[]' })
+        .tagbox({ separator: /[,]/, autocomplete: tags, autocomplete_action:'list'});
+      })
+      
   %body
     -#ajaxBusy(style="display: ;")
       %div

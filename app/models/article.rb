@@ -1,6 +1,5 @@
 class Article < ActiveRecord::Base
-  
-  before_save :parse_text_fields, :generate_uri
+
   
   
   has_many :layout_cells, :through => :layout_items
@@ -8,7 +7,7 @@ class Article < ActiveRecord::Base
   
   # @@per_page = 10
   
-  ordered_by 'publication_date DESC'
+
 
   
   
@@ -16,19 +15,35 @@ class Article < ActiveRecord::Base
   
   has_and_belongs_to_many :tags, :order => 'name ASC'
   
+  define_index do 
+    indexes title
+    indexes subtitle
+    indexes lead
+    indexes text
+    
+    has publication_date
+  end
+  
   validates_presence_of :title 
   validates_length_of :title, :in => 3..250
   
+  ordered_by 'publication_date DESC'
   
   default_scope :include => :tags
+  
+  
+  before_save :parse_text_fields, :generate_uri
   
   named_scope :with_tags , lambda { |tag_str|
     {:joins => :tags, :conditions => {:tags => {:name => tag_str.split(', ').map(&:strip).reject(&:blank?)}}}
   }
   
-  named_scope :with_text, lambda { |str|
-    {:conditions  => {:id => self.search_for_ids(str)}}
+  named_scope :with_text, lambda { |text|
+    ids = self.search_for_ids(text)
+    order = "field(`articles`.id, #{ids.join(',')})"
+    {:conditions => {:id => ids}, :order => order}
   }
+
   
   named_scope :for_select, {:select => 'id, title, publication_date', :order => "publication_date DESC"}
   named_scope :publicated, {:conditions => ["is_publicated and publication_date <= NOW()"]}
@@ -43,23 +58,21 @@ class Article < ActiveRecord::Base
   #     Tag.all.each { |c| c.update_count } unless tags.empty?
   #   end
   
-  define_index do 
-    indexes title
-    indexes subtitle
-    indexes lead
-    indexes text
-    
-    has publication_date
+
+  
+  sphinx_scope(:scoped_search) do 
+    {}
   end
   
   def tag_string
     self.tags.collect(&:name).join(', ')
   end
   
-  def tag_string=(str)
-    return if str.nil?
+  def tag_string=(tags)
+    return if tags.nil?
+    tags = tags.split(', ').map(&:strip).reject(&:blank?) unless tags.kind_of? Array
     self.tags.each { |t| t.decrement!(:articles_count) }
-    self.tags = str.split(', ').map(&:strip).reject(&:blank?).map do |tag_name|
+    self.tags = tags.uniq.map do |tag_name|
       Tag.find_or_create_by_name(tag_name)
     end
     self.tags.each { |t| t.increment!(:articles_count) }

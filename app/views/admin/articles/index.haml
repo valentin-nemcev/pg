@@ -1,15 +1,18 @@
 - page_title 'Статьи'
 #articles.list
   .filters
-    По тегам:
     - form_tag admin_articles_path, :method => "get" do
+      Искать по тегам
       = text_field_tag :with_tags, params[:with_tags]
-      = submit_tag("Искать", :name => nil)
-    По тексту:
-    - form_tag search_admin_articles_path, :method => "get" do
+      по тексту
       = text_field_tag :with_text, params[:with_text]
       = submit_tag("Искать", :name => nil)
-    = link_to 'test', url_for(params.merge({:adsf => '111'}))
+  .actions
+    
+    - form_tag tag_admin_articles_path(params), :method => :post do
+      = "Добавить теги к найденным статьям (#{@articles.count}):"
+      = text_field_tag :tags
+      = submit_tag("Добавить", :name => nil)
   .new.item
     = link_to 'Добавить', |
               new_polymorphic_path([:admin, @category, Article]), |

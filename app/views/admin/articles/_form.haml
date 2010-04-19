@@ -20,7 +20,7 @@
         = f.text_field :subtitle, :class => 'big' 
       .field
         = f.label "Теги"
-        = f.select :tag_string, Tag.all.collect {|p| [ p.name, p.name ] }
+        = f.text_field :tag_string, :class => 'tag_field' #, Tag.all.collect {|p| [ p.name, p.name ] }
         
         =# f.collection_select :tag_ids, Tag.all, :id, :name,  { :selected => @article.tag_ids }, { :multiple => true, :name => 'article[tag_ids][]' }
       .field
