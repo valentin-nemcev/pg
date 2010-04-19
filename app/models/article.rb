@@ -39,8 +39,8 @@ class Article < ActiveRecord::Base
   }
   
   named_scope :with_text, lambda { |text|
-    ids = self.search_for_ids(text)
-    order = "field(`articles`.id, #{ids.join(',')})"
+    ids = self.search_for_ids(text, :per_page => 10_000)
+    order = "field(#{ids.join(',')})" unless ids.empty?
     {:conditions => {:id => ids}, :order => order}
   }
 

@@ -10,7 +10,7 @@
   .actions
     
     - form_tag tag_admin_articles_path(params), :method => :post do
-      = "Добавить теги к найденным статьям (#{@articles.count}):"
+      = "Добавить теги к найденным статьям (#{@articles.total_entries}):"
       = text_field_tag :tags
       = submit_tag("Добавить", :name => nil)
   .new.item
