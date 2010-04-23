@@ -3,7 +3,7 @@ module SiteHelper
     content_for :title, title + " &mdash; "
   end
   
-  def tag_cloud(max_size)
+  def tag_cloud(font_size_range)
     tags = Tag.all(:select => 'count(articles.id) as articles_count, tags.*', 
       :joins => :articles, 
       :having => 'count(articles.id) > 1', 
@@ -18,7 +18,7 @@ module SiteHelper
 
 
     tags.each { |t|
-      font_size = 1 + (max_size - 1) * (Math.log(t.articles_count.to_i) - minlog) / rangelog 
+      font_size = font_size_range.first + (font_size_range.last - font_size_range.first) * (Math.log(t.articles_count.to_i) - minlog) / rangelog 
       yield t, sprintf("%.2f", font_size)
     }
   end

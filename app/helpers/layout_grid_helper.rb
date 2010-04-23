@@ -6,7 +6,7 @@ module LayoutGridHelper
     end
   end
   
-  def render_grid_recur(grid)
+  def render_grid_recur(grid, font_size_range)
     @rl ||= 0
     @rl += 1
     tables = ''
@@ -45,10 +45,10 @@ module LayoutGridHelper
         end
         if is_max_cell  
           #if cell.kind_of? LayoutCell
+            min_font = font_size_range.first - (font_size_range.last - font_size_range.first)/(sub_row.length - 1)
+            font_range = (font_size_range.last - min_font)
             width = 100/sub_row.length*(cell.width rescue 1)
-            min_font_size = 0.6
-            max_font_size = 1.1
-            font_size = min_font_size + (max_font_size-min_font_size)* width.to_f/100
+            font_size = min_font + font_range*width.to_f/100
             tr_contents += content_tag('td', render_cell(cell), {:width => "#{width}%", :style => "font-size: #{font_size}em"} ) 
           #end
           col_num += (cell.width rescue 1)
@@ -80,9 +80,9 @@ module LayoutGridHelper
     end
   end
   
-  def render_grid(place)
+  def render_grid(place, font_size_range)
     grid = LayoutCell.grid(place, :without_empty_row => true)
-    content_tag('div', render_grid_recur(grid), {:class => "grid-container"})
+    content_tag('div', render_grid_recur(grid, font_size_range), {:class => "grid-container"})
   end
   
   def render_grid_old(place)

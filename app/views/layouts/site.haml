@@ -24,7 +24,7 @@
                 = quote.author unless quote.nil?
         #top-navigation-inline
           
-          - tag_cloud 3 do |tag, size| 
+          - tag_cloud 0.5..1.5 do |tag, size| 
             = link_to tag.name, tag_url(tag.uri), :style => "font-size: #{size}em"
         %table#content
           - case params[:action] 
@@ -35,7 +35,7 @@
               %td.mainbar
                 = yield
               %td.sidebar
-                = render_grid('sidebar')  
+                = render_grid('sidebar', 0.7..0.8)  
         #footer-push
       #footer
         #footer-border
