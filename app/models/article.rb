@@ -70,9 +70,9 @@ class Article < ActiveRecord::Base
   
   def tag_string=(tags)
     return if tags.nil?
-    tags = tags.split(', ').map(&:strip).reject(&:blank?) unless tags.kind_of? Array
+    tags = tags.split(', ') unless tags.kind_of? Array
     self.tags.each { |t| t.decrement!(:articles_count) }
-    self.tags = tags.uniq.map do |tag_name|
+    self.tags = tags.map(&:strip).reject(&:blank?).map do |tag_name|
       Tag.find_or_create_by_name(tag_name)
     end
     self.tags.each { |t| t.increment!(:articles_count) }

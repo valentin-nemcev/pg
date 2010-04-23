@@ -46,7 +46,10 @@ module LayoutGridHelper
         if is_max_cell  
           #if cell.kind_of? LayoutCell
             width = 100/sub_row.length*(cell.width rescue 1)
-            tr_contents += content_tag('td', render_cell(cell), {:width => "#{width}%"} ) 
+            min_font_size = 0.6
+            max_font_size = 1.1
+            font_size = min_font_size + (max_font_size-min_font_size)* width.to_f/100
+            tr_contents += content_tag('td', render_cell(cell), {:width => "#{width}%", :style => "font-size: #{font_size}em"} ) 
           #end
           col_num += (cell.width rescue 1)
         else

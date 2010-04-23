@@ -23,12 +23,9 @@
               .author
                 = quote.author unless quote.nil?
         #top-navigation-inline
-          - for tag in Tag.for_main
-            - if not current_page? tag_url(tag.uri)
-              = link_to tag.name, tag_url(tag.uri)
-            - else
-              %span.current< 
-                = tag.name
+          
+          - tag_cloud 3 do |tag, size| 
+            = link_to tag.name, tag_url(tag.uri), :style => "font-size: #{size}em"
         %table#content
           - case params[:action] 
             - when 'main'
