@@ -5,7 +5,7 @@ class Admin::TagsController < Admin::ResourceController
     merge_with = Tag.find(params[:merge_with])
     tag.articles.each { |article| article.tags << [merge_with] until article.tags.exists? merge_with.id }
     tag.destroy
-    
+    redirect_to admin_tags_url
   end
   
   protected
