@@ -1,4 +1,5 @@
 class Admin::TagsController < Admin::ResourceController
+  has_scope :with_spaces, :type => :boolean
   
   def merge
     tag = resource

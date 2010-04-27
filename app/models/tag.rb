@@ -16,6 +16,7 @@ class Tag < ActiveRecord::Base
   
   has_uri :name
   
+  named_scope :with_spaces, :conditions => "name LIKE ' %'"
   
   
   def update_count
