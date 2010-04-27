@@ -2,20 +2,27 @@
 #articles.list
   .filters
     - form_tag admin_articles_path, :method => "get" do
-      Искать по тегам
-      = text_field_tag :with_tags, params[:with_tags]
-      по тексту
-      = text_field_tag :with_text, params[:with_text]
-      = submit_tag("Искать", :name => nil)
+      .field
+        %label Искать по тегам
+        = text_field_tag :with_tags, params[:with_tags], :class => 'tag_field'
+      .field
+        по тексту
+        = text_field_tag :with_text, params[:with_text]
+      .field
+        = submit_tag("Искать", :name => nil)
   .actions
-    
     - form_tag tag_admin_articles_path(params), :method => :post do
-      = "Добавить теги к найденным статьям (#{@articles.total_entries}):"
-      = text_field_tag :tags
-      = submit_tag("Добавить", :name => nil)
+      .field
+        Добавить теги:
+        = text_field_tag :add_tags, "", :class => 'tag_field'
+      .field
+        Удалить теги:
+        = text_field_tag :remove_tags, "", :class => 'tag_field'
+      .field
+        = submit_tag("Изменить теги у найденных статей (#{@articles.total_entries})", :name => nil)
   .new.item
     = link_to 'Добавить', |
-              new_polymorphic_path([:admin, @category, Article]), |
+              new_polymorphic_path([:admin, Article]), |
               :class => 'control' |
   - if @articles.empty?
     .empty.item Статей нет
@@ -25,7 +32,7 @@
       .header
         .title
           = link_to article.title, |
-                    edit_polymorphic_path([:admin, @category, article]), |
+                    edit_polymorphic_path([:admin, article]), |
                     :title => h(article.inspect) |
         .subtitle 
           = article.subtitle
@@ -38,11 +45,11 @@
       .controls
         %div
           -#= link_to 'Редактировать', |
-                    edit_polymorphic_path([:admin, @category, article]), |
+                    edit_polymorphic_path([:admin, article]), |
                     :class => 'control' |
           - if current_user.is_admin?         
             = link_to 'Удалить', |
-                      polymorphic_path([:admin, @category, article]), |
+                      polymorphic_path([:admin, article]), |
                       :class => 'control', |
                       :confirm => 'Действительно удалить?', :method => :delete |
                       

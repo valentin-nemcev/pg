@@ -216,7 +216,15 @@ form
     td
       :padding-right 16px
   
+
+          
+  input[type="text"], input[type="password"], .tag_field
+    :border 1px solid #999
+    :padding 2px
+   
   .tag_field
+    :min-height 2em
+    :padding 0px
     .tag
       :float none
       input[type="text"], input[type="text"]:focus
@@ -227,8 +235,8 @@ form
       label
         :background-color #F0F0EE
         .close
-          :color black
-  
+          :color black 
+
   .field 
     :margin #{!margin3} 0
     :font-size #{!size4}
@@ -239,9 +247,8 @@ form
     &.checkbox label
       // :display inline
       
-    input[type="text"], input[type="password"]  , textarea
+    input[type="text"], input[type="password"], textarea
       :width 100% 
-      :padding 2px
       :background-color #fff
       &:focus
         :border 1px inset #999
@@ -250,8 +257,7 @@ form
       :border 1px solid #fff
       :font-family inherit
       :font-size #{!size4}
-    input[type="text"], input[type="password"] , .tag_field
-      :border 1px solid #999
+
     input.big
       :font-size #{!size3}
     input[type="checkbox"]
@@ -259,8 +265,8 @@ form
     input[type="file"]
       :width auto
     input[type="submit"]
-      :width 100%
-      :height 40px
+//      :width 100%
+//      :height 40px
       :font-size #{!size3}
       //
         &:hover  

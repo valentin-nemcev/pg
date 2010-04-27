@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
       # a.resources :revisions, :except => :edit 
     end
     
-    admin.resources :tags
+    admin.resources :tags, :member => {:merge => [:post]}
     
     admin.resources :images, :has_many => [:articles], 
                          :member => { :crop_form => :get},

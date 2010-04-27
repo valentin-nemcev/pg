@@ -32,50 +32,32 @@ class Article < ActiveRecord::Base
   default_scope :include => :tags
   
   
-  before_save :parse_text_fields, :generate_uri
+  before_save :parse_text_fields
   
-  named_scope :with_tags , lambda { |tag_str|
-    {:joins => :tags, :conditions => {:tags => {:name => tag_str.split(', ').map(&:strip).reject(&:blank?)}}}
+  has_uri :title
+  
+  named_scope :with_tags , lambda { |tags|
+    {:joins => :tags, :conditions => {:tags => {:id => Tag.find_by_tag_list(tags)}}}
   }
   
   named_scope :with_text, lambda { |text|
     ids = self.search_for_ids(text, :per_page => 10_000)
-    order = "field(#{ids.join(',')})" unless ids.empty?
+    order = "field(`articles`.id, #{ids.join(',')})" unless ids.empty?
     {:conditions => {:id => ids}, :order => order}
   }
 
   
   named_scope :for_select, {:select => 'id, title, publication_date', :order => "publication_date DESC"}
   named_scope :publicated, {:conditions => ["is_publicated and publication_date <= NOW()"]}
-  # def self.with_tags(query)
-  #     tags = Tag.find_by_tag_string(query)
-  #     tags.reduce { |articles, tag| articles |= tag.articles }
-  #   end
-  
-  # after_save :update_tag_articles_count
-  
-  # def update_tag_articles_count
-  #     Tag.all.each { |c| c.update_count } unless tags.empty?
-  #   end
-  
 
-  
-  sphinx_scope(:scoped_search) do 
-    {}
-  end
+
   
   def tag_string
     self.tags.collect(&:name).join(', ')
   end
   
   def tag_string=(tags)
-    return if tags.nil?
-    tags = tags.split(', ') unless tags.kind_of? Array
-    self.tags.each { |t| t.decrement!(:articles_count) }
-    self.tags = tags.map(&:strip).reject(&:blank?).map do |tag_name|
-      Tag.find_or_create_by_name(tag_name)
-    end
-    self.tags.each { |t| t.increment!(:articles_count) }
+    self.tags = Tag.find_or_create_by_tag_list(tags)
   end
   
   def publicated?
@@ -90,16 +72,7 @@ class Article < ActiveRecord::Base
   end  
   
   protected
-  
-    def generate_uri
-      base_uri = uri = Russian.translit(self.title).parameterize
-      counter = 2
-      while self.class.exists? ["uri = ? AND id <> #{self.id.to_i}", uri]
-        uri = base_uri + "--#{counter}"
-        counter += 1
-      end
-      write_attribute(:uri, uri)
-    end
+
     
     def legacy_html_to_textile(legacy_html)
 

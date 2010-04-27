@@ -9,9 +9,10 @@
     = javascript_include_tag "jquery.tagbox.js"
     :javascript
       $(function(){
-        var tags = ['ffff','#{Tag.all.map(&:name).join("','")}']; 
-        $('.tag_field').attr( 'name', function(attr, old_name) { return this.name+'[]' })
-        .tagbox({ separator: /[,]/, autocomplete: tags, autocomplete_action:'list'});
+        var tags = ['#{Tag.all.map(&:name).join("','")}']; 
+        $('.tag_field').each( function() {this.name += '[]' 
+          $(this).tagbox({ separator: /\s*[,]\s*/, autocomplete: tags, autocomplete_action:'list'});
+        })
       })
       
   %body

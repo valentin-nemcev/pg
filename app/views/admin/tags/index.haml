@@ -12,4 +12,7 @@
           = link_to "Все статьи (#{tag.articles_count})", admin_articles_path(:with_tags => tag.name)
           = '| Скрыт на главной' if tag.is_hidden
       .controls
-        %div
+        = link_to 'Удалить', |
+                  admin_tag_path(tag), |
+                  :class => 'control', |
+                  :confirm => 'Действительно удалить?', :method => :delete |

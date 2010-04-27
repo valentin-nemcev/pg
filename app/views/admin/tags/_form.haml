@@ -1,4 +1,4 @@
-- form_for [:admin, resource], :html => {:class => 'full'} do |f|
+- form_for [:admin, @tag], :html => {:class => 'full'} do |f|
   .field
     = f.label :name 
     = f.error_message_on :name
@@ -8,3 +8,9 @@
     = f.check_box :is_hidden 
   .field
     = f.submit "Сохранить" 
+- form_tag merge_admin_tag_path, :method => "post" do
+  .field
+    %label Объеденить с
+    = select_tag 'merge_with', options_from_collection_for_select(Tag.except(@tag), 'id', 'name')
+    = submit_tag("Объеденить", :name => nil)
+    

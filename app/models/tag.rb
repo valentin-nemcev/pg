@@ -8,17 +8,13 @@ class Tag < ActiveRecord::Base
   
   named_scope :for_main, {:conditions => 'not is_hidden and articles_count > 0'}
   
-  before_save :generate_uri
-  def generate_uri
-    base_uri = uri = Russian.translit(self.name).parameterize
-    counter = 2
-    while self.class.exists?  ["uri = ? AND id <> #{self.id.to_i}", uri]
-      uri = base_uri + "--#{counter}"
-      counter += 1
-    end
-    write_attribute(:uri, uri)
-  end
+  named_scope :ordered_by_articles, 
+    :select => '`tags`.*, count(`articles_tags`.article_id) as articles_count',
+    :joins => 'LEFT JOIN `articles_tags` ON `articles_tags`.tag_id = `tags`.id', 
+    :group => 'tags.id', 
+    :order => 'articles_count desc' 
   
+  has_uri :name
   
   
   
@@ -27,13 +23,22 @@ class Tag < ActiveRecord::Base
     self
   end
   
-  def self.find_by_tag_string(str)
-    self.all :conditions => {:name => str.split(', ').map(&:strip).reject(&:blank?) }
+  def self.find_by_tag_list(list)
+    self.all :conditions => {:name => tag_list_to_array(list)}
   end
   
-  def self.find_or_create_by_tag_string(str)
-    str.split(', ').map(&:strip).reject(&:blank?).map do |tag_name|
+  def self.find_or_create_by_tag_list(list)
+    tag_list_to_array(list).map do |tag_name|
       self.find_or_create_by_name tag_name
     end
   end
+  
+  def self.tag_list_to_array(list)
+    return [] if list.nil?
+    list = list.split(',') unless list.kind_of? Array
+    list.map(&:strip).reject(&:blank?)
+  end
+  
+  
+    
 end
