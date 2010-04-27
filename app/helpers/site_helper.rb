@@ -9,7 +9,7 @@ module SiteHelper
       :joins => :articles, 
       :having => 'articles_cnt > 3', 
       :group => 'tags.id', 
-      :order => 'name' )
+      :order => 'RAND()' )
 
     compare_by_articles_count = lambda { |a, b| a.articles_cnt.to_i <=> b.articles_cnt.to_i }
     maxlog = Math.log(tags.max(&compare_by_articles_count).articles_cnt)
