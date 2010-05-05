@@ -13,6 +13,8 @@ class SiteController < ApplicationController
     end
   end
   
+  
+  
   def article
     @article = Article.find_by_uri params[:article_uri]
     not_found unless @article
@@ -24,6 +26,11 @@ class SiteController < ApplicationController
     else
       not_found
     end
+  end
+
+  def feed
+    @articles = Article.ordered.limited(25)
+    render :layout => false
   end
 
   def not_found

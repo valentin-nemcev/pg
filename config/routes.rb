@@ -42,11 +42,12 @@ ActionController::Routing::Routes.draw do |map|
     admin.resource :session
   end  
   
-  map.root :controller => "site", :action => "main"
-  # map.category ":category_link/", :controller => "site", :action =>"category"
-  map.archive "/archive/", :controller => "site", :action => "archive"  
-  map.article "/articles/:article_uri", :controller => "site", :action => "article"
-  map.tag "/tags/:tag_uri", :controller => "site", :action => "tag"  
-  map.legacy_uri "*legacy_uri", :controller => "site", :action => "legacy_uri"  
-  # map.image '/images/:image_link', :controller => 'site', :action => 'image'
+  
+  map.with_options :controller  => 'site' do |site|
+    site.root  :action => "main"
+    site.feed "/feed", :action => 'feed', :format => 'rss'
+    site.article "/articles/:article_uri", :action => "article"
+    site.tag "/tags/:tag_uri", :action => "tag"  
+    site.legacy_uri "*legacy_uri", :action => "legacy_uri"  
+  end
 end
