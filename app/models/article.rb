@@ -53,7 +53,7 @@ class Article < ActiveRecord::Base
 
   
   def similar
-    self.class.all :joins => :tags, 
+    self.class.except(self.id).all :joins => :tags, 
       :conditions => {:tags => {:id => self.tags.collect(&:id)}},
       :group => '`articles`.id',
       :order => 'count(tags.id) DESC, publication_date DESC',
