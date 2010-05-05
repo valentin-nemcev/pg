@@ -6,3 +6,7 @@
       .date= comment.publication_date.strftime('%d.%m.%y');
       .author= comment.author_name
       .body= comment.body
+      
+- content_for :sidebar do
+  - @article.similar.each do |article|
+    = render 'article', :article => article

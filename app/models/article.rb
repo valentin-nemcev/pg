@@ -52,6 +52,14 @@ class Article < ActiveRecord::Base
 
 
   
+  def similar
+    self.class.all :joins => :tags, 
+      :conditions => {:tags => {:id => self.tags.collect(&:id)}},
+      :group => '`articles`.id',
+      :order => 'count(tags.id) DESC, publication_date DESC',
+      :limit => 7
+  end
+  
   def tag_string
     self.tags.collect(&:name).join(', ')
   end

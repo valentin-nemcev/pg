@@ -13,19 +13,10 @@
           %tr
             %td#logo(rowspan)
               %a(href="/" title="На главную страницу")
-                %h1.subtitle Молодежный медиа-проект
-                %h1 Полит-грамота
-                
-            %td#quote
-              - quote = Quote.find_random(DateTime.now.strftime("%Y%m%d"))
-              .text
-                = "«#{quote.text}»" unless quote.nil?
-              .author
-                = quote.author unless quote.nil?
-        #top-navigation-inline
-          
-          - tag_cloud 0.5..1.5 do |tag, size| 
-            = link_to tag.name, tag_url(tag.uri), :style => "font-size: #{size}em"
+                = image_tag 'logo_v4.png', :title => 'Полит-грамота – молодежный медиа проект'
+            %td#tag-cloud
+              - tag_cloud 0.6..1.7 do |tag, size| 
+                = link_to tag.name, tag_url(tag.uri), :style => "font-size: #{size}em"
         %table#content
           - case params[:action] 
             - when 'main'
@@ -35,7 +26,8 @@
               %td.mainbar
                 = yield
               %td.sidebar
-                = render_grid('sidebar', 0.7..0.8)  
+                = render_grid('sidebar', 0.9..1)  
+                = yield :sidebar
         #footer-push
       #footer
         #footer-border

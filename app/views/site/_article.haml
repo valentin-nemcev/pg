@@ -1,9 +1,8 @@
 - full ||= false
 .article
   .info
-    .date= article.publication_date.strftime('%d.%m.%y');
-    |
-    .tags= tag_links(article)
+    .date{:title => article.tag_string}
+      = article.publication_date.strftime('%d.%m.%y');
   %h2.title
     = link_to_unless full, article.title_html, article_url(article.uri)
   %h2.subtitle
