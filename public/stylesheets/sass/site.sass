@@ -42,9 +42,10 @@ a
 #header 
   :margin-top 6px
   #logo
-    :width 20%
+    :width 360px
     img
-      :width 100%
+      :width 330px
+      :height 108px
     h1
       :font-size 32px
       :line-height 1
@@ -55,6 +56,36 @@ a
       :line-height 1
       :padding-left 2px
   
+  #manual-tag-cloud
+    :position relative
+    :height 130px
+    :width 554px
+    a
+      :display block
+      :position absolute
+      :text-decoration none
+      :color black
+      &:hover
+        :text-decoration underline
+        :color #{!pg_red}
+    .small
+      :font-size 13px
+    .medium
+      :font-size 18px
+    .big
+      :font-size 20px
+  #tag-line
+    :border-top 2px solid #{!pg_red}
+    :padding-top 3px
+    a
+      :font-size 15px
+      :color black 
+      :padding 0 3px
+      :text-decoration none
+      &:hover
+        :text-decoration underline
+        :color #{!pg_red}
+
   #tag-cloud
     +cambria
     //:width 62%
