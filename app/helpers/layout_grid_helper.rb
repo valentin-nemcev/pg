@@ -69,7 +69,7 @@ module LayoutGridHelper
     # h(cell.inspect)
     if cell.kind_of?(LayoutCell) 
       cell.layout_items.inject('') do |html_str,content|
-        # next unless content.article.publicated?
+        next unless content.article.publicated?
         html_str += render(
                   :partial => "site/article", 
                   :locals => {:article => content.article, :with_category => true}
