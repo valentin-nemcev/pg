@@ -15,18 +15,23 @@
             %td#logo(rowspan)
               %a(href="/" title="На главную страницу")
                 = image_tag 'logo_v4.png', :title => 'Полит-грамота – молодежный медиа проект'
+                .subtitle молодежный медиа проект
             %td
               #manual-tag-cloud
                 - manual_tag_cloud do |tag, css_class, x, y|
                   - style = "top: #{y}%; left: #{x}%;"
                   = link_to(tag.name, tag_path(tag.uri), :class => css_class, :style => style)
-
-              -# tag_cloud 0.6..1.7 do |tag, size| 
-                = link_to tag.name, tag_url(tag.uri), :style => "font-size: #{size}em"
           %tr
             %td#tag-line(colspan=2)
-              - tag_line do |tag|
-                = link_to "[#{tag.name}]", tag_url(tag.uri)
+              %table
+                %td
+                  - tag_line do |tag|
+                    = link_to "#{tag.name}", tag_url(tag.uri)
+                %td
+                  %table#misc-nav
+                    %td.link= link_to "О проекте", "/about"
+                    %td= render 'search'
+
         %table#content
           - case params[:action] 
             - when 'main'

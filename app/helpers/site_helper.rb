@@ -36,10 +36,10 @@ module SiteHelper
             {:name => 'В порядке бреда' , :style => 'medium' , :pos => [53, 35]},
             {:name => 'Портрет'         , :style => 'medium' , :pos => [ 3, 49]},
             {:name => 'Слово редактору' , :style => 'medium' , :pos => [ 6, 71]},
-            {:name => 'Дайджест'        , :style => 'medium' , :pos => [40, 77]},
+            {:name => 'Дайджест'        , :style => 'medium' , :pos => [35, 77]},
             {:name => 'Репортаж'        , :style => 'big'    , :pos => [ 9, 23]},
             {:name => 'Дебаты'          , :style => 'big'    , :pos => [31, 31]},
-            {:name => 'Субъектив'       , :style => 'big'    , :pos => [39, 53]},
+            {:name => 'Субъектив'       , :style => 'big'    , :pos => [43, 53]},
             {:name => 'Интервью'        , :style => 'big'    , :pos => [62, 70]}
            ]
     tags.each do |tag_desc|
@@ -49,7 +49,7 @@ module SiteHelper
   end
 
   def tag_line
-    tags = ['МГЕР', 'Нацболы', 'РСДСМ', 'Яблоко', 'РНДС', 'Оборона', 'КПРФ', 'Наши', 'АКМ', 'Солидарность', 'ЛГБТ']
+    tags = ['АКМ', 'ЕР', 'КПРФ', 'ЛДПР', 'Наши', 'Оборона', 'Правое дело',  'РНДС', 'РСДСМ', 'СР', 'ФСМ', 'Яблоко']
     
     tags.each do |tag_desc|
       tag = Tag.find_by_name(tag_desc) or next

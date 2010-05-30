@@ -45,6 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options :controller  => 'site' do |site|
     site.root  :action => "main"
+    site.search "/search", :action => "search"
     site.feed "/feed", :action => 'feed', :format => 'rss'
     site.article "/articles/:article_uri", :action => "article"
     site.tag "/tags/:tag_uri", :action => "tag"  
