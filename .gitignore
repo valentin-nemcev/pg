@@ -1,5 +1,6 @@
 /log/
 /db/*.sqlite3
+/db/sphinx/
 /public/dispatch.fcgi
 /pg.tmproj
 /public/.htaccess

@@ -37,7 +37,7 @@ module LayoutGridHelper
           col_count += 1 if is_last_cell and not is_max_cell
           if col_count > 0
             sub_grid = sub_cols(sub_rows, col_start, col_count)
-            c = @rl < 10 ? render_grid_recur(sub_grid) : 'stop'
+            c = @rl < 10 ? render_grid_recur(sub_grid, font_size_range) : 'stop'
             tr_contents += content_tag('td', c, {:width => "#{100/sub_row.length*(col_count)}%"}) 
           end
           col_count = 0
@@ -69,7 +69,7 @@ module LayoutGridHelper
     # h(cell.inspect)
     if cell.kind_of?(LayoutCell) 
       cell.layout_items.inject('') do |html_str,content|
-        next unless content.article.publicated?
+        # next unless content.article.publicated?
         html_str += render(
                   :partial => "site/article", 
                   :locals => {:article => content.article, :with_category => true}
