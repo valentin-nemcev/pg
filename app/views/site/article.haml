@@ -8,5 +8,6 @@
       .body= comment.body
       
 - content_for :sidebar do
+  %h1 Похожие статьи
   - @article.similar.each do |article|
     = render 'article', :article => article

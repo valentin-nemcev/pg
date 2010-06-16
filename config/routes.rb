@@ -48,7 +48,9 @@ ActionController::Routing::Routes.draw do |map|
     site.search "/search", :action => "search"
     site.feed "/feed", :action => 'feed', :format => 'rss'
     site.article "/articles/:article_uri", :action => "article"
+    site.all_tags "/tags/", :action => "all_tags"
     site.tag "/tags/:tag_uri", :action => "tag"  
-    site.legacy_uri "*legacy_uri", :action => "legacy_uri"  
+    site.legacy_uri "*legacy_uri", :action => "legacy_uri"
+    
   end
 end

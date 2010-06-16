@@ -9,7 +9,10 @@
     = h(article.subtitle_html) unless article.subtitle_html.nil?
   - if full
     .text
-      = article.text_html  
+      = article.text_html
+    .tags
+      Теги: 
+      = tag_links(article)
   - else
     .lead
       = article.lead_html

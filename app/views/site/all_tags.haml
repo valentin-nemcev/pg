@@ -1,0 +1,5 @@
+%h1 Все теги
+#all_tags 
+  - tag_cloud(1..2) do |tag, font_size|
+    - style = "font-size: #{font_size}em;"
+    = link_to(tag.name, tag_path(tag.uri), :style => style)

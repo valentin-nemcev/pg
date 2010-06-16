@@ -40,4 +40,7 @@ class SiteController < ApplicationController
     render 'not_found', :status  => :not_found
   end
   
+  def all_tags
+    
+  end
 end

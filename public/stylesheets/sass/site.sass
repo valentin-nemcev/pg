@@ -105,6 +105,11 @@ a
       :font-size 18px
     .big
       :font-size 20px
+    .all_tags
+      :right 10%
+      :bottom 0%
+      :font-weight bold
+
   #tag-line
     :border-top 2px solid #{!pg_red}
     :padding-top 3px
@@ -118,30 +123,7 @@ a
         :text-decoration underline
         :color #{!pg_red}
 
-  #tag-cloud
-    +cambria
-    //:width 62%
-    :background #fff
-    :text-align justify
-    :word-spacing 5px
-    :padding-left 16px
-    //:margin-top -10px
-    *
-      :text-align left
-      :font-weight bold
-      :line-height 1.1
-      :vertical-align baseline
-      //:margin 0px 5px
-      :display inline-block
-      :word-spacing 0
-    a
-      :text-decoration none
-      :color #{!pg_red}
-      &:hover, &:focus
-        :color #666
-        :outline none
-    .current
-      :color #000
+
       
   #quote
     :padding-top 4px
@@ -151,6 +133,31 @@ a
   
     .author
       :font-style italic
+
+
+#all_tags
+  //:width 62%
+  :background #fff
+  /* :text-align justify
+  :word-spacing 5px
+  /* :padding-left 16px
+  //:margin-top -10px
+    *
+      :text-align left
+      :font-weight bold
+      :line-height 1.1
+      :vertical-align baseline
+      //:margin 0px 5px
+      :display inline-block
+      :word-spacing 0
+      a
+        :text-decoration none
+        :color #{!pg_red}
+          &:hover, &:focus
+            :color #666
+            :outline none
+      .current
+        :color #000
 
 // Sticky footer
 !footer_height = 100px
@@ -222,7 +229,12 @@ table.grid-debug
     padding: 0 0.5em
 
 
-
+h1
+  :font-size 1.8em
+.sidebar
+  h1
+    :font-size 1.5em
+    
 .article 
   :margin-bottom 16px
   .mainbar &
