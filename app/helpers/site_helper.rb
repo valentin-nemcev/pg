@@ -8,7 +8,7 @@ module SiteHelper
   def tag_cloud(font_size_range)
     tags = Tag.all(:select => 'count(articles.id) as articles_cnt, tags.*', 
       :joins => :articles, 
-      :having => 'articles_cnt > 1', 
+      # :having => 'articles_cnt > 1', 
       :group => 'tags.id', 
       :order => 'name' )
 

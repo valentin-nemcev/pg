@@ -4,9 +4,9 @@
     .date{:title => article.tag_string}
       = article.publication_date.strftime('%d.%m.%y');
   %h2.title
-    = link_to_unless full, article.title_html, article_url(article.uri)
+    = link_to_unless full, h(article.title_html), article_url(article.uri)
   %h2.subtitle
-    = h(article.subtitle_html) unless article.subtitle_html.nil?
+    = link_to_unless(full, h(article.subtitle_html), article_url(article.uri)) unless article.subtitle_html.nil?
   - if full
     .text
       = article.text_html
