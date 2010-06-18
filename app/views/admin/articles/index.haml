@@ -11,6 +11,7 @@
       .field
         = submit_tag("Искать", :name => nil)
   .actions
+    - params.delete(:action)
     - form_tag tag_admin_articles_path(params), :method => :post do
       .field
         Добавить теги:
