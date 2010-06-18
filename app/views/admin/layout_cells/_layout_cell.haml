@@ -10,6 +10,7 @@
       = move_side_link(cell, :side=>:left, :direction => :inc)
     %td.center(title="#{h cell.inspect}") 
       = link_to_remote 'Добавить статью', :url => new_polymorphic_path([:admin, cell, LayoutItem.new]), :update => "new-item-#{cell.id}", :method => :get
+      .item(id="new-item-#{cell.id}")
       - cell.layout_items.each_with_index do |item,i|
         .item
           .title(title="#{h item.inspect}")
@@ -24,7 +25,6 @@
                                                   :direction => :down), |
                                 :method => :post |
       
-      .item(id="new-item-#{cell.id}")
       = link_to 'Удалить блок', admin_layout_cell_path(cell), :class => 'control', :method => :delete
     %td.right
       = move_side_link(cell, :side=>:right, :direction => :inc) 
