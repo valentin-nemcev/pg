@@ -1,12 +1,14 @@
 class LayoutItem < ActiveRecord::Base
   
   belongs_to :layout_cell
+  acts_as_list :scope => :layout_cell
+
   belongs_to :article
   
   after_save :delete_if_empty
   before_save :set_position
   
-  def move(direction)
+  def move_(direction)
     other = case direction
     when :down
       LayoutItem.first(:conditions => ['position > ? AND layout_cell_id = ?', self.position, self.layout_cell_id], :order => 'position ASC')
