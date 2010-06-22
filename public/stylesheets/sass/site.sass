@@ -88,7 +88,7 @@ a
 
   #manual-tag-cloud
     :position relative
-    :height 125px
+    :height 110px
     :margin-left 0px
     :margin-right -70px
     :margin-top -5px
@@ -113,6 +113,24 @@ a
       :font-weight bold
     .current
       :color #{!pg_red}
+  #minor-nav
+    :text-align right
+    a, .block
+      :display block
+      :padding 3px 0
+      :float right
+      :margin-left 8px
+    .icon
+      :width 16px
+      :height 16px
+      &.feed
+        :background url(/images/icons/feed.png) top left no-repeat
+      &.twitter
+        :background url(/images/icons/twitter.png) top left no-repeat
+      &.youtube
+        :background url(/images/icons/youtube.png) top left no-repeat
+      &.vkontakte
+        :background url(/images/icons/vkontakte.png) top left no-repeat
 
   #tag-line
     :border-top 2px solid #{!pg_red}

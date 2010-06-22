@@ -22,6 +22,11 @@
                   - style = "top: #{y}%; left: #{x}%;"
                   - css_class += ' current' if current_page? tag_path(tag.uri)
                   = link_to(tag.name, tag_path(tag.uri), :class => css_class, :style => style)
+              #minor-nav
+                = link_to "", feed_url, :class => "icon feed", :title => "RSS лента"
+                = link_to "", "http://twitter.com/politgramota", :class => "icon twitter", :title => "Микроблог в твиттере"
+                = link_to "", "http://www.youtube.com/user/Politgramota", :class => "icon youtube", :title => "Канал на Ютубе"
+                = link_to "", "http://vkontakte.ru/club127909", :class => "icon vkontakte", :title => "Группа ВКонтакте"
                 = link_to "Все теги", all_tags_path, :class => "all_tags"
           %tr
             %td#tag-line(colspan="2" style="width:auto;")
