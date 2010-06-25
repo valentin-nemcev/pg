@@ -1,5 +1,6 @@
 - full ||= false
-.article
+
+.article{:class => (full ? 'full' : 'preview')}
   .info
     .date{:title => article.tag_string}
       = article.publication_date.strftime('%d.%m.%y');

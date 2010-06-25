@@ -5,7 +5,7 @@
 /pg.tmproj
 /public/.htaccess
 /storage/*
-/tmp/
+/tmp/*
 /public/stylesheets/admin.css
 /public/stylesheets/site.css
 /public/img/

@@ -197,7 +197,7 @@ html, body, #container
   
 #footer  
   :background-color #fff
-  #footer-border
+  .footer-border
     :border-bottom 1px solid #ccc
     :width 100%
     :padding-top 2em
@@ -214,6 +214,13 @@ html, body, #container
       :margin-left auto
     img 
       :padding 3px
+  #ads
+    :padding 3px
+    :text-align justify
+    :font-size 0.8em
+    &, a, b
+      :color #999
+
 
 .pagination
   :text-align left
@@ -223,7 +230,7 @@ html, body, #container
     :text-decoration none
     :color #{!pg_red}
     &:hover, &:focus
-      :color #666
+      :color #555
       :outline none
   .current
     :color #000
