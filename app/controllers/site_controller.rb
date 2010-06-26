@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 class SiteController < ApplicationController
+  include SimpleCaptcha::ControllerHelpers
   layout "site"
   
   def main
@@ -17,7 +19,8 @@ class SiteController < ApplicationController
   
   def article
     @article = Article.find_by_uri params[:article_uri]
-    not_found unless @article
+    return not_found unless @article
+    @comments = @article.comments.paginate(:page => params[:page], :per_page => 25)
   end
   
   def legacy_uri
@@ -26,6 +29,20 @@ class SiteController < ApplicationController
     else
       not_found
     end
+  end
+
+  def post_comment
+    @article = Article.find_by_uri params[:article_uri]
+    return not_found unless @article
+    
+    @comment = @article.comments.build params[:comment]
+    if simple_captcha_valid? && @comment.save
+      redirect_to article_url(@article.uri, :anchor => "comments")
+    else
+      @comment.errors.add_to_base "Ошибка в капче" unless simple_captcha_valid?
+      article
+      render :article
+    end  
   end
 
   def feed

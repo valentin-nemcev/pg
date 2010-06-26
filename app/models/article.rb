@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 class Article < ActiveRecord::Base
 
   
   
   has_many :layout_cells, :through => :layout_items
-  has_many :comments
+  has_many :comments, :order => 'publication_date ASC'
   
   # @@per_page = 10
   

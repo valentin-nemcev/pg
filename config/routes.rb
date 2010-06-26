@@ -42,15 +42,18 @@ ActionController::Routing::Routes.draw do |map|
     admin.resource :session
   end  
   
+  map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
   
   map.with_options :controller  => 'site' do |site|
     site.root  :action => "main"
     site.search "/search", :action => "search"
     site.feed "/feed", :action => 'feed', :format => 'rss'
     site.article "/articles/:article_uri", :action => "article"
+    site.post_comment "/articles/:article_uri/post_comment", :action => "post_comment"
     site.all_tags "/tags/", :action => "all_tags"
     site.tag "/tags/:tag_uri", :action => "tag"  
     site.legacy_uri "*legacy_uri", :action => "legacy_uri"
     
   end
+
 end
