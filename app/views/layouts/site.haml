@@ -33,7 +33,7 @@
                   - css_class += ' current' if current_page? tag_path(tag.uri)
                   = link_to(tag.name, tag_path(tag.uri), :class => css_class, :style => style)
               #minor-nav
-                = link_to "", feed_url, :class => "icon feed", :title => "RSS лента"
+                = link_to "", "http://feeds.feedburner.com/polit-gramota/feed", :class => "icon feed", :title => "RSS лента"
                 = link_to "", "http://twitter.com/politgramota", :class => "icon twitter", :title => "Микроблог в твиттере"
                 = link_to "", "http://www.youtube.com/user/Politgramota", :class => "icon youtube", :title => "Канал на Ютубе"
                 = link_to "", "http://vkontakte.ru/club127909", :class => "icon vkontakte", :title => "Группа В Контакте"
