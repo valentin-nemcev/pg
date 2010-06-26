@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   
-  map.namespace :admin do |admin|
+  
+  map.namespace :admin, :path_prefix => '__adm' do |admin|
     admin.root :controller => "main", :action => "main"    
     
     admin.resources :layout_cells, 
@@ -23,6 +24,8 @@ ActionController::Routing::Routes.draw do |map|
     #   end
     # end
     
+    admin.resources :comments, :only => [:index, :destroy]
+
     admin.resources :articles, :has_many => [:images], :collection => {:search => [:get], :tag => [:post]} do |a|
       # a.resources :links, links_route_params
       # a.resources :revisions, :except => :edit 

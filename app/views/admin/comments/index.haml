@@ -1,0 +1,17 @@
+#tags.list
+  - for comment in collection
+    .item(title="#{h comment.inspect}")
+      .header
+        .date
+          = comment.publication_date.to_s(:long) unless comment.publication_date.nil?
+        .subtitle
+          = link_to comment.article.title, article_path(comment.article.uri, :anchor => "comments")
+        .content
+          %b= h comment.author_name
+          = simple_format(comment.body)
+      .controls
+        = link_to 'Удалить', |
+                  polymorphic_path([:admin, comment]), |
+                  :class => 'control', |
+                  :confirm => 'Действительно удалить?', :method => :delete |
+= will_paginate collection, :previous_label => "←", :next_label => "→", :per_page => 30

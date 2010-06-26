@@ -1,0 +1,6 @@
+Options +FollowSymlinks			
+RewriteEngine on	
+rewritecond %{http_host} ^www.domain.com [nc]
+rewritecond %{http_host} ^www.domain.org [nc]
+rewritecond %{http_host} ^www.domain.net [nc]	
+rewriterule ^(.*)$ http://domain.com/$1 [r=301,nc]	

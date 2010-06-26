@@ -22,12 +22,13 @@
 - unless @comments.empty?
   %h1 Комментарии 
 .comments
-  %a(name="comments")
-  - @comments.each do |comment|
-    .comment
-      .date= comment.publication_date.strftime("%H:%M %d.%m.%y") unless comment.publication_date.nil?
-      .author= h comment.author_name
-      .body= simple_format(comment.body)
+  %noindex
+    %a(name="comments")
+    - @comments.each do |comment|
+      .comment
+        .date= comment.publication_date.strftime("%H:%M %d.%m.%y") unless comment.publication_date.nil?
+        .author= h comment.author_name
+        .body= simple_format(comment.body)
 
   = will_paginate @comments, :previous_label => "", :next_label => "", :params => {:anchor => "comments"}
 
