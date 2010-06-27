@@ -4,6 +4,8 @@
   .info
     .date{:title => article.tag_string}
       = article.publication_date.strftime('%d.%m.%y');
+    .comment_count
+      = "|  #{article.comments_count}" unless full || article.comments_count==0
   %h2.title
     = link_to_unless full, h(article.title_html), article_url(article.uri)
   %h2.subtitle
