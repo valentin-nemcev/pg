@@ -1,16 +1,8 @@
 # -*- coding: utf-8 -*-
 class Article < ActiveRecord::Base
-
-  
   
   has_many :layout_cells, :through => :layout_items
   has_many :comments, :order => 'publication_date ASC'
-  
-  # @@per_page = 10
-  
-
-
-  
   
   has_and_belongs_to_many :images, :order => 'updated_at DESC'
   
@@ -51,7 +43,11 @@ class Article < ActiveRecord::Base
   named_scope :for_select, {:select => 'id, title, publication_date', :order => "publication_date DESC"}
   named_scope :publicated, {:conditions => ["is_publicated and publication_date <= NOW()"]}
 
+  def can_be_commented?
+    (Date.today - self.publication_date.to_date).to_i < 21
+  end
 
+    
   
   def similar
     self.class.except(self.id).all :joins => :tags, 

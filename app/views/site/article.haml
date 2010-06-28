@@ -1,24 +1,28 @@
 - page_title h(@article.title_html)
 = render :partial => 'article', :locals => {:article  => @article, :full => true}
 
-%h1 Оставить комментарий
-- @comment ||= Comment.new
-- form_for @comment, :url => post_comment_path(@article.uri, :anchor => "new_comment") do |f|
-  .form_field
-    = f.text_area :body
-  .form_field
-    Подпись:
-    %br
-    = f.text_field :author_name
-  .form_field
-    Защита от роботов:
-    %br
-    = show_simple_captcha :image_style => "simply_red"
-  .form_field
-    - @comment.errors.each do |field, error|
-      .error= error
-  .form_field
-    = f.submit "Отправить", :name => nil
+- if @article.can_be_commented?
+  %h1 Оставить комментарий
+  - @comment ||= Comment.new
+  - form_for @comment, :url => post_comment_path(@article.uri, :anchor => "new_comment") do |f|
+    .form_field
+      = f.text_area :body
+    .form_field
+      Подпись:
+      %br
+      = f.text_field :author_name
+    .form_field
+      Защита от роботов:
+      %br
+      = show_simple_captcha :image_style => "simply_red"
+    .form_field
+      - @comment.errors.each do |field, error|
+        .error= error
+    .form_field
+      = f.submit "Отправить", :name => nil
+-# - else
+  %h1 Комментирование закрыто
+  
 - unless @comments.empty?
   %h1 Комментарии 
 .comments

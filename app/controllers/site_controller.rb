@@ -34,7 +34,7 @@ class SiteController < ApplicationController
   def post_comment
     @article = Article.publicated.find_by_uri params[:article_uri]
     return not_found unless @article
-    
+    return redirect_to article_url(@article.uri, :anchor => "comments") unless @article.can_be_commented?
     @comment = @article.comments.build params[:comment]
     if simple_captcha_valid? && @comment.save
       redirect_to article_url(@article.uri, :anchor => "comments")

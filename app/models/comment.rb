@@ -12,7 +12,7 @@ class Comment < ActiveRecord::Base
   before_save :prepare_fields
   def prepare_fields
     self.author_name = self.author_name.strip.first(30)
-    self.body = self.body.strip.first(1500)
+    self.body = self.body.strip.first(2500)
   end
 
 end
