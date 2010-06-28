@@ -18,13 +18,13 @@ class SiteController < ApplicationController
   
   
   def article
-    @article = Article.find_by_uri params[:article_uri]
+    @article = Article.publicated.find_by_uri params[:article_uri]
     return not_found unless @article
     @comments = @article.comments.paginate(:page => params[:page], :per_page => 25)
   end
   
   def legacy_uri
-    if @article = Article.find_by_legacy_uri(params[:legacy_uri].join('/')) 
+    if @article = Article.publicated.find_by_legacy_uri(params[:legacy_uri].join('/')) 
       redirect_to article_url(@article.uri), :status => :moved_permanently
     else
       not_found
@@ -32,7 +32,7 @@ class SiteController < ApplicationController
   end
 
   def post_comment
-    @article = Article.find_by_uri params[:article_uri]
+    @article = Article.publicated.find_by_uri params[:article_uri]
     return not_found unless @article
     
     @comment = @article.comments.build params[:comment]
@@ -46,7 +46,7 @@ class SiteController < ApplicationController
   end
 
   def feed
-    @articles = Article.ordered.limited(25)
+    @articles = Article.publicated.ordered.limited(25)
     render :layout => false
   end
 
