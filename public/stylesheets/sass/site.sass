@@ -40,6 +40,16 @@ body
 =cambria
   :font-family Cambria, Times New Roman, serif
 
+=clearfix
+  *display: inline-block
+  &:after
+    content: " "
+    display: block
+    height: 0
+    clear: both
+    visibility: hidden
+
+
 a 
   color: #{!pg_red}
   
@@ -282,6 +292,8 @@ h1
     :color #{!pg_alt}
     
 .article 
+  &.preview
+    +clearfix
   :margin-bottom 16px
   .mainbar &
     //:font-size 0.8em
