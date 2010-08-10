@@ -1,7 +1,7 @@
 - page_title h(@article.title_html)
 = render :partial => 'article', :locals => {:article  => @article, :full => true}
 
-- if @article.can_be_commented?
+- if true || @article.can_be_commented?
   %h1 Оставить комментарий
   - @comment ||= Comment.new
   - form_for @comment, :url => post_comment_path(@article.uri, :anchor => "new_comment") do |f|

@@ -51,6 +51,7 @@ ActionController::Routing::Routes.draw do |map|
     site.root  :action => "main"
     site.search "/search", :action => "search"
     site.feed "/feed", :action => 'feed', :format => 'rss'
+    site.connect '/yandex_feed', :action => 'feed', :yandex => true
     site.article "/articles/:article_uri", :action => "article"
     site.post_comment "/articles/:article_uri/post_comment", :action => "post_comment"
     site.all_tags "/tags/", :action => "all_tags"
