@@ -18,7 +18,7 @@ xml.rss xml_attrs do
     for article in @articles
       xml.item do
         xml.title article.title_html
-        xml.description render 'article_rss_description', :article => article
+        xml.description render 'article_rss_description', :article => article, :yandex => params[:yandex]
         xml.pubDate article.publication_date.to_s(:rfc822)
         xml.link article_url(article.uri)
         xml.guid article.uri

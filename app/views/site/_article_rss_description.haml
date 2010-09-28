@@ -1,4 +1,6 @@
-
+- yandex ||= false
 %p    
   %b= article.subtitle_html
-= article.lead_html.gsub('class="left"', 'style="float: left; padding: 1em;"').gsub('class="right"', 'style="float: right; padding: 1em;"')
+- lead = article.lead_html
+- lead.gsub!(/<img[^>]+\>/, '') if yandex
+= lead.gsub('class="left"', 'style="float: left; padding: 1em;"').gsub('class="right"', 'style="float: right; padding: 1em;"')
