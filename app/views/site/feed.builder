@@ -1,6 +1,6 @@
 xml.instruct! :xml, :version => "1.0" 
 
-xml_attrs = {:version => "2.0", :xmlns => "http://backend.userland.com/rss2" } 
+xml_attrs = {:version => "2.0" }
 xml_attrs[:"xmlns:yandex"] = "http://news.yandex.ru" if params[:yandex]
 
 xml.rss xml_attrs do
