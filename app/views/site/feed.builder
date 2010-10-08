@@ -1,4 +1,5 @@
-xml.instruct! :xml, :version => "1.0" 
+# -*- coding: utf-8 -*-
+xml.instruct! :xml, :version => "1.0", :encoding=>"UTF-8"
 
 xml_attrs = {:version => "2.0" }
 xml_attrs[:"xmlns:yandex"] = "http://news.yandex.ru" if params[:yandex]
@@ -22,7 +23,9 @@ xml.rss xml_attrs do
         xml.pubDate article.publication_date.to_s(:rfc822)
         xml.link article_url(article.uri)
         xml.guid article.uri
-        xml.yandex :"full-text", article.text_html if params[:yandex]
+        if params[:yandex]
+          xml.yandex :"full-text", article.text_html.gsub!(/<img[^>]+\>/, '')
+        end
       end
     end
   end
