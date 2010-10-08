@@ -46,8 +46,12 @@ class SiteController < ApplicationController
   end
 
   def feed
-    @articles = Article.publicated.ordered.limited(25).all :conditions => ['publication_date > ?', 8.day.ago] 
-    render :layout => false
+    if params[:yandex]
+      send_file 'yandex_feed', :type => 'application/xml; charset=utf-8'
+    else
+      @articles = Article.publicated.ordered.limited(25).all :conditions => ['publication_date > ?', 8.day.ago] 
+      render :layout => false
+    end
   end
 
   def search
