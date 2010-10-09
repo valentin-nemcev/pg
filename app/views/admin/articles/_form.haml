@@ -6,7 +6,7 @@
     %td.content
       .field
         = f.label "Ссылка"
-        = link_to article_url(@article.uri), article_url(@article.uri)
+        = link_to article_url(@article.uri), article_url(@article.uri) if @article.uri
       %table
         %td.field
           = f.label :publication_date
