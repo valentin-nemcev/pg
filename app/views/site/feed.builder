@@ -11,7 +11,7 @@ xml.rss xml_attrs do
     xml.link root_url
     
     xml.image do
-        xml.url root_url + "images/logo_v4_small.png"
+        xml.url root_url + "images/logo_v4_small.gif"
         xml.title  "Полит-грамота – молодежный медиа проект"
         xml.link root_url
     end     
@@ -24,7 +24,11 @@ xml.rss xml_attrs do
         xml.link article_url(article.uri)
         xml.guid article.uri
         if params[:yandex]
-          xml.yandex :"full-text", article.text_html.gsub!(/<img[^>]+\>/, '')
+          require 'hpricot'
+          doc = Hpricot(article.text_html)
+          doc.search('p.signature, img').remove
+          # xml.yandex :"full-text", article.text_html.gsub(/<img[^>]+\>/, '')
+          xml.yandex :"full-text", doc.to_html
         end
       end
     end

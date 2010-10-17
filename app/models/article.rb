@@ -86,6 +86,7 @@ class Article < ActiveRecord::Base
       legacy_html.gsub!(/\s+/, ' ')
 
       require 'hpricot'
+      
       doc = Hpricot(legacy_html) 
 
       (doc/'br').map { |el| el.swap("\n") }
@@ -117,8 +118,8 @@ class Article < ActiveRecord::Base
 
       (doc/'p').map do |el| 
         unless el['class'].blank? || el['class'] == 'MsoNormal'
-          с = el['class'].sub('script', 'signature')
-          prefix = "p(#{с}). " 
+          c = el['class'].sub('script', 'signature')
+          prefix = "p(#{c}). " 
         end
         el.swap("#{prefix}#{el.inner_html}\n\n") 
       end
