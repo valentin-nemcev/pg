@@ -46,7 +46,7 @@ class SiteController < ApplicationController
   end
 
   def feed
-    @articles = Article.publicated.ordered.limited(25).all # :conditions => ['publication_date > ?', 8.day.ago] 
+    @articles = Article.publicated.ordered.limited(25).all :conditions => ['publication_date > ?', 8.day.ago] 
     render :layout => false
   end
 
