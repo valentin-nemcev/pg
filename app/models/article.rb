@@ -43,6 +43,10 @@ class Article < ActiveRecord::Base
   named_scope :for_select, {:select => 'id, title, publication_date', :order => "publication_date DESC"}
   named_scope :publicated, {:conditions => ["is_publicated and publication_date <= NOW()"]}
 
+  named_scope :for_yandex, {:conditions =>
+    ['publication_date > ? AND NOT dont_export_to_yandex', 8.day.ago,]} 
+
+
   def can_be_commented?
     (Date.today - self.publication_date.to_date).to_i < 21
   end

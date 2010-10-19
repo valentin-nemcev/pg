@@ -46,7 +46,8 @@ class SiteController < ApplicationController
   end
 
   def feed
-    @articles = Article.publicated.ordered.limited(25).all :conditions => ['publication_date > ?', 8.day.ago] 
+    @articles = Article.publicated.ordered.limited(12)
+    @articles = @articles.for_yandex if params[:yandex]
     render :layout => false
   end
 

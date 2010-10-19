@@ -15,6 +15,9 @@
           = f.label :is_publicated
           = f.check_box :is_publicated
       .field
+        = f.label :dont_export_to_yandex
+        = f.check_box :dont_export_to_yandex
+      .field
         = f.label :title 
         = f.error_message_on :title 
         = f.text_field :title , :class => 'big'

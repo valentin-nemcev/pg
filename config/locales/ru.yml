@@ -13,6 +13,7 @@ ru:
                 link: Ссылка
                 publication_date: Дата публикации
                 is_publicated: Опубликовано
+                dont_export_to_yandex: Не экспортировать статью в Яндекс.Новости
                 lead: Лид 
                 text: Текст 
             category:

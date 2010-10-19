@@ -9,14 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100626023018) do
+ActiveRecord::Schema.define(:version => 20101018133657) do
 
   create_table "articles", :force => true do |t|
     t.integer  "canonical_link_id"
     t.datetime "publication_date"
-    t.boolean  "is_publicated",     :default => false, :null => false
-    t.string   "uri",                                  :null => false
-    t.string   "title",                                :null => false
+    t.boolean  "is_publicated",         :default => false, :null => false
+    t.string   "uri",                                      :null => false
+    t.string   "title",                                    :null => false
     t.string   "subtitle"
     t.text     "text"
     t.text     "lead"
@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(:version => 20100626023018) do
     t.text     "legacy_lead"
     t.string   "legacy_uri"
     t.integer  "legacy_id"
-    t.integer  "comments_count",    :default => 0
+    t.integer  "comments_count",        :default => 0
+    t.boolean  "dont_export_to_yandex", :default => false
   end
 
   add_index "articles", ["legacy_id"], :name => "index_articles_on_legacy_id", :unique => true
