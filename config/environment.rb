@@ -2,17 +2,17 @@
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
-ENV['RAILS_ENV'] ||= 'production'
+# ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.9' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
 RMAGICK_BYPASS_VERSION_TEST = true
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
-new_logger = Logger.new(File.join(RAILS_ROOT, "log", "new_logger_#{RAILS_ENV}.log"), 'daily')
-new_logger.formatter = Logger::Formatter.new
+# new_logger = Logger.new(File.join(RAILS_ROOT, "log", "new_logger_#{RAILS_ENV}.log"), 'daily')
+# new_logger.formatter = Logger::Formatter.new
 
 
 Rails::Initializer.run do |config|
@@ -40,23 +40,34 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem 'mysql'
-  config.gem 'rmagick'
+  # config.gem 'rmagick'
   config.gem 'RedCloth'
   config.gem 'haml'
   config.gem 'htmlentities'
   config.gem 'will_paginate'
   config.gem 'russian', :varsion => '0.2.5'
-  config.gem 'inherited_resources', :version => '1.0.3'
   config.gem 'hpricot'
   config.gem 'has_scope'
   config.gem 'utility_scopes'
+  config.gem 'quick_magick'
+  config.gem 'inherited_resources', :version => '1.0.6', :lib => 'inherited_resources'
+  
   # config.gem 'thinking-sphinx'
   # config.gem 'mysql'
   # config.gem 'rmagick'
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
-  # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
+  config.plugins = [
+                    :simple_captcha,
+                    :'thinking-sphinx',
+                    :haml,
+                    :'restful-authentication',
+                    :'enum-column',
+                    :paperclip,
+                    :acts_as_list,
+                    # :textile_editor_helper,
+                   ]
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )

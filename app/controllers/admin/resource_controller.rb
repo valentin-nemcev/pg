@@ -1,6 +1,5 @@
 class Admin::ResourceController < AdminController
-  
-  
+
   inherit_resources
   
   def update

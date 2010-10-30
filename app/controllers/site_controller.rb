@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class SiteController < ApplicationController
-  include SimpleCaptcha::ControllerHelpers
+  include SimpleCaptcha::ControllerValidation
+
   layout "site"
   
   def main
@@ -36,13 +37,19 @@ class SiteController < ApplicationController
     return not_found unless @article
     return redirect_to article_url(@article.uri, :anchor => "comments") unless @article.can_be_commented?
     @comment = @article.comments.build params[:comment]
+    # if @comment.save
+    #   redirect_to article_url(@article.uri, :anchor => "comments")
+    # else
+    #   article
+    #   render :article
+    # end  
     if simple_captcha_valid? && @comment.save
       redirect_to article_url(@article.uri, :anchor => "comments")
     else
       @comment.errors.add_to_base "Ошибка в капче" unless simple_captcha_valid?
       article
       render :article
-    end  
+    end
   end
 
   def feed

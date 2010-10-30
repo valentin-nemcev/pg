@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/simple_captcha"]
+	path = vendor/plugins/simple_captcha
+	url = git://github.com/kares/simple_captcha.git
