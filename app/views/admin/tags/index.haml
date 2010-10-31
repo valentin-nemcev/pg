@@ -1,0 +1,18 @@
+#tags.list
+  .new.item
+    %a.control{:href=>"#{new_admin_tag_path}"} Добавить
+  - if collection.empty?
+    .empty.item Рубрик нет
+  - for tag in collection
+    .item(title="#{h tag.inspect}")
+      .header
+        .title
+          = link_to tag.name, edit_admin_tag_path(tag)
+        .subtitle
+          = link_to "Все статьи (#{tag.articles_count})", admin_articles_path(:with_tags => tag.name)
+          = '| Скрыт на главной' if tag.is_hidden
+      .controls
+        = link_to 'Удалить', |
+                  admin_tag_path(tag), |
+                  :class => 'control', |
+                  :confirm => 'Действительно удалить?', :method => :delete |

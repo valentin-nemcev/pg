@@ -1,0 +1,15 @@
+[submodule "vendor/plugins/restful_authentication"]
+	path = vendor/plugins/restful_authentication
+	url = http://github.com/technoweenie/restful-authentication.git
+[submodule "vendor/plugins/textile_editor_helper"]
+	path = vendor/plugins/textile_editor_helper
+	url = http://github.com/felttippin/textile-editor-helper.git
+[submodule "vendor/plugins/jrails"]
+	path = vendor/plugins/jrails
+	url = http://github.com/aaronchi/jrails.git
+[submodule "vendor/plugins/simple_captcha"]
+	path = vendor/plugins/simple_captcha
+	url = http://github.com/kares/simple_captcha.git
+[submodule "vendor/plugins/acts_as_list"]
+	path = vendor/plugins/acts_as_list
+	url = http://github.com/rails/acts_as_list.git

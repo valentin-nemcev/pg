@@ -1,0 +1,11 @@
+- url = @quote.new_record? ? new_polymorphic_path([:admin, @quote]) : polymorphic_path([:admin, @quote]) 
+- form_for [:admin, @quote], :url => url, :html => {:class => 'full'} do |f| 
+  .field
+    = f.label :text 
+    = error_message_on @quote, :text 
+    = f.text_area :text, :rows=>2 
+  .field
+    = f.label :author
+    = f.text_field :author
+  .field
+    = f.submit "Сохранить"

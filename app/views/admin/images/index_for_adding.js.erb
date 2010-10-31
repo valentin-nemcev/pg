@@ -1,0 +1,1 @@
+$.blockUI({ message: '<%= escape_javascript(render :partial => "index_for_adding.haml", :layout => "admin/popup") %>' });

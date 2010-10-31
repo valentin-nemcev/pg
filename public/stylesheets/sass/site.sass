@@ -1,0 +1,458 @@
+* 
+  :padding 0
+  :margin 0
+  :font-size 1em
+  
+table 
+  :border-collapse collapse
+  :width 100%
+
+img 
+  :border none
+
+td 
+  :vertical-align top
+
+input::-moz-focus-inner
+  :border 0
+  :padding 0
+
+
+
+html 
+  :width 100%
+  :background #fff
+  
+body 
+  :font-family Arial, Helvetica, sans-serif
+  :line-height 1.3
+  :width 900px
+  :margin 0 auto
+  :font-size 12px
+//!pg_red = #bf2215
+!pg_red = #bf2215
+!pg_alt = #C47B66
+!small = 11px
+!normal = 13px
+!big = 14px
+!menu = 13px
+
+=cambria
+  :font-family Cambria, Times New Roman, serif
+
+=clearfix
+  *display: inline-block
+  &:after
+    content: " "
+    display: block
+    height: 0
+    clear: both
+    visibility: hidden
+
+
+a 
+  color: #{!pg_red}
+  
+#container
+  :padding 0 
+  
+#header 
+  :margin-top 6px
+
+  #logo
+    :width 225px
+    :padding-right 10px
+    :padding-bottom 10px
+    img
+      /* :width 330px
+      :height 100px
+      :display block
+      :margin 0 auto
+    h1
+      :font-size 32px
+      :line-height 1
+    a
+      :display block
+      :font-size 14px
+      :color #000
+      :font-weight normal
+      :text-decoration none
+    .subtitle
+      :display block
+      :letter-spacing -0.2px
+      :text-align center
+      +cambria
+  #misc-nav
+    :width auto
+    :margin-left auto
+    :margin-bottom 3px
+    a
+      :text-decoration none
+      :color black
+      &:hover
+        :text-decoration underline
+        :color #{!pg_red}
+    td 
+      :vertical-align middle
+      :padding 0 3px
+      :font-size 0.8em
+
+  #manual-tag-cloud
+    :position relative
+    :height 110px
+    :margin-left 0px
+    :margin-right -70px
+    :margin-top -5px
+    /* :width 554px
+    a
+      :display block
+      :position absolute
+      :text-decoration none
+      :color black
+      &:hover
+        :text-decoration underline
+        :color #{!pg_red}
+    .small
+      :font-size 13px
+    .medium
+      :font-size 18px
+    .big
+      :font-size 20px
+    .all_tags
+      :right 10%
+      :bottom 0%
+      :font-weight bold
+    .current
+      :color #{!pg_red}
+  #minor-nav
+    :text-align right
+    a, .block
+      :display block
+      :padding 3px 0
+      :float right
+      :margin-left 8px
+    .icon
+      :width 16px
+      :height 16px
+      &.feed
+        :background url(/images/icons/feed.png) top left no-repeat
+      &.twitter
+        :background url(/images/icons/twitter.png) top left no-repeat
+      &.youtube
+        :background url(/images/icons/youtube.png) top left no-repeat
+      &.vkontakte
+        :background url(/images/icons/vkontakte.png) top left no-repeat
+
+  #tag-line
+    :border-top 2px solid #{!pg_red}
+    :padding-top 3px
+    :text-align left
+    a
+      :font-size 15px
+      :color black 
+      :padding 0 2px
+      :text-decoration none
+      &:hover
+        :text-decoration underline
+        :color #{!pg_red}
+      &.current
+        :color #{!pg_red}
+
+      
+  #quote
+    :padding-top 4px
+    :font-size #{!small}
+    // +cambria
+    :text-align right
+  
+    .author
+      :font-style italic
+
+
+#all_tags
+  //:width 62%
+  :background #fff
+  /* :text-align justify
+  :word-spacing 5px
+  /* :padding-left 16px
+  //:margin-top -10px
+    *
+      :text-align left
+      :font-weight bold
+      :line-height 1.1
+      :vertical-align baseline
+      //:margin 0px 5px
+      :display inline-block
+      :word-spacing 0
+      a
+        :text-decoration none
+        :color #{!pg_red}
+          &:hover, &:focus
+            :color #666
+            :outline none
+      .current
+        :color #000
+
+// Sticky footer
+!footer_height = 100px
+html, body, #container 
+  :height 100%
+#footer-wrapper 
+  :min-height 100%
+  :height auto !important
+  :height 100%
+  
+  :margin 0 auto #{-!footer_height}
+#footer, #footer-push 
+  :height #{!footer_height} 
+  
+#footer  
+  :background-color #fff
+  .footer-border
+    :border-bottom 1px solid #ccc
+    :width 100%
+    :padding-top 2em
+  #copyright
+    :padding 3px
+    :width 60%
+    p, a
+      :font-size 0.9em
+      :margin 0
+      :color #666
+  #banners
+    :vertical-align top
+    text
+    table 
+      :width auto
+      :margin-left auto
+    img 
+      :padding 3px
+  #ad_banners
+    :border-top 1px solid #ccc
+    :padding 3px
+    td
+      :text-align center
+      :vertical-align middle
+  #ads
+    :padding 3px
+    :text-align justify
+    :font-size 0.8em
+    :border-top 1px solid #ccc
+    &, a, b
+      :color #999
+
+
+.pagination
+  :text-align left
+  :font-size 1.1em
+  
+  a
+    :text-decoration none
+    :color #{!pg_red}
+    &:hover, &:focus
+      :color #555
+      :outline none
+  .current
+    :color #000
+    :font-weight bold
+
+table#content 
+  :width 100%
+  :margin-top 16px
+  *
+    //:max-width 50%
+  td.sidebar
+    :width 40%
+    :padding-left 2em
+
+table.grid
+  :table-layout fixed
+
+
+table.grid-debug
+  :border-collapse separate
+  :border 1px solid red
+  :margin-bottom 2px
+  td
+    :border 1px solid gray
+    :padding 2px
+
+.grid-container
+  :margin 0 -0.5em
+  .article
+    padding: 0 0.5em
+
+
+h1
+  :font-size 1.2em
+  :color #888
+  :margin 0.8em 0 0.2em
+
+.comment
+  :margin-bottom 1em
+  p
+    :margin-bottom 0.2em
+  .author
+    :font-weight bold
+  .date
+    :color #{!pg_alt}
+    
+.article 
+  &.preview
+    +clearfix
+  :margin-bottom 16px
+  .mainbar &
+    //:font-size 0.8em
+  :clear both
+  h2
+    //+cambria
+    :font-weight bold
+    :line-height 1.1
+    .sidebar &
+    :color #{!pg_red}
+    //:margin-bottom 0.2em
+    :font-size 1.2em
+    a  
+      :text-decoration none
+      &:hover 
+        :text-decoration underline
+    &.subtitle, &.subtitle a
+      :color #000
+  .info
+    .tags
+      :font-size 0.8em
+    div
+      :display inline
+    
+    .sidebar &
+    .date
+      :font-weight bold
+    &, a
+      :color #{!pg_alt}
+    a
+      :text-decoration none
+  
+  
+  h3  
+    :font-size 1.1em
+    :font-weight bold
+    :margin-top 1em
+  
+  h4
+    :font-weight bold
+    
+  ul
+    :margin-left 1em
+  
+  p + h4
+    :margin-top 1em
+    
+  .text
+    :clear both
+    p
+      :margin 0.2em 0
+    p + p, ul + p 
+      :margin-top 1em
+  .lead p
+    :margin-bottom 0.2em 
+  
+  p + p.caption, p.question + p
+    :margin-top -0.2em
+        
+  p.signature
+    :text-align right
+    :font-weight bold
+    :clear both
+  
+  .lead p.signature
+    :clear none
+      
+  p.verses 
+    :padding-left 15px
+    :text-align left
+
+
+  p.image_list 
+    :clear both
+    :padding-top 12px
+  
+  p.quote 
+    :text-align right
+    :font-style italic
+  
+  p.caption
+    :text-align center
+    :font-style italic
+  
+  .text p.list 
+    :display list-item
+    :margin 0.2em 0
+    :margin-left 2em
+    :list-style-type disk
+    :clear both
+  
+  img.face
+    :float left
+    :padding-right 4px
+    :width 100px
+    :margin 0
+    
+  img.image
+    :width auto
+    :max-width 500px
+    
+  .lead 
+    img, img.legacy
+      :width 100%
+    img.left, img.right
+      :width auto
+      :max-width 38%
+    
+  img
+    :display block
+    :width 100%
+    //&.legacy
+      :width auto
+      
+    :text-align center
+    :margin 0.5em 0
+  
+  p.question
+    :font-weight bold
+
+  .banner
+    :background-attachment scroll
+    :background-color transparent
+    :background-position center center
+    :background-repeat no-repeat
+    :height 150px
+    
+
+  img.left, img.right
+    :width auto
+    :margin 0
+    
+      
+  img.left
+    :float left
+    :padding-right 4px
+
+  img.right
+    :float right
+    :padding-left 4px
+
+
+.form_field
+  :margin 8px 0
+  textarea
+    :width 100%
+    :height 100px
+  .error
+    :color red
+  input[type="submit"]
+    :padding 1px
+    :font-size 14px
+  input#captcha
+    :font-size 19px
+    :width 9ex
+    

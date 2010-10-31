@@ -1,0 +1,59 @@
+- page_title 'Статьи'
+#articles.list
+  .filters
+    - form_tag admin_articles_path, :method => "get" do
+      .field
+        %label Искать по тегам
+        = text_field_tag :with_tags, params[:with_tags], :class => 'tag_field'
+      .field
+        по тексту
+        = text_field_tag :with_text, params[:with_text]
+      .field
+        = submit_tag("Искать", :name => nil)
+  .actions
+    - params.delete(:action)
+    - form_tag tag_admin_articles_path(params), :method => :post do
+      .field
+        Добавить теги:
+        = text_field_tag :add_tags, "", :class => 'tag_field'
+      .field
+        Удалить теги:
+        = text_field_tag :remove_tags, "", :class => 'tag_field'
+      .field
+        = submit_tag("Изменить теги у найденных статей (#{@articles.total_entries})", :name => nil)
+  .new.item
+    = link_to 'Добавить', |
+              new_polymorphic_path([:admin, Article]), |
+              :class => 'control' |
+  - if @articles.empty?
+    .empty.item Статей нет
+  
+  - for article in @articles 
+    .item
+      .header
+        .title
+          = link_to article.title, |
+                    edit_polymorphic_path([:admin, article]), |
+                    :title => h(article.inspect) |
+        .subtitle 
+          = article.subtitle
+        .date
+          = article.publication_date.to_s(:long) #, :format => :long
+          |
+          = publication_status(article)
+        .tags
+          = article.tag_string
+      .controls
+        %div
+          -#= link_to 'Редактировать', |
+                    edit_polymorphic_path([:admin, article]), |
+                    :class => 'control' |
+          - if current_user.is_admin?         
+            = link_to 'Удалить', |
+                      polymorphic_path([:admin, article]), |
+                      :class => 'control', |
+                      :confirm => 'Действительно удалить?', :method => :delete |
+                      
+= will_paginate @articles, :previous_label => "←", :next_label => "→", :per_page => 30
+          
+            

@@ -1,0 +1,12 @@
+/log/
+/db/*.sqlite3
+/db/sphinx/
+/public/dispatch.fcgi
+/pg.tmproj
+/public/.htaccess
+/storage/*
+/tmp/*
+/public/stylesheets/admin.css
+/public/stylesheets/site.css
+/public/img/
+/images/

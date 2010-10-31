@@ -1,0 +1,1 @@
+$.blockUI({ message: '<%= escape_javascript(render :partial => "crop_form.haml", :layout => "admin/popup", :locals=>{:image => @image}) %>' });

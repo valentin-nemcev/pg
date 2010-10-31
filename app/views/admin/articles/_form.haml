@@ -1,0 +1,52 @@
+- form_for [:admin, @article], :html => {:class => 'full'} do |f| 
+  %table.container
+    %td.submit
+      %button 
+        = vertical_text("Сохранить")
+    %td.content
+      .field
+        = f.label "Ссылка"
+        = link_to article_url(@article.uri), article_url(@article.uri) if @article.uri
+      %table
+        %td.field
+          = f.label :publication_date
+          = f.datetime_select :publication_date
+        %td.field.checkbox
+          = f.label :is_publicated
+          = f.check_box :is_publicated
+      .field
+        = f.label :dont_export_to_yandex
+        = f.check_box :dont_export_to_yandex
+      .field
+        = f.label :title 
+        = f.error_message_on :title 
+        = f.text_field :title , :class => 'big'
+      .field
+        = f.label :subtitle
+        = f.text_field :subtitle, :class => 'big' 
+      .field
+        = f.label "Теги"
+        = f.text_field :tag_string, :class => 'tag_field' #, Tag.all.collect {|p| [ p.name, p.name ] }
+      .field
+        = f.label "Изображения"
+        .images
+          .images-list
+            - for image in (@article.images || [])
+              = render :partial => "admin/images/image.haml", :locals => {:image => image}
+      .field 
+        = f.label :lead 
+        .textile-editor  
+          = f.text_area :lead, :rows => 8  
+      .field
+        = f.label :text
+        .textile-editor
+          = f.text_area :text 
+      - textile_editor_options :framework => :jquery
+      = textile_editor_initialize 'article_lead', 'article_text'
+  
+:javascript
+    $('textarea').attr('focused', 'focused');
+    $('textarea').focus(function(){$('textarea').removeAttr('focused'); $(this).attr('focused', 'focused') })
+    $label = $('.field.collapsible').children('label')
+    $label.next().hide()
+    $label.click(function() { $(this).next().toggle()} )

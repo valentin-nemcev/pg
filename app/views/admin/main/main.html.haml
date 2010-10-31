@@ -1,0 +1,9 @@
+#main
+  .item
+    .header Статьи
+    .contents
+      %div
+        %a.control{:href=>"#{admin_articles_path}"} Все (#{@articles[:total]})
+      %div
+        %a.control{:href=>"#{new_admin_article_path}"} Добавить
+  

@@ -1,0 +1,34 @@
+#categories.list
+  .new.item
+    %a.control{:href=>"#{new_admin_category_path}"} Добавить
+  - if @categories.empty?
+    .empty.item Рубрик нет
+  - for category in @categories
+    .item(title="#{category.inspect}")
+      .header
+        .title
+          = link_to((category.title + " (#{category.articles.size})"), |
+                    admin_category_articles_path(category)) |
+        .type
+          = "В архиве" if category.archived?
+          = "Скрыта" if category.hidden?
+      .controls
+        %div
+          = link_to "Ссылки (#{category.links.size})", admin_category_links_path(category), :class => 'control'
+          = link_to 'Вверх', move_admin_category_path(category, :direction => :up), :method => :post
+          = link_to 'Вниз', move_admin_category_path(category, :direction => :down), :method => :post
+         
+          = link_to 'Редактировать', edit_admin_category_path(category), :class => 'control' 
+          - if current_user.is_admin?
+            = link_to 'Удалить', |
+                      admin_category_path(category), |
+                      :class => 'control',  |
+                      :confirm => 'Действительно удалить?', |
+                      :method => :delete  |
+            -           
+            = link_to 'Удалить со статьями', |
+                      admin_category_path(category, :with_articles => true), :class => 'control', |
+                      :confirm => 'Действительно удалить рубрику вместе со стаьями?', |
+                      :method => :delete |
+  
+  

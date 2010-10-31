@@ -1,0 +1,62 @@
+ru:
+    activerecord:
+        models:
+            article: 
+              one: Статья
+              many : Статьи
+            category: Рубрика
+        attributes:
+            article:
+                category: Рубрика
+                title: Заголовок
+                subtitle: Подзаголовок
+                link: Ссылка
+                publication_date: Дата публикации
+                is_publicated: Опубликовано
+                dont_export_to_yandex: Не экспортировать статью в Яндекс.Новости
+                lead: Лид 
+                text: Текст 
+            category:
+                title: Заголовок
+                archived: В архиве
+                hidden: Скрыта
+            image:
+                title: Заголовок
+                link: Ссылка
+                image: Изображение
+            quote:
+                text: Текст
+                author: Автор
+            user:
+              name: Имя
+              duties: Обязанности
+              email:  E-mail
+              role: Права
+              password: Пароль
+              password_confirmation: Подтверждение пароля
+        errors:
+            messages:
+                record_invalid: record_invalid
+    breadcrumbs: 
+        articles: Статьи
+        categories: Рубрики
+        admin: Управление
+        edit: Правка
+        revisions: Правки
+        links: Ссылки
+        images: Изображения
+        new: Добавить
+        layout_cells: Верстка
+        users: Редакторы
+    layout_cell_places:
+        main: Главная страница
+        sidebar: Сайдбар 
+        
+    user_roles:
+        bot: Робот
+        admin: Администратор
+
+
+        
+        
+        

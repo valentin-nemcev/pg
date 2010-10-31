@@ -1,0 +1,16 @@
+#quotes.list
+  .new.item
+    %a.control{:href=>"#{new_admin_quote_path}"} Добавить
+  - if @quotes.empty?
+    .empty.item Цитат нет
+  
+  - for quote in @quotes 
+    .item
+      .header
+        .text
+          = link_to quote.text, edit_admin_quote_path(quote)
+        .author 
+          = quote.author
+      .controls
+        = link_to 'Удалить', admin_quote_path(quote), :class => 'control', |
+                          :confirm => 'Действительно удалить?', :method => :delete |

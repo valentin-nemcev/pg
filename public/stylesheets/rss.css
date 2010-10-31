@@ -1,0 +1,35 @@
+img.left {
+  float: left;
+  padding-right: 4px; }
+
+img.right {
+  float: right;
+  padding-left: 4px; }
+
+p.signature {
+  text-align: right;
+  font-weight: bold;
+  clear: both; }
+
+p.verses {
+  padding-left: 15px;
+  text-align: left; }
+
+p.image_list {
+  clear: both;
+  padding-top: 12px; }
+
+p.quote {
+  text-align: right;
+  font-style: italic; }
+
+p.caption {
+  text-align: center;
+  font-style: italic; }
+
+.text p.list {
+  display: list-item;
+  margin: 0.2em 0;
+  margin-left: 2em;
+  list-style-type: disk;
+  clear: both; }

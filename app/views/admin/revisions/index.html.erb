@@ -1,0 +1,19 @@
+<h1>Ревизии</h1>
+
+<table class="list">
+<% for revision in @revisions %>
+  <tr>
+    <td>
+				<h3><%=h revision.title %></h3>
+    		<p><%=h revision.subtitle %></p>
+		</td>
+		<td>
+			<%= revision.editor.nil? ? '(нет автора)' : revision.editor.name %>
+		</td>
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+

@@ -1,0 +1,43 @@
+8
+
+dir
+19
+svn://rubyforge.org/var/svn/enum-column/plugins/enum-column/test/fixtures
+svn://rubyforge.org/var/svn/enum-column
+
+
+
+2006-12-13T19:57:37.046564Z
+9
+wsobel
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+daed6d57-6b21-0410-a8f4-a6969d1d4b01
+
+db_definitions
+dir
+
+enumeration.rb
+file
+
+
+
+
+2009-01-16T21:56:56.000000Z
+2ccf23953b6d5f26d9bd2571d48c5441
+2006-12-13T19:57:37.046564Z
+9
+wsobel
+

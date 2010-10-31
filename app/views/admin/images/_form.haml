@@ -1,0 +1,9 @@
+- form_for [:admin, @image], :html => {:class => 'full', :multipart => true} do |f|
+  .field
+    %label= @image.id
+  .field
+    = f.label :image
+    = error_message_on @image, :image
+    = f.file_field :image
+  .field
+    = f.submit "Сохранить"

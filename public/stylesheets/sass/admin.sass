@@ -1,0 +1,347 @@
+*
+  :padding 0
+  :margin 0
+  :list-style none
+  :box-sizing border-box
+  :-moz-box-sizing border-box
+
+table 
+  :border-collapse collapse
+  :border-spacing 0
+  :width 100%
+
+td 
+  :vertical-align top
+
+td.last
+  :width 100%
+
+html 
+  :width 100%
+
+!step = 0.75
+!size1 = 30px
+!size2 = !size1*!step
+!size3 = !size2*!step
+!size4 = !size3*!step
+
+!margin2 = 0.25em
+!margin3 = 0.5em   
+!margin4 = 1em 
+body
+  :margin auto
+  :max-width  1260px
+  :width 92%
+  :background-color  #fff
+  :color  #333
+  :padding  3px
+  
+  :font
+    :family verdana, arial, helvetica, sans-serif
+    :size #{!size4}
+  :line-height 1.2
+
+h3
+  :font-size #{!size4}
+  :margin 8px 0 2px 2px
+
+#ajaxBusy
+  //:display none
+  :margin 0px
+  :position fixed
+  :left 0
+  :top 0
+  :z-index 5000
+  :padding 6px
+  :background white
+  :font-size #{!size3}
+  :font-weight bold
+  :color #D10000
+
+#page-header 
+  :margin-bottom 8px
+  :width 100%
+  td
+    :padding 2px
+  .userbox
+    :text-align right
+  .links
+    :margin #{!margin2} 0
+    :font-size #{!size4}
+
+    .title
+      :font
+        :weight bold
+      :color #666
+    a
+      :text-decoration none
+    a.title:hover
+      :color #000 !important
+      :text-decoration underline !important
+    a.title
+      :color #D10000
+    .current
+      :color #222
+      :font-weight bold
+
+h1.page-title
+  :font-size 20px
+  :margin-bottom 4px
+  
+#page-content
+  .filters, .actions
+    form
+      :display inline
+    :margin-bottom 0.5em
+a, a:visited 
+  :color inherit
+  &:hover
+    :color #000
+
+a.js
+  :text-decoration none
+  :border-bottom 1px dashed #222
+
+a.button 
+  :padding 2px
+  // :line-height 1.4
+  :border none
+  :display inline-block
+  :text-decoration none
+  &:hover, &:focus, &:active
+    :outline none
+    :padding 1px
+  &:hover, &:focus 
+    :background-color #eee
+    :border 1px solid #ccc
+  &:active
+    :border 1px solid #000
+
+#main
+  .item
+    :padding-left 8px
+    :margin #{!margin2} 0
+    .header
+      :color #444
+      :font
+        :size #{!size3}
+        :weight bold
+    .contents
+      :padding-left 6px
+      a
+        :font-size #{!size4}
+        
+.list
+  :padding-left 4px
+  .item
+    :margin #{!margin4} 0
+    :padding 0 4px
+    :border-left 2px solid #fff
+    div
+      :margin 4px 0
+    &:hover
+      :border-left 2px solid #999
+      .controls
+        :visibility visible
+    &.new
+      :font-weight bold
+    &.new:hover
+      :border-left 2px solid #fff
+    .controls
+      // :visibility hidden
+    .links a
+      :padding-right 8px
+    td.thumb
+      :padding-right 4px
+      :width 100px
+    .title
+      :font-weight bold
+    .title, .subtitle
+      :margin 0
+#links.list .title.canonical 
+  :font-style italic
+  
+table.layout_grid
+  :width 100%
+  :height 100%
+  :border-collapse separate
+  :border-spacing 2px
+  td
+    :border 1px solid #ccc
+  table.layout_cell
+    :height 100%
+    td.empty
+      :padding 1em 0
+    td
+      :text-align center
+      :vertical-align middle
+      :border none
+    td.top, td.bottom
+      :height 25px
+    td.left, td.right
+      :width 25px
+    .item
+      :text-align left
+      :margin-bottom 8px
+      .title 
+        :font-weight bold
+  form
+    select
+      :width 100%
+    input[type="submit"]
+      :padding 1px
+      :width auto
+      :font-size inherit
+  
+form 
+  :margin #{!margin2} 0
+  :padding-left 4px
+  table.container
+    :width 100%
+    :height 100%
+    td.submit
+      :padding 0px
+      :padding-right 8px
+      :height 100%
+      input[type="submit"], button
+        :display block
+        :height 100%
+        :width 40px
+    td.content
+      :width 100%
+      :padding 0
+  
+  table
+    :width auto
+    td
+      :padding-right 16px
+  
+
+          
+  input[type="text"], input[type="password"], .tag_field
+    :border 1px solid #999
+    :padding 2px
+   
+  .tag_field
+    :min-height 2em
+    :padding 0px
+    .tag
+      :float none
+      input[type="text"], input[type="text"]:focus
+        :background none
+        :border none
+        :padding 0
+        :color black
+      label
+        :background-color #F0F0EE
+        .close
+          :color black 
+
+  .field 
+    :margin #{!margin3} 0
+    :font-size #{!size4}
+    .formError 
+      :color red
+    label
+      :display block
+    &.checkbox label
+      // :display inline
+      
+    input[type="text"], input[type="password"], textarea
+      :width 100% 
+      :background-color #fff
+      &:focus
+        :border 1px inset #999
+        :background-color #f8f8f8
+    textarea 
+      :border 1px solid #fff
+      :font-family inherit
+      :font-size #{!size4}
+
+    input.big
+      :font-size #{!size3}
+    input[type="checkbox"]
+      :width auto
+    input[type="file"]
+      :width auto
+    input[type="submit"]
+//      :width 100%
+//      :height 40px
+      :font-size #{!size3}
+      //
+        &:hover  
+          :color #fff
+          :background-color #666
+
+        &:active  
+          :color #000
+          :background-color #f8f8f8
+          :border 1px inset #999
+  
+  
+form.inline
+  .field 
+    :display inline
+    input.short
+      :width 15px
+      
+.textile-editor
+  :border  1px solid #999 
+  
+.textile-toolbar, .images-toolbar 
+  :background-color #f0f0ee
+  :padding 3px
+  button, .button
+    :display inline
+    :font-size #{!size4}
+    :line-height 1.6
+    :text-decoration none
+    :color #000
+    :cursor default    
+    :margin 0
+    :background-color #f0f0ee
+    :border 1px solid #f0f0ee
+    :padding 2px 0
+    &:hover, &.unselected:hover
+      :border 1px solid #999
+    &.selected
+      :border 1px solid #ce9100
+      :background-color #ffffff
+    &.unselected 
+      :border 1px solid #f0f0ee
+      :background-color #f0f0ee
+    img
+      :vertical-align text-bottom
+.images
+  :border  1px solid #999   
+  .images-list
+    .item
+      :padding 2px
+      :display inline-block
+
+
+.blockMsg 
+  :width  70%
+  :top    10%
+  :left   15%
+  :border 1px solid #999
+  :background-color #fff
+  .header
+    td
+      :padding 1px 8px
+      :vertical-align middle
+    .title
+      :font-weight bold
+    .controls
+      :text-align right
+  .content
+    :padding 8px
+
+pre
+  :width 100%
+  :white-space pre-wrap
+      
+      
+      
+      
+  

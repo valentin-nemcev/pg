@@ -1,0 +1,53 @@
+8
+
+dir
+19
+svn://rubyforge.org/var/svn/enum-column/plugins/enum-column/test/fixtures/db_definitions
+svn://rubyforge.org/var/svn/enum-column
+
+
+
+2006-11-05T09:14:05.160827Z
+1
+wsobel
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+daed6d57-6b21-0410-a8f4-a6969d1d4b01
+
+mysql.sql
+file
+
+
+
+
+2009-01-16T21:56:56.000000Z
+0e24e4c6b5453276dd4b9b26df385e1c
+2006-11-05T09:14:05.160827Z
+1
+wsobel
+has-props
+
+mysql.drop.sql
+file
+
+
+
+
+2009-01-16T21:56:56.000000Z
+8c3621e160ea31ca14e77f2010c0252c
+2006-11-05T09:14:05.160827Z
+1
+wsobel
+

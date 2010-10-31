@@ -1,0 +1,4 @@
+-form_for [:admin, layout_cell, LayoutItem.new] do |f|
+  = f.collection_select(:article_id, @articles||=Article.for_select, |
+                        :id, :title, { :include_blank => true }) |
+= link_to_function "Сохранить", "$(this).prev().submit()"
