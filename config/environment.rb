@@ -17,7 +17,7 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  config.gem "sqlite3-ruby", :lib => "sqlite3"
+  # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   
   config.gem 'mysql'
@@ -33,6 +33,7 @@ Rails::Initializer.run do |config|
   config.gem 'htmlentities'
   config.gem 'RedCloth'
   config.gem 'paperclip'
+  config.gem 'quick_magick'
   config.gem 'russian'
 
   # Only load the plugins named here, in the order given (default is alphabetical).

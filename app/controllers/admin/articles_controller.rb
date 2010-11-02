@@ -1,7 +1,7 @@
 #encoding: utf-8
 class Admin::ArticlesController < Admin::ResourceController
-  # has_scope :with_tags, :type => :array
-  # has_scope :with_text
+  has_scope :with_tags, :type => :array
+  has_scope :with_text
   
   
   def tag
