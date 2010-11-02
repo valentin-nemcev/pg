@@ -7,18 +7,12 @@
     = stylesheet_link_tag 'tags'
     = javascript_include_tag :defaults 
     = javascript_include_tag "jquery.tagbox.js"
-    -# = javascript_include_tag "textile-editor.js"
-    -# = javascript_include_tag "textile-editor-config.js"
     :javascript
       $(function(){
         var tags = ['#{Tag.all.map(&:name).join("','")}']; 
         $('.tag_field').each( function() {this.name += '[]' 
           $(this).tagbox({ separator: /\s*[,]\s*/, autocomplete: tags, autocomplete_action:'list'});
         });
-        
-        //$('.textile-editor textarea').each(function(){
-          //TextileEditor.initialize(this.id, 'extended');
-        //});
       })
       
   %body

@@ -18,7 +18,7 @@ class Admin::ArticlesController < Admin::ResourceController
       @articles ||= if current_scopes[:with_text]
         end_of_association_chain.paginate(:page => params[:page])
       else
-        end_of_association_chain.ordered.paginate(:page => params[:page]) # if end_of_association_chain.present?
+        end_of_association_chain.ordered.paginate(:page => params[:page])
       end
     end
   
