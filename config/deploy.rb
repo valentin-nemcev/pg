@@ -34,12 +34,13 @@ namespace :deploy do
     end
   end
 
-  after "deploy:update_code", "gems:install"
-  namespace :gems do
-    desc "Install gems"
-    task :install, :roles => :app do
-      run "cd #{current_release} && #{try_sudo} rake gems:install"
-    end
-  end
+  
+end
 
+after "deploy:update_code", "gems:install"
+namespace :gems do
+  desc "Install gems"
+  task :install, :roles => :app do
+    run "cd #{current_release} && #{try_sudo} rake gems:install RAILS_ENV"
+  end
 end
