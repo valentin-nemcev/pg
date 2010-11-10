@@ -38,7 +38,7 @@ namespace :deploy do
   
 end
 
-after "deploy:update_code", "gems:install"
+after "deploy:update", "gems:install"
 namespace :gems do
   desc "Install gems"
   task :install, :roles => :app do
