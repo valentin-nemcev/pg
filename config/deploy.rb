@@ -28,10 +28,10 @@ namespace :deploy do
   end
 
 
-  after "deploy:symlink", "deploy:symlink_shared_assets"
+  after "deploy:update", "deploy:symlink_shared_assets"
   task :symlink_shared_assets do
     %w{img files}.each do |share|
-      run "cd #{current_release} && ln -sf #{shared_path}/#{share} public/#{share}"
+      run "cd #{current_path} && ln -s #{shared_path}/#{share} public/#{share}"
     end
   end
 
@@ -42,6 +42,6 @@ end
 namespace :gems do
   desc "Install gems"
   task :install, :roles => :app do
-    run "cd #{current_release} && #{try_sudo} #{rake} gems:install RAILS_ENV=production"
+    run "cd #{current_release} && #{try_sudo} #{rake} -f #{current_release}/Rakefile  gems:install RAILS_ENV=production RAILS_GEM_VERSION=2.3.10"
   end
 end
