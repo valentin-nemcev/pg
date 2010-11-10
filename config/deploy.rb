@@ -42,6 +42,6 @@ after "deploy:update_code", "gems:install"
 namespace :gems do
   desc "Install gems"
   task :install, :roles => :app do
-    run "cd #{current_release} && #{try_sudo} #{rake} gems:install RAILS_ENV"
+    run "cd #{current_release} && #{try_sudo} #{rake} gems:install RAILS_ENV=production"
   end
 end
