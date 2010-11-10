@@ -7,6 +7,7 @@ set :repository,  "git-vds:pg.git"
 set :git_enable_submodules, 1
 set :deploy_via, :remote_cache
 set :branch, "capistrano"
+set :scm_verbose, false
 
 set :use_sudo, false
 set :ssh_options, { :forward_agent => true }
@@ -26,10 +27,18 @@ namespace :deploy do
   end
 
 
-  after :update_code, :symlink_shared_assets
+  after "deploy:symlink", "deploy:symlink_shared_assets"
   task :symlink_shared_assets do
     %w{img files}.each do |share|
-      run "ln -s #{shared_path}/#{share} #{release_path}/public/#{share}"
+      run "ln -s #{current_path}/#{share} #{current_release}/public/#{share}"
+    end
+  end
+
+  after "deploy:update_code", "gems:install"
+  namespace :gems do
+    desc "Install gems"
+    task :install, :roles => :app do
+      run "cd #{current_release} && #{try_sudo} rake gems:install"
     end
   end
 
