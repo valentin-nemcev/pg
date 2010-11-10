@@ -31,7 +31,7 @@ namespace :deploy do
   after "deploy:symlink", "deploy:symlink_shared_assets"
   task :symlink_shared_assets do
     %w{img files}.each do |share|
-      run "ln -s #{current_path}/#{share} #{current_release}/public/#{share}"
+      run "cd #{current_release} && ln -sf #{shared_path}/#{share} public/#{share}"
     end
   end
 
