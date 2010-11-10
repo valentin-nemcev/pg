@@ -1,0 +1,93 @@
+--- !ruby/object:Gem::Specification 
+name: quick_magick
+version: !ruby/object:Gem::Version 
+  hash: 63
+  prerelease: false
+  segments: 
+  - 0
+  - 8
+  - 0
+  version: 0.8.0
+platform: ruby
+authors: 
+- Ahmed ElDawy
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2010-10-28 00:00:00 +04:00
+default_executable: 
+dependencies: []
+
+description: QuickMagick allows you to access ImageMagick command line functions using Ruby interface.
+email: ahmed.eldawy@badrit.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README.rdoc
+- lib/quick_magick.rb
+- lib/quick_magick/image.rb
+- lib/quick_magick/image_list.rb
+files: 
+- Manifest
+- README.rdoc
+- Rakefile
+- lib/quick_magick.rb
+- lib/quick_magick/image.rb
+- lib/quick_magick/image_list.rb
+- quick_magick.gemspec
+- test/9.gif
+- test/badfile.xxx
+- test/image_list_test.rb
+- test/image_test.rb
+- test/multipage.tif
+- test/test_magick.rb
+- test/warnings.tiff
+- test/test_quick_magick.rb
+has_rdoc: true
+homepage: http://quickmagick.rubyforge.org/
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --line-numbers
+- --inline-source
+- --title
+- Quick_magick
+- --main
+- README.rdoc
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 11
+      segments: 
+      - 1
+      - 2
+      version: "1.2"
+requirements: []
+
+rubyforge_project: quickmagick
+rubygems_version: 1.3.7
+signing_key: 
+specification_version: 3
+summary: A gem build by BadrIT to access ImageMagick command line functions easily and quickly
+test_files: 
+- test/test_quick_magick.rb
+- test/image_test.rb
+- test/test_magick.rb
+- test/image_list_test.rb
