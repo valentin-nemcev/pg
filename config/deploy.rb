@@ -1,6 +1,7 @@
 set :application, "polit-gramota"
 
 set :deploy_to, "~/projects/#{application}"
+set :rake, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake" 
 
 set :scm, :git
 set :repository,  "git-vds:pg.git"
@@ -41,6 +42,6 @@ after "deploy:update_code", "gems:install"
 namespace :gems do
   desc "Install gems"
   task :install, :roles => :app do
-    run "cd #{current_release} && #{try_sudo} rake gems:install RAILS_ENV"
+    run "cd #{current_release} && #{try_sudo} #{rake} gems:install RAILS_ENV"
   end
 end
