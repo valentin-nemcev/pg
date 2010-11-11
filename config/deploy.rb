@@ -3,6 +3,13 @@ set :application, "polit-gramota"
 set :deploy_to, "~/projects/#{application}"
 set :rake, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake" 
 
+# default_run_options[:shell] = false
+# default_run_options[:pty] = true
+
+set :default_environment, { 
+  'GEM_PATH' =>  "/var/lib/gems/1.8:/home/hosting_zlob-o-zlob/.gem/ruby/1.8" #"`gem env gempath`"
+}
+
 set :scm, :git
 set :repository,  "git-vds:pg.git"
 set :git_enable_submodules, 1
@@ -42,6 +49,6 @@ end
 namespace :gems do
   desc "Install gems"
   task :install, :roles => :app do
-    run "cd #{current_release} && #{try_sudo} #{rake} -f #{current_release}/Rakefile  gems:install RAILS_ENV=production RAILS_GEM_VERSION=2.3.10"
+    run "cd #{current_release} && #{try_sudo} #{rake} -f #{current_release}/Rakefile  gems RAILS_ENV=production"
   end
 end
