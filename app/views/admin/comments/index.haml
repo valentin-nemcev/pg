@@ -3,7 +3,7 @@
     .item(title="#{h comment.inspect}")
       .header
         .date
-          = comment.publication_date.to_s(:long) unless comment.publication_date.nil?
+          = format_date(comment.publication_date) unless comment.publication_date.nil?
         .subtitle
           = link_to comment.article.title, article_path(comment.article.uri, :anchor => "comments")
         .content

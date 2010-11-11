@@ -38,7 +38,7 @@
         .subtitle 
           = article.subtitle
         .date
-          = Russian.strftime(article.publication_date, "%d %B %Y, %H:%M")
+          = format_date article.publication_date
           |
           = publication_status(article)
         .tags
