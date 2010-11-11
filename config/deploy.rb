@@ -14,7 +14,7 @@ set :scm, :git
 set :repository,  "git-vds:pg.git"
 set :git_enable_submodules, 1
 set :deploy_via, :remote_cache
-set :branch, "capistrano"
+set :branch, "master"
 set :scm_verbose, false
 
 set :use_sudo, false

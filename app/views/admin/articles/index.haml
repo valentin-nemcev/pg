@@ -38,7 +38,7 @@
         .subtitle 
           = article.subtitle
         .date
-          = article.publication_date.to_s(:long) #, :format => :long
+          = Russian.strftime(article.publication_date, "%d %B %Y, %H:%M")
           |
           = publication_status(article)
         .tags
