@@ -1,6 +1,8 @@
 - page_title h(@article.title_html)
 = render :partial => 'article', :locals => {:article  => @article, :full => true}
 
+= render :partial => 'yandex_share'
+
 - if true || @article.can_be_commented?
   %h1 Оставить комментарий
   - @comment ||= Comment.new
