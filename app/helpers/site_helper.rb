@@ -30,19 +30,19 @@ module SiteHelper
     tags = [
             # {:name => 'Псков'           , :style => 'small'  , :pos => [20,  9]},
             # {:name => 'Новгород'        , :style => 'small'  , :pos => [60, 15]},
-            {:name => 'Петербург'       , :style => 'small'  , :pos => [21, 52]},
-            {:name => 'Карелия'         , :style => 'small'  , :pos => [78, 57]},
-            {:name => 'Архангельск'     , :style => 'small'  , :pos => [55, 80]},
-            {:name => 'Поле зрения'     , :style => 'medium' , :pos => [72,  4]},
-            {:name => 'Со-вещание'      , :style => 'medium' , :pos => [35,  9]},
+            {:name => 'Петербург'       , :style => 'small'  , :pos => [23.5, 69]},
+            {:name => 'Карелия'         , :style => 'small'  , :pos => [15, 69]},
+            {:name => 'Архангельск'     , :style => 'small'  , :pos => [3, 69]},
+            {:name => 'Поле зрения'     , :style => 'medium' , :pos => [32,  40]},
+            {:name => 'Со-вещание'      , :style => 'medium' , :pos => [16,  40]},
             # {:name => 'В порядке бреда' , :style => 'medium' , :pos => [53, 35]},
             # {:name => 'Портрет'         , :style => 'medium' , :pos => [ 3, 49]},
             # {:name => 'Слово редактору' , :style => 'medium' , :pos => [ 6, 71]},
             # {:name => 'Дайджест'        , :style => 'medium' , :pos => [35, 77]},
-            {:name => 'Репортаж'        , :style => 'big'    , :pos => [ 9, 23]},
-            {:name => 'Дебаты'          , :style => 'big'    , :pos => [59, 31]},
-            {:name => 'Субъектив'       , :style => 'big'    , :pos => [39, 53]},
-            {:name => 'Интервью'        , :style => 'big'    , :pos => [5, 70]}
+            {:name => 'Репортаж'        , :style => 'big'    , :pos => [ 3, 10]},
+            {:name => 'Дебаты'          , :style => 'big'    , :pos => [32, 10]},
+            {:name => 'Субъектив'       , :style => 'big'    , :pos => [17, 10]},
+            {:name => 'Интервью'        , :style => 'medium'    , :pos => [3, 40]}
            ]
     tags.each do |tag_desc|
       tag = Tag.find_by_name(tag_desc[:name]) or next
