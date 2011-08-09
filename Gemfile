@@ -16,9 +16,9 @@ gem 'htmlentities', '4.2.1'
 gem 'RedCloth', '4.2.3'
 gem 'quick_magick', '0.8.0'
 gem 'russian', '0.2.7'
-gem 'capistrano', '2.5.19'
+gem 'paperclip', '2.3.5'
 
 group :development, :test do
   gem 'mongrel', '1.1.5'
-
+  gem 'capistrano', '2.5.19'
 end

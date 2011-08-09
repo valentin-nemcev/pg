@@ -45,6 +45,9 @@ GEM
     net-ssh (2.1.4)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    paperclip (2.3.5)
+      activerecord
+      activesupport
     quick_magick (0.8.0)
     rack (1.1.2)
     rails (2.3.10)
@@ -78,6 +81,7 @@ DEPENDENCIES
   inherited_resources (= 1.0.6)
   mongrel (= 1.1.5)
   mysql (= 2.8.1)
+  paperclip (= 2.3.5)
   quick_magick (= 0.8.0)
   rails (= 2.3.10)
   russian (= 0.2.7)
