@@ -3,7 +3,7 @@
 	url = http://github.com/technoweenie/restful-authentication.git
 [submodule "vendor/plugins/textile_editor_helper"]
 	path = vendor/plugins/textile_editor_helper
-	url = http://github.com/felttippin/textile-editor-helper.git
+	url = https://github.com/ryanfelton/textile-editor-helper.git
 [submodule "vendor/plugins/jrails"]
 	path = vendor/plugins/jrails
 	url = http://github.com/aaronchi/jrails.git
