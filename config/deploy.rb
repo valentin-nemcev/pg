@@ -1,7 +1,6 @@
 
 
 set :application, "polit-gramota"
-set :deploy_to, "~/projects/#{application}"
 
 require 'bundler/capistrano'
 
@@ -32,7 +31,7 @@ end
 desc "Config for linode vds"
 task :linode do
   server 'pg-linode-vds', :app, :web, :db
-
+  set :deploy_to, "~/projects/#{application}"
 end
 
 
@@ -46,10 +45,17 @@ namespace :deploy do
 
 
   after "deploy:update", "deploy:symlink_shared_assets"
+  desc "Symlinks shared assets"
   task :symlink_shared_assets do
     %w{img files}.each do |share|
       run "cd #{current_path} && ln -s #{shared_path}/#{share} public/#{share}"
     end
+  end
+
+  after 'deploy:update_code', 'deploy:symlink_db'
+  desc "Symlinks the database.yml"
+  task :symlink_db, :roles => :app do
+    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
   end
 
 
