@@ -1,14 +1,10 @@
+
+
 set :application, "polit-gramota"
-
 set :deploy_to, "~/projects/#{application}"
-set :rake, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake" 
 
-# default_run_options[:shell] = false
-# default_run_options[:pty] = true
+require 'bundler/capistrano'
 
-set :default_environment, { 
-  'GEM_PATH' =>  "/var/lib/gems/1.8:/home/hosting_zlob-o-zlob/.gem/ruby/1.8" #"`gem env gempath`"
-}
 
 set :scm, :git
 set :repository,  "git-vds:pg.git"
@@ -16,16 +12,30 @@ set :git_enable_submodules, 1
 set :deploy_via, :remote_cache
 set :branch, "master"
 set :scm_verbose, false
-
 set :use_sudo, false
 set :ssh_options, { :forward_agent => true }
 
-server 'pg-locum', :app, :web, :db
 
 
-# If you are using Passenger mod_rails uncomment this:
-# if you're still using the script/reapear helper you will need
-# these http://github.com/rails/irs_process_scripts
+desc "Config for locum shared hosting"
+task :locum do
+  server 'pg-locum', :app, :web, :db
+  set :deploy_to, "~/projects/#{application}"
+  set :rake, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
+
+  set :default_environment, {
+    'PATH' => '/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:/$HOME/.gem/ruby/1.8/bin:/var/lib/gems/1.8/bin',
+    'GEM_PATH' =>  "/var/lib/gems/1.8:/home/hosting_zlob-o-zlob/.gem/ruby/1.8" #"`gem env gempath`"
+  }
+end
+
+desc "Config for linode vds"
+task :linode do
+  server 'pg-linode-vds', :app, :web, :db
+
+end
+
+
 
 namespace :deploy do
   task :start do ; end
@@ -42,7 +52,7 @@ namespace :deploy do
     end
   end
 
-  
+
 end
 
 # after "deploy:update", "gems:install"
