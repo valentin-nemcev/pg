@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '2.3.10'
 
+gem 'haml', '3.0.22'
+
+gem 'has_scope', '0.5.0'
 gem 'inherited_resources', '1.0.6'
 gem 'thinking-sphinx', '1.3.20'
 

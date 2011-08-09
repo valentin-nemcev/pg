@@ -24,7 +24,8 @@ GEM
     daemons (1.1.4)
     fastthread (1.0.7)
     gem_plugin (0.2.3)
-    has_scope (0.5.1)
+    haml (3.0.22)
+    has_scope (0.5.0)
     highline (1.6.2)
     hpricot (0.8.2)
     htmlentities (4.2.1)
@@ -70,6 +71,8 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (= 4.2.3)
   capistrano (= 2.5.19)
+  haml (= 3.0.22)
+  has_scope (= 0.5.0)
   hpricot (= 0.8.2)
   htmlentities (= 4.2.1)
   inherited_resources (= 1.0.6)
