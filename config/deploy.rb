@@ -3,7 +3,8 @@
 set :application, "polit-gramota"
 
 require 'bundler/capistrano'
-
+# set :bundle_flags,    "--deployment --quiet"
+set :bundle_flags,    "--deployment"
 
 set :scm, :git
 set :repository,  "git-vds:pg.git"
@@ -32,6 +33,12 @@ desc "Config for linode vds"
 task :linode do
   server 'pg-linode-vds', :app, :web, :db
   set :deploy_to, "~/projects/#{application}"
+
+  $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+  logger.debug File.expand_path('./lib', ENV['rvm_path'])
+  require "rvm/capistrano"
+  set :rvm_ruby_string, 'ruby-1.8.7-p352@polit-gramota'
+
 end
 
 
