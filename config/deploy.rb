@@ -7,7 +7,7 @@ require 'bundler/capistrano'
 set :bundle_flags,    "--deployment"
 
 set :scm, :git
-set :repository,  "git-vds:pg.git"
+set :repository,  "git@vds:pg.git"
 set :git_enable_submodules, 1
 set :deploy_via, :remote_cache
 set :branch, "master"
