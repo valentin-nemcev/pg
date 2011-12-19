@@ -3,13 +3,13 @@ module SiteHelper
   def page_title(title)
     content_for :title, title + " &mdash; "
   end
-  
-  
+
+
   def tag_cloud(font_size_range)
-    tags = Tag.all(:select => 'count(articles.id) as articles_cnt, tags.*', 
-      :joins => :articles, 
-      # :having => 'articles_cnt > 1', 
-      :group => 'tags.id', 
+    tags = Tag.all(:select => 'count(articles.id) as articles_cnt, tags.*',
+      :joins => :articles,
+      # :having => 'articles_cnt > 1',
+      :group => 'tags.id',
       :order => 'name' )
 
     compare_by_articles_count = lambda { |a, b| a.articles_cnt.to_i <=> b.articles_cnt.to_i }
@@ -20,7 +20,7 @@ module SiteHelper
 
 
     tags.each { |t|
-      font_size = font_size_range.first + (font_size_range.last - font_size_range.first) * (Math.log(t.articles_cnt) - minlog) / rangelog 
+      font_size = font_size_range.first + (font_size_range.last - font_size_range.first) * (Math.log(t.articles_cnt) - minlog) / rangelog
       yield t, sprintf("%.2f", font_size)
     }
   end
@@ -30,9 +30,9 @@ module SiteHelper
     tags = [
             # {:name => 'Псков'           , :style => 'small'  , :pos => [20,  9]},
             # {:name => 'Новгород'        , :style => 'small'  , :pos => [60, 15]},
-            {:name => 'Петербург'       , :style => 'small'  , :pos => [3, 69]},
-            {:name => 'Карелия'         , :style => 'small'  , :pos => [13, 69]},
-            {:name => 'Архангельск'     , :style => 'small'  , :pos => [21.5, 69]},
+            # {:name => 'Петербург'       , :style => 'small'  , :pos => [3, 69]},
+            # {:name => 'Карелия'         , :style => 'small'  , :pos => [13, 69]},
+            # {:name => 'Архангельск'     , :style => 'small'  , :pos => [21.5, 69]},
             {:name => 'Поле зрения'     , :style => 'medium' , :pos => [32,  40]},
             {:name => 'Телеверсия'      , :style => 'medium' , :pos => [16,  40]},
             # {:name => 'В порядке бреда' , :style => 'medium' , :pos => [53, 35]},
@@ -52,7 +52,7 @@ module SiteHelper
 
   def tag_line
     tags = ['ЕР', 'КПРФ', 'ЛДПР', 'Наши', 'Оборона', 'Правое дело',  'РНДС', 'РСДСМ', 'СР', 'ФСМ', 'Яблоко']
-    
+
     tags.each do |tag_desc|
       tag = Tag.find_by_name(tag_desc) or next
       yield tag
