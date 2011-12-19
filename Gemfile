@@ -9,6 +9,8 @@ gem 'has_scope', '0.5.0'
 gem 'inherited_resources', '1.0.6'
 gem 'thinking-sphinx', '1.3.20'
 
+gem 'tzinfo'
+
 gem 'mysql', '2.8.1'
 gem 'utility_scopes', '0.3.1'
 gem 'will_paginate', '2.3.15'
