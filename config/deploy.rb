@@ -42,6 +42,7 @@ task :linode do
 end
 
 
+set :shared_assets, %w{img files}
 
 namespace :deploy do
   task :start do ; end
@@ -54,7 +55,7 @@ namespace :deploy do
   after "deploy:update", "deploy:symlink_shared_assets"
   desc "Symlinks shared assets"
   task :symlink_shared_assets do
-    %w{img files}.each do |share|
+    shared_assets.each do |share|
       run "cd #{current_path} && ln -s #{shared_path}/#{share} public/#{share}"
     end
   end
@@ -73,5 +74,20 @@ namespace :gems do
   desc "Install gems"
   task :install, :roles => :app do
     run "cd #{current_release} && #{try_sudo} #{rake} -f #{current_release}/Rakefile  gems RAILS_ENV=production"
+  end
+end
+
+
+namespace :sync do
+  desc "Sync remote assets and database to local"
+  task :local do
+    path = 'db/dumps/'
+    server = roles[:web].servers.first.host
+    run "cd #{current_path} && bundle exec rake db:data:dump", :env => {'RAILS_ENV' => rails_env}
+    system "rsync --progress --human-readable --recursive --update #{server}:#{current_path}/#{path} #{path}"
+    system "bundle exec rake db:data:load"
+    shared_assets.each do |share|
+      system "rsync --progress --human-readable --recursive --update #{server}:#{shared_path}/#{share}/ public/#{share}"
+    end
   end
 end
