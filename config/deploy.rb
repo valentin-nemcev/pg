@@ -29,6 +29,7 @@ task :locum do
   }
 end
 
+on :start, 'linode'
 desc "Config for linode vds"
 task :linode do
   server 'pg-linode-vds', :app, :web, :db
@@ -83,7 +84,7 @@ namespace :sync do
   task :local do
     path = 'db/dumps/'
     server = roles[:web].servers.first.host
-    run "cd #{current_path} && bundle exec rake db:data:dump", :env => {'RAILS_ENV' => rails_env}
+    run "cd #{current_path} && bundle exec rake db:data:dump", :env => {'RAILS_ENV' => 'production'}
     system "rsync --progress --human-readable --recursive --update #{server}:#{current_path}/#{path} #{path}"
     system "bundle exec rake db:data:load"
     shared_assets.each do |share|
