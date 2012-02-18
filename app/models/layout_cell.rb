@@ -26,7 +26,7 @@ class LayoutCell < ActiveRecord::Base
     end
 
     def grid(place, options = {})
-      items = self.find_all_by_place(place)
+      items = self.find_all_by_place(place, :include  => {:layout_items => {:article => :tags}})
       hash_2d = self.hash_2d(items)
       cols = COLUMN_COUNT[place]
       rows = self.grid_height(items)
@@ -44,7 +44,7 @@ class LayoutCell < ActiveRecord::Base
       # logger.info(grid.inspect)
       grid.compact!
       grid = grid << ([:empty]*cols) unless options[:without_empty_row]
-      logger.info(grid.inspect)
+      # logger.info(grid.inspect)
       items.each { |itm| itm.set_neighbours(grid)}
       return grid
     end
