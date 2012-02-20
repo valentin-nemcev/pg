@@ -21,37 +21,7 @@
   %body
     #container
       #footer-wrapper
-        %table#header
-          %tr
-            %td#logo
-              %a(href="/" title="На главную страницу")
-                = image_tag 'logo_v4.png', :title => 'Полит-грамота – молодежный медиапроект'
-                %span.subtitle молодежный медиапроект
-            %td(style="width: 665px;")
-              #manual-tag-cloud
-                - manual_tag_cloud do |tag, css_class, x, y|
-                  - style = "top: #{y}%; left: #{x}%;"
-                  - css_class += ' current' if current_page? tag_path(tag.uri)
-                  = link_to(tag.name, tag_path(tag.uri), :class => css_class, :style => style)
-              #minor-nav
-                = link_to "", "http://feeds.feedburner.com/polit-gramota/feed", :class => "icon feed", :title => "RSS лента"
-                = link_to "", "http://twitter.com/politgramota", :class => "icon twitter", :title => "Микроблог в твиттере"
-                = link_to "", "http://www.youtube.com/user/Politgramota", :class => "icon youtube", :title => "Канал на Ютубе"
-                = link_to "", "http://vkontakte.ru/club127909", :class => "icon vkontakte", :title => "Группа В Контакте"
-                = link_to "Все теги", all_tags_path, :class => "all_tags"
-          %tr
-            %td#tag-line(colspan="2" style="width:auto;")
-              %table
-                %td
-                  - tag_line do |tag|
-                    - css_class = ' current' if current_page? tag_path(tag.uri)
-                    = link_to "#{tag.name}", tag_path(tag.uri), :class => css_class
-                %td
-                  %table#misc-nav
-                    %td= render 'search'
-                    - css_class = ' current' if current_page? "/articles/o-proekte"
-                    %td.link= link_to "О проекте", "/articles/o-proekte", :class => css_class
-
+        = render :partial => 'header'
         %table#content
           - case params[:action]
             - when 'main'
@@ -66,70 +36,7 @@
         #footer-push
       #footer
         .footer-border
-        %table
-          %td#copyright
-            %p © «Полит-грамота», 2007&ndash;#{Date.today.year}
-            %p
-              Позиция редакции сайта может не совпадать с мнением авторов опубликованных статей.
-              %br
-              Пожалуйста, ставьте ссылку на источник при копировании материалов.
-            %p
-              %a(href='mailto:mail&#64;polit-gramota.ru') mail&#64;polit-gramota.ru
-          %td#banners
-            .partners
-              %a(href="http://rus.jf.pu.ru/" rel="nofollow")
-                %img(src="/images/banner_jf.png")
-              %a(href="http://obmen.org/" rel="nofollow")
-                %img(src="/images/banner_nro.png")
-            .counters
-              %a(href="http://www.yandex.ru/cy?base=0&amp;host=polit-gramota.ru" rel="nofollow")
-                %img(src="http://www.yandex.ru/cycounter?polit-gramota.ru" width="88" height="31" alt="Яндекс цитирования")
-              :javascript
-                <!--
-                document.write("<a  rel='nofollow' href='http://www.liveinternet.ru/click' "+
-                "target=_blank><img  src='http://counter.yadro.ru/hit?t14.3;r"+
-                escape(document.referrer)+((typeof(screen)=="undefined")?"":
-                ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-                screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-                ";h"+escape(document.title.substring(0,80))+";"+Math.random()+
-                "' alt='' title='LiveInternet: показано число просмотров за 24"+
-                " часа, посетителей за 24 часа и за сегодня' "+
-                "width=88 height=31><\/a>")//-->
-
-              :plain
-                <!-- Yandex.Metrika -->
-                <div style="display:none;"><script type="text/javascript">
-                document.write(unescape("%3Cscr"+"ipt src=%27"+((document.location.protocol=="https:")?"https:":"http:")+"//mc.yandex.ru/metrika/watch.js%27 type=%27text/javascr"+"ipt%27%3E%3C/scr"+"ipt%3E"));
-                </script><script type="text/javascript">
-                try { var yaCounter1256152 = new Ya.Metrika(1256152); } catch(e){}
-                </script></div>
-                <noscript><div style="position:absolute"><img src="//mc.yandex.ru/watch/1256152" alt="" /></div></noscript>
-                <!-- /Yandex.Metrika -->
-        %table#ad_banners
-          %td
-            %a(href="http://www.livemonitor.ru/" rel="nofollow")
-              %img(src="/images/banner_livemonitor.gif")
-          %td
-            %a(href="http://arlioni.com/" rel="nofollow")
-              %img(src="/images/banner_arlioni.gif" width="200")
-          %td
-            %a(href="http://www.moeobrazovanie.ru/" rel="nofollow")
-              %img(src="/images/banner_obrazovanie.png" width="200")
-
-        %p#ads
-          %b Реклама:
-          = render 'ad_links'
-
-    :plain
-      <script type="text/javascript">
-      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-      </script>
-      <script type="text/javascript">
-      var pageTracker = _gat._getTracker("UA-6206160-1");
-      pageTracker._trackPageview();
-      </script>
-
+        = render :partial => 'footer'
 
 
 
