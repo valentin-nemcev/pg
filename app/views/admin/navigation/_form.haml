@@ -1,0 +1,6 @@
+- form_for [:admin, nav] do |f|
+  .field
+    = f.label nav.title
+    = f.text_field :tag_string, :class => 'tag_field'
+  .field
+    = f.submit "Сохранить"

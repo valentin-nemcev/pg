@@ -51,10 +51,9 @@ module SiteHelper
   end
 
   def tag_line
-    tags = ['ЕР', 'КПРФ', 'ЛДПР', 'Наши', 'Оборона', 'Правое дело',  'РНДС', 'РСДСМ', 'СР', 'ФСМ', 'Яблоко']
+    tags = Navigation.find_by_name('tag_line').tags
 
-    tags.each do |tag_desc|
-      tag = Tag.find_by_name(tag_desc) or next
+    tags.each do |tag|
       yield tag
     end
 

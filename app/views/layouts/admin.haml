@@ -5,48 +5,50 @@
     %title Полит-грамота: управление
     = stylesheet_link_tag 'admin'
     = stylesheet_link_tag 'tags'
-    = javascript_include_tag :defaults 
+    = javascript_include_tag :defaults
     = javascript_include_tag "jquery.tagbox.js"
     :javascript
       $(function(){
-        var tags = ['#{Tag.all.map(&:name).join("','")}']; 
-        $('.tag_field').each( function() {this.name += '[]' 
+        var tags = ['#{Tag.all.map(&:name).join("','")}'];
+        $('.tag_field').each( function() {this.name += '[]'
           $(this).tagbox({ separator: /\s*[,]\s*/, autocomplete: tags, autocomplete_action:'list'});
         });
       })
-      
+
   %body
     -#ajaxBusy(style="display: ;")
       %div
         Загрузка
     %table#page-header
       %td.links
-        %a.title{:href=>"/"} Полит-грамота 
+        %a.title{:href=>"/"} Полит-грамота
         |
         = link_to_unless_current 'Верстка', admin_layout_cells_path
         |
         = link_to_unless_current 'Статьи', admin_articles_path
         |
+        = link_to_unless_current 'Изображения', admin_images_path
+        |
         = link_to_unless_current 'Комментарии', admin_comments_path
         |
         = link_to_unless_current 'Теги', admin_tags_path
         |
-        = link_to_unless_current 'Изображения', admin_images_path
+        = link_to_unless_current 'Meню', admin_navigation_index_path
         -#
           |
           = link_to_unless_current 'Цитаты', admin_quotes_path
         - if current_user.is_admin?
           |
-          = link_to_unless_current 'Редакторы', admin_users_path 
-          
+          = link_to_unless_current 'Редакторы', admin_users_path
+
       %td.userbox
-        - if logged_in? 
+        - if logged_in?
           Администратор: #{current_user.name}
           (#{link_to "Выйти", admin_logout_path, { :title => "Выйти", :class => "to_site" } })
-        - else 
+        - else
           Сбой в матрице. Вы не должны видеть эту страницу.
 
     %h1.page-title= yield :page_title
-    
+
     #page-content
-      = yield 
+      = yield

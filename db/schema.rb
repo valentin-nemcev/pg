@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101018133657) do
+ActiveRecord::Schema.define(:version => 20120219171917) do
 
   create_table "articles", :force => true do |t|
     t.integer  "canonical_link_id"
@@ -127,6 +127,22 @@ ActiveRecord::Schema.define(:version => 20101018133657) do
   add_index "links", ["category_id"], :name => "links_category_id_fk"
   add_index "links", ["text"], :name => "index_links_on_text", :unique => true
 
+  create_table "navigation", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "navigation_tags", :force => true do |t|
+    t.integer "tag_id"
+    t.integer "navigation_id"
+    t.integer "position",      :null => false
+  end
+
+  add_index "navigation_tags", ["navigation_id"], :name => "navigation_tags_navigation_id_fk"
+  add_index "navigation_tags", ["tag_id", "navigation_id"], :name => "index_navigation_tags_on_tag_id_and_navigation_id", :unique => true
+
   create_table "quotes", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -208,6 +224,9 @@ ActiveRecord::Schema.define(:version => 20101018133657) do
 
   add_foreign_key "links", "articles", :name => "links_article_id_fk"
   add_foreign_key "links", "categories", :name => "links_category_id_fk"
+
+  add_foreign_key "navigation_tags", "navigation", :name => "navigation_tags_navigation_id_fk", :dependent => :delete
+  add_foreign_key "navigation_tags", "tags", :name => "navigation_tags_tag_id_fk", :dependent => :delete
 
   add_foreign_key "revisions", "articles", :name => "revisions_article_id_fk"
   add_foreign_key "revisions", "users", :name => "revisions_editor_id_fk", :column => "editor_id"
