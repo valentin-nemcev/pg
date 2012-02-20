@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120219171917) do
+ActiveRecord::Schema.define(:version => 20120220132956) do
 
   create_table "articles", :force => true do |t|
     t.integer  "canonical_link_id"

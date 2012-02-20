@@ -5,11 +5,13 @@
         = image_tag 'logo_v4.png', :title => 'Полит-грамота – молодежный медиапроект'
         %span.subtitle молодежный медиапроект
     %td(style="width: 665px;")
-      #manual-tag-cloud
-        - manual_tag_cloud do |tag, css_class, x, y|
-          - style = "top: #{y}%; left: #{x}%;"
-          - css_class += ' current' if current_page? tag_path(tag.uri)
-          = link_to(tag.name, tag_path(tag.uri), :class => css_class, :style => style)
+      .tag-nav
+        - @tag_nav.each do |nav, tags|
+          %div{:class => "#{nav}"}
+            - tags.each do |tag|
+              - css_class = ' current' if current_page? tag_path(tag.uri)
+              = link_to(tag.name, tag_path(tag.uri), :class => css_class)
+
       #minor-nav
         = link_to "", "http://feeds.feedburner.com/polit-gramota/feed", :class => "icon feed", :title => "RSS лента"
         = link_to "", "http://twitter.com/politgramota", :class => "icon twitter", :title => "Микроблог в твиттере"
@@ -20,7 +22,7 @@
     %td#tag-line(colspan="2" style="width:auto;")
       %table
         %td
-          - tag_line do |tag|
+          - @tag_line.each do |tag|
             - css_class = ' current' if current_page? tag_path(tag.uri)
             = link_to "#{tag.name}", tag_path(tag.uri), :class => css_class
         %td

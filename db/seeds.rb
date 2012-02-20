@@ -8,3 +8,7 @@
 #
 
 Navigation.create :name => 'tag_line', :title => 'Движения'
+
+Navigation.create :name => 'tag_nav_big',    :title => 'Меню 1'
+Navigation.create :name => 'tag_nav_medium', :title => 'Меню 2'
+Navigation.create :name => 'tag_nav_small',  :title => 'Меню 3'

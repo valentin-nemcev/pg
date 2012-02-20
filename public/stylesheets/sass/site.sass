@@ -97,34 +97,30 @@ a
       :padding 0 3px
       :font-size 0.8em
 
-  #manual-tag-cloud
-    :position relative
-    :height 110px
-    :margin-left 0px
-    :margin-right -70px
-    :margin-top -5px
-    /* :width 554px
-    a
-      :display block
-      :position absolute
-      :text-decoration none
-      :color black
-      &:hover
-        :text-decoration underline
-        :color #{!pg_red}
+  .tag-nav
+    height: 100px
+    margin-left: 20px
+    div
+      margin-top: 8px
     .small
       :font-size 13px
     .medium
       :font-size 18px
     .big
       :font-size 20px
-    .all_tags
-      :right 10%
-      :bottom 0%
-      :font-weight bold
+
+    a
+      padding: 0 0.25em
+      :text-decoration none
+      :color black
+      &:hover
+        :text-decoration underline
+        :color #{!pg_red}
     .current
       :color #{!pg_red}
+
   #minor-nav
+    
     :text-align right
     a, .block
       :display block

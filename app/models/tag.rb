@@ -40,7 +40,7 @@ class Tag < ActiveRecord::Base
   def self.tag_list_to_array(list)
     return [] if list.nil?
     list = list.split(',') unless list.kind_of? Array
-    list.map(&:strip).reject(&:blank?)
+    list.map(&:strip).uniq.reject(&:blank?)
   end
 
 
