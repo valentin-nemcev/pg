@@ -19,7 +19,7 @@ set :ssh_options, { :forward_agent => true }
 
 desc "Config for locum shared hosting"
 task :locum do
-  server 'pg-locum', :app, :web, :db
+  server 'pg-locum', :app, :web, :db, :primary => true
   set :deploy_to, "~/projects/#{application}"
   set :rake, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
 
@@ -32,7 +32,7 @@ end
 on :start, 'linode'
 desc "Config for linode vds"
 task :linode do
-  server 'pg-linode-vds', :app, :web, :db
+  server 'pg-linode-vds', :app, :web, :db, :primary => true
   set :deploy_to, "~/projects/#{application}"
 
   $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
