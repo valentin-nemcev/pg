@@ -67,10 +67,11 @@ class SiteController < ApplicationController
   protected
 
     def navigation
-      @tag_nav = {
-        :big => Navigation.find_by_name('tag_nav_big').tags,
-        :medium => Navigation.find_by_name('tag_nav_medium').tags,
-      }
+      @tag_nav = [
+        [:big,    Navigation.find_by_name('tag_nav_big').tags],
+        [:medium, Navigation.find_by_name('tag_nav_medium').tags],
+        [:small,  Navigation.find_by_name('tag_nav_small').tags],
+      ]
       @tag_line = Navigation.find_by_name('tag_line').tags
     end
 end
