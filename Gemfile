@@ -23,5 +23,6 @@ gem 'paperclip', '2.3.5'
 
 group :development, :test do
   gem 'mongrel', '1.1.5'
-  gem 'capistrano', '2.5.19'
+  gem 'capistrano', '~> 2.14.0'
+  gem 'rvm-capistrano'
 end

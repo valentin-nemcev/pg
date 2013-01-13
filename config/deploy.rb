@@ -1,4 +1,5 @@
-
+# Nginx passenger guide for linode:
+# http://library.linode.com/frameworks/ruby-on-rails-nginx/ubuntu-10.04-lucid
 
 set :application, "polit-gramota"
 
@@ -33,13 +34,13 @@ on :start, 'linode'
 desc "Config for linode vds"
 task :linode do
   server 'pg-linode-vds', :app, :web, :db, :primary => true
-  set :deploy_to, "~/projects/#{application}"
+  set :deploy_to, "/home/valentin/projects/#{application}"
 
-  $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+  # $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
   logger.debug File.expand_path('./lib', ENV['rvm_path'])
   require "rvm/capistrano"
   set :rvm_ruby_string, 'ruby-1.8.7-p352@polit-gramota'
-
+  set :rvm_type, :system
 end
 
 

@@ -12,12 +12,12 @@ GEM
     activeresource (2.3.15)
       activesupport (= 2.3.15)
     activesupport (2.3.15)
-    capistrano (2.5.19)
+    capistrano (2.14.1)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.0.0)
+      net-ssh-gateway (>= 1.1.0)
     cgi_multipart_eof_fix (2.5.0)
     daemons (1.1.4)
     fastthread (1.0.7)
@@ -25,7 +25,7 @@ GEM
     gem_plugin (0.2.3)
     haml (3.0.22)
     has_scope (0.5.0)
-    highline (1.6.2)
+    highline (1.6.15)
     hpricot (0.8.2)
     htmlentities (4.2.1)
     inherited_resources (1.0.6)
@@ -41,7 +41,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.1.4)
+    net-ssh (2.6.3)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     paperclip (2.3.5)
@@ -59,6 +59,8 @@ GEM
     rake (10.0.3)
     responders (0.4.8)
     russian (0.2.7)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     tzinfo (0.3.35)
     utility_scopes (0.3.1)
     will_paginate (2.3.15)
@@ -68,7 +70,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (= 4.2.3)
-  capistrano (= 2.5.19)
+  capistrano (~> 2.14.0)
   foreigner (< 1.0.0)
   haml (= 3.0.22)
   has_scope (= 0.5.0)
@@ -81,6 +83,7 @@ DEPENDENCIES
   quick_magick (= 0.8.0)
   rails (= 2.3.15)
   russian (= 0.2.7)
+  rvm-capistrano
   tzinfo
   utility_scopes (= 0.3.1)
   will_paginate (= 2.3.15)
