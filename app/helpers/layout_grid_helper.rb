@@ -77,7 +77,7 @@ module LayoutGridHelper
         html_str += if content.article.publicated?
                       render(
                              :partial => "site/article",
-                             :locals => {:article => content.article, :with_category => true}
+                             :locals => {:article => content.article, :with_category => true, :hide_date => true}
                              )
                     else
                       ""
