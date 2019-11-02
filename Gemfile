@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '2.3.17'
 
-gem 'haml', '3.0.22'
+gem 'haml', '5.0.0'
 
 gem 'foreigner', '< 1.0.0'
 gem 'has_scope', '0.5.0'
